@@ -2,15 +2,16 @@ import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-export default function Home() {
+export default function Cryptocurrencies() {
     return (
         <div>
-            <div>This is home</div>
+            <p>This is cryptocurrencies</p>
         </div>
+
     )
 }
 
-Home.getLayout = function getLayout(page) {
+Cryptocurrencies.getLayout = function getLayout(page) {
     return(
         <Layout>
             <Navbar/>

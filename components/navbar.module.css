@@ -1,0 +1,230 @@
+.container{
+    border-bottom: 1px solid rgb(239, 242, 245);
+}
+
+[data-theme='dark'] .container{
+    border-bottom-color: #232323;
+}
+
+.headNav {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: Helvetica;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 5px 15px;
+}
+
+.mainNav {
+    padding: 5px 15px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: stretch;
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.moonBlocTitleDiv {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.mainNavContainer {
+    padding-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.mainNavContainer div {
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.mainNavContainer div:hover {
+    color: #6570ff;
+}
+
+.containerHeadNav {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.rightContainerHeadNav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+}
+
+.rightContainerHeadNav button {
+    background-color: transparent;
+    border: none;
+}
+
+
+.rightContainerHeadNav div {
+    margin-right: 1rem;
+    height: 100%;
+}
+
+.rightContainerHeadNav button span {
+    padding-left: 2px;
+}
+
+.rightContainerMainNav {
+    display: flex;
+    align-items: stretch;
+    margin-left: auto;
+
+}
+
+.sInputContainer {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.sInputContainer svg {
+    position: absolute;
+    margin-left: 8px;
+}
+
+.sInputContainer input {
+    border: none;
+    border-radius: 0.75rem;
+    background-color: #dedbde;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 10px;
+    height: 35px;
+}
+
+[data-theme='dark'] .sInputContainer input {
+    background-color: #585666;
+}
+
+.hamburgerContainer {
+    display: none;
+    cursor: pointer;
+    align-items: center;
+    margin-left: auto;
+    gap: 1rem;
+}
+
+.mainNavResp {
+    display: flex;
+    align-items: center;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #232323;
+}
+
+[data-theme='dark'] .bar {
+    background-color: #ffffff;
+}
+
+.toggleMenu {
+    display: none;
+    position: absolute;
+    left: -100%;
+    gap: 0;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    background-color: #ffffff;
+    padding-left: 0;
+    border-bottom: 1px solid rgb(239, 242, 245);
+}
+
+.searchContainer{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+}
+
+.toggleButtonContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@media (max-width: 1000px) {
+
+    .sInputContainer {
+        margin-right: 0;
+    }
+
+    .mainNavContainer, .headNav, .searchContainer {
+        display: none;
+    }
+
+    .hamburgerContainer {
+        display: flex;
+    }
+
+    .hamburger, .toggleMenu {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+
+    .toggleMenu div {
+        margin: 16px 0;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .toggleMenu div div {
+        border-bottom: none;
+    }
+
+    .toggleMenu div:hover {
+        color: #6570ff;
+    }
+
+    .toggleMenu.active {
+        left: 0;
+    }
+
+    [data-theme='dark'] .toggleMenu {
+        background-color: #121212;
+        border-bottom-color: #232323;
+    }
+
+
+}
