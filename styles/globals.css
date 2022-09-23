@@ -4,9 +4,19 @@
     font-family: Helvetica;
 }
 
+.container{
+    padding: 5px 15px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
 /* Apply style to dark theme mode*/
 /*[data-theme='dark'],*/
 /*[data-theme='dark'] body {*/
 /*    color: #fff;*/
-/*    background: #000;*/
+/*    background: #1B262C;*/
 /*}*/

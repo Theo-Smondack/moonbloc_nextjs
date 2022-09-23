@@ -5,7 +5,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMoon, faCaretDown, faEuroSign, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import ThemeSwitch from "./ThemeSwitch";
 import {ThemeProvider} from "next-themes";
-import Script from "next/script";
 import {useState} from "react";
 
 
@@ -17,8 +16,8 @@ export default function Navbar() {
     return (
         <ThemeProvider>
             <div>
-                <div className={styles.container}>
-                    <div className={styles.headNav}>
+                <div className={styles.containerNav}>
+                    <div className={`${styles.headNav}`}>
                         <div className={styles.containerHeadNav}>
                             <div className={styles.rightContainerHeadNav}>
                                 <div>
@@ -47,8 +46,8 @@ export default function Navbar() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.container}>
-                    <div className={styles.mainNav}>
+                <div className={styles.containerNav}>
+                    <div className={`${styles.mainNav} container`}>
                         <Image src="/images/favicon.png"
                                height={50}
                                width={50}

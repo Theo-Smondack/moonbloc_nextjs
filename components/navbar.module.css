@@ -1,8 +1,8 @@
-.container{
+.containerNav{
     border-bottom: 1px solid rgb(239, 242, 245);
 }
 
-[data-theme='dark'] .container{
+[data-theme='dark'] .containerNav{
     border-bottom-color: #232323;
 }
 
@@ -18,14 +18,7 @@
 }
 
 .mainNav {
-    padding: 5px 15px;
-    max-width: 1400px;
-    margin: 0 auto;
     align-items: stretch;
-    display: flex;
-    align-content: center;
-    justify-content: flex-start;
-    flex-direction: row;
 }
 
 .moonBlocTitleDiv {
