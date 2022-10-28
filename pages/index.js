@@ -1,7 +1,6 @@
 import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import useSWR from 'swr'
 import Cryptotable from "../components/cryptotable";
 
 export default function Home() {
@@ -14,11 +13,11 @@ export default function Home() {
 
 
 Home.getLayout = function getLayout(page) {
-    return(
-        <Layout>
-            <Navbar/>
-            {page}
-            {/*<Footer/>*/}
-        </Layout>
+    return (
+            <Layout>
+                <Navbar/>
+                {page}
+                {/*<Footer/>*/}
+            </Layout>
     )
 }

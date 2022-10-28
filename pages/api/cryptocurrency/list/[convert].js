@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+    const {convert} = req.query
     // Define URL
     const url = new URL(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest`)
 
@@ -6,7 +7,7 @@ export default async function handler(req, res) {
     const params = {
         'start': '1',
         'limit': '100',
-        'convert':'EUR'
+        'convert':`${convert}`
     }
     // Query parameters append to URL
     for (let i in params) {

@@ -4,6 +4,11 @@
     font-family: Helvetica;
 }
 
+button{
+    border: none;
+    background: transparent;
+}
+
 .container{
     padding: 5px 15px;
     max-width: 1400px;
@@ -12,6 +17,24 @@
     align-content: center;
     justify-content: flex-start;
     flex-direction: row;
+}
+
+
+.txtGrey{
+    color: #58667e;
+}
+
+
+:root {
+    --bg : #fff;
+    --grey-component-color: #eff2f5;
+    --txt-grey-selected: #d8d8d8;
+    --txt-default-color : #121212;
+}
+[data-theme='dark']{
+    --bg : #121212;
+    --grey-component-color: #232323;
+    --txt-default-color : #fff;
 }
 
 /* Apply style to dark theme mode*/
