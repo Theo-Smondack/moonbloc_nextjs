@@ -23,7 +23,7 @@ export default function Cryptotable() {
     if (error) return <div className='container'> failed to load </div>
     if (!data) return <div className='container'> loading... </div>
     return(
-            <div className='container'>
+            <div className='container' style={{overflow:"auto"}}>
                 <table className={styles.crypto_table}>
                     <thead>
                     <tr>
