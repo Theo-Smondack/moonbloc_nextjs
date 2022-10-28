@@ -4,15 +4,19 @@ import {config} from "@fortawesome/fontawesome-svg-core";
 
 config.autoAddCss = false;
 import {ThemeProvider} from "next-themes";
+import {CurrencyProvider} from "../context/currency";
+
 
 
 function MyApp({Component, pageProps}) {
     // Use the layout defined at the page level, if available
     const getLayout = Component.getLayout || ((page) => page)
 
-    return getLayout(
+    return (
         <ThemeProvider defaultTheme="system">
-            <Component {...pageProps} />
+            <CurrencyProvider>
+                {getLayout(<Component {...pageProps}/>)}
+            </CurrencyProvider>
         </ThemeProvider>
     )
 }

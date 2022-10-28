@@ -1,0 +1,106 @@
+.currencyModal{
+    position: absolute;
+    margin-right: 0 !important;
+    background: var(--bg);
+    width: 600px;
+    right: 0;
+    height: 100px !important;
+    border: 1px solid var(--grey-component-color);
+    border-radius: 4px;
+    z-index: 3;
+    padding: 15px;
+}
+.modalContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px 4px;
+}
+.divModal{
+    border-radius: 4px;
+    width: 100%;
+}
+.divModal:hover{
+    background-color: var(--grey-component-color);
+    color: var(--txt-default-color);
+    --txt-grey-selected: #58667e;
+}
+
+.divModal > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected{
+    background-color: #6570ff;
+    color: #ffffff;
+}
+
+.txtGreySelected{
+    color: var(--txt-grey-selected);
+}
+
+@media (max-width: 1000px) {
+    .currencyModal{
+        left: 0;
+        width: auto;
+        height: fit-content !important;
+        border-bottom: 1px solid var(--grey-component-color) !important;
+    }
+    .modalContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 50px;
+        margin: 0 !important;
+    }
+
+    .divModal{
+        display: flex;
+        justify-content: center;
+        margin: 0 !important;
+    }
+
+}
+
+@media (max-width: 932px) {
+    .modalContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 50px 50px;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 803px) {
+    .modalContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 50px 50px;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 675px) {
+    .modalContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 50px 50px;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 545px) {
+    .modalContainer{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 50px 50px 50px;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 415px) {
+    .modalContainer{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50px 50px 50px 50px;
+        margin: 0 !important;
+    }
+}
+
+

@@ -2,17 +2,21 @@ import styles from './navbar.module.css'
 import Image from "next/image";
 import Link from "next/link";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMoon, faCaretDown, faEuroSign, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {faMoon, faCaretDown, faEuroSign, faMagnifyingGlass, faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import ThemeSwitch from "./ThemeSwitch";
 import {ThemeProvider} from "next-themes";
 import {useState} from "react";
+import {useCurrencyContext} from "../context/currency";
+import CurrencyModal from "./currencyModal";
 
 
 export default function Navbar() {
+    const value = useCurrencyContext();
+    const {currencySelected} = value.state;
+    const _symbol = value.state.currency.symbol;
     const [isActive, setIsActive] = useState(false);
     const hamburgerClassname = isActive ? `${styles.hamburger} ${styles.active}` : styles.hamburger
     const toggleMenuClassname = isActive ? `${styles.toggleMenu} ${styles.active}` : styles.toggleMenu
-
     return (
         <ThemeProvider>
             <div>
@@ -20,25 +24,7 @@ export default function Navbar() {
                     <div className={`${styles.headNav}`}>
                         <div className={styles.containerHeadNav}>
                             <div className={styles.rightContainerHeadNav}>
-                                <div>
-                                    <button title="Choose currency">
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faEuroSign}
-                                    style={{fontSize: 12, color: ThemeSwitch.color}}
-                                />
-                            </span>
-
-                                        <span>EUR</span>
-                                        <span>
-                                <FontAwesomeIcon
-                                    icon={faCaretDown}
-                                    style={{fontSize: 12, color: ThemeSwitch.color}}
-                                />
-                            </span>
-
-                                    </button>
-                                </div>
+                                <CurrencyModal pos={'relative'}/>
                                 <div>
                                     <ThemeSwitch/>
                                 </div>
@@ -117,32 +103,17 @@ export default function Navbar() {
                         </div>
                     </Link>
                     <div className={styles.toggleButtonContainer}>
+                        <CurrencyModal/>
                         <div>
-                            <button title="Choose currency">
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faEuroSign}
-                                    style={{fontSize: 12, color: ThemeSwitch.color}}
-                                />
-                            </span>
-
-                                <span>EUR</span>
-                                <span>
-                                <FontAwesomeIcon
-                                    icon={faCaretDown}
-                                    style={{fontSize: 12, color: ThemeSwitch.color}}
-                                />
-                            </span>
-
-                            </button>
+                            <ThemeSwitch/>
                         </div>
-                        <ThemeSwitch/>
                     </div>
                 </div>
                 <div>
 
                 </div>
             </div>
+
 
         </ThemeProvider>
 
