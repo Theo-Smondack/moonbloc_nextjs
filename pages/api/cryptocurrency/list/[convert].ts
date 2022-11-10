@@ -1,10 +1,17 @@
-export default async function handler(req, res) {
+import {NextApiRequest, NextApiResponse} from "next";
+
+export default async function handler(req:NextApiRequest, res:NextApiResponse) {
     const {convert} = req.query
     // Define URL
     const url = new URL(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest`)
 
+    //Define header
+    const _header : HeadersInit = {
+        "X-CMC_PRO_API_KEY": process.env.CMC_API_KEY
+    }
+
     //Define query parameters
-    const params = {
+    const params:{[index:string]:any} = {
         'start': '1',
         'limit': '100',
         'convert':`${convert}`
@@ -15,7 +22,7 @@ export default async function handler(req, res) {
     }
     // Fetch data from external API
     await fetch(url, {
-        headers: {"X-CMC_PRO_API_KEY": process.env.CMC_API_KEY},
+        headers: _header,
     }).then((response) => {
         if (response.ok) {
             return response.json();

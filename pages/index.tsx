@@ -2,8 +2,10 @@ import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import Cryptotable from "../components/cryptotable";
+import {NextPageWithLayout} from "./_app";
+import {ReactElement} from "react";
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
     return (
         <div>
             <Cryptotable/>
@@ -12,7 +14,7 @@ export default function Home() {
 }
 
 
-Home.getLayout = function getLayout(page) {
+Home.getLayout = function getLayout(page:ReactElement) {
     return (
             <Layout>
                 <Navbar/>
@@ -21,3 +23,5 @@ Home.getLayout = function getLayout(page) {
             </Layout>
     )
 }
+
+export default Home

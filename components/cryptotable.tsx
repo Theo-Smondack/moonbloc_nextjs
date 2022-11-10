@@ -2,8 +2,10 @@ import useSWR from "swr";
 import styles from './cryptotable.module.css'
 import Image from "next/image";
 import {useCurrencyContext} from "../context/currency";
+import React from "react";
+import {Currency} from "../types/currency";
 
-const fetcher = async url => {
+const fetcher = async url  => {
     const res = await fetch(url)
     if(!res.ok){
         const error = new Error('An error occurred while fetching the data.')
@@ -15,11 +17,11 @@ const fetcher = async url => {
     return res.json();
 }
 
-export default function Cryptotable() {
+const Cryptotable: React.FC = () => {
     const value = useCurrencyContext();
-    const {currencySelected} = value.state;
-    const _symbol = value.state.currency.symbol;
-    const {data,error} = useSWR(`/api/cryptocurrency/list/${currencySelected}`,fetcher)
+    const currencySelected: Currency|undefined = value.state.currency;
+    const _symbol : string | undefined = currencySelected?.symbol;
+    const {data,error} = useSWR(`/api/cryptocurrency/list/${currencySelected?.value}`,fetcher)
     if (error) return <div className='container'> failed to load </div>
     if (!data) return <div className='container'> loading... </div>
     return(
@@ -55,12 +57,12 @@ export default function Cryptotable() {
 
                                 </div>
                             </td>
-                            <td>{quote[`${currencySelected}`].price.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
-                            <td>{Math.round(quote[`${currencySelected}`].percent_change_1h*100)/100}</td>
-                            <td>{Math.round(quote[`${currencySelected}`].percent_change_24h*100)/100}</td>
-                            <td>{Math.round(quote[`${currencySelected}`].percent_change_7d*100)/100}</td>
-                            <td>{quote[`${currencySelected}`].market_cap.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
-                            <td>{quote[`${currencySelected}`].volume_24h.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
+                            <td>{quote[`${currencySelected?.value}`].price.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
+                            <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_1h*100)/100}</td>
+                            <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_24h*100)/100}</td>
+                            <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_7d*100)/100}</td>
+                            <td>{quote[`${currencySelected?.value}`].market_cap.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
+                            <td>{quote[`${currencySelected?.value}`].volume_24h.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
                             <td>{Math.round(total_supply).toLocaleString()} {_symbol}</td>
                         </tr>
                     ))}
@@ -69,3 +71,5 @@ export default function Cryptotable() {
             </div>
     )
 }
+
+export default Cryptotable;

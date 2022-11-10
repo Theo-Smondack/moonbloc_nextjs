@@ -1,36 +1,33 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./currencyModal.module.css";
 import {useCurrencyContext} from "../context/currency";
-import CurrenciesObject from "../utils/currencies";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
-import ThemeSwitch from "./ThemeSwitch";
+import {Currency} from "../types/currency";
+import Currencies from "../utils/currencies";
+import {CurrencyModalProps} from "../types/props";
 
-export default function CurrencyModal(props) {
+const CurrencyModal = (props:CurrencyModalProps) => {
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
     }, [])
 
-    const refOne = useRef(null);
-
+    const refOne = useRef<HTMLDivElement>(null);
     const [isShow, setShow] = useState(false);
 
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e:MouseEvent) => {
         if (refOne.current) {
-            if (!refOne.current.contains(e.target)) {
+            if (!refOne.current?.contains(e.target as Node)) {
                 setShow(false)
             }
         }
     }
 
     const value = useCurrencyContext();
-    const {currencySelected} = value.state;
-    const _symbol = value.state.currency.symbol;
-    const Currencies = CurrenciesObject;
-
-    const changeCurrency = (currency) => {
-        value.setCurrencySelected(currency);
-        // props.onSelect(false)
+    const currencySelected : Currency | undefined = value.state.currency
+    const _symbol : string | undefined = currencySelected?.symbol
+    const changeCurrency = (currency : Currency) => {
+        value.setCurrency(currency);
         setShow(false);
     }
 
@@ -38,11 +35,11 @@ export default function CurrencyModal(props) {
         <div style={{position: props.pos}}>
             <button title="Choose currency" onClick={() => setShow(!isShow)}>
                 <span>{_symbol}</span>
-                <span>{currencySelected}</span>
+                <span>{currencySelected?.value}</span>
                 <span>
                     <FontAwesomeIcon
                         icon={faCaretDown}
-                        style={{fontSize: 12, color: ThemeSwitch.color}}
+                        style={{fontSize: 12}}
                     />
                 </span>
             </button>
@@ -50,19 +47,19 @@ export default function CurrencyModal(props) {
                 isShow ? (<div ref={refOne} className={styles.currencyModal}>
                     <div className={styles.modalContainer}>
                         {
-                            Object.values(Currencies).map((key, index) => {
+                            Currencies.map((currency:Currency, index:number) => {
                                 let _className = styles.divModal
                                 let _txtGrey = "txtGrey"
-                                if (key.value === currencySelected) {
+                                if (currency === currencySelected) {
                                     _className = `${styles.divModal} ${styles.selected}`
                                     _txtGrey = styles.txtGreySelected
                                 }
                                 return (
                                     <div key={index} className={_className}
-                                         onClick={() => changeCurrency(key.value)}>
+                                         onClick={() => changeCurrency(currency)}>
                                         <div>
-                                            <span>{key.name}</span>
-                                            <span className={_txtGrey}>{key.value} - {key.symbol}</span>
+                                            <span>{currency.name}</span>
+                                            <span className={_txtGrey}>{currency.value} - {currency.symbol}</span>
                                         </div>
                                     </div>
                                 )
@@ -75,3 +72,4 @@ export default function CurrencyModal(props) {
         </div>
     )
 }
+export default CurrencyModal;

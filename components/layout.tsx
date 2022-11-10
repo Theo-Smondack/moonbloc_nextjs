@@ -1,7 +1,10 @@
 import Head from "next/head";
-export const siteTitle = 'MoonBloc';
+import {LayoutProps} from "../types/props";
+export const siteTitle:string = 'MoonBloc';
 
-export default function Layout({children}){
+
+
+export default function Layout({children}:LayoutProps){
     return (
         <>
             <Head>

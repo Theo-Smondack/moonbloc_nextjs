@@ -1,9 +1,11 @@
-export default async function handler(req, res) {
+import {NextApiRequest, NextApiResponse} from "next";
+
+export default async function handler(req:NextApiRequest, res:NextApiResponse) {
     const { id } = req.query
     // Define URL
     const url = new URL(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/info`)
     //Define query parameters
-    const params = {
+    const params:{[index:string]:string} = {
         'id': `${id}`,
     }
     // Query parameters append to URL
