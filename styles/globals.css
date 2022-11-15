@@ -2,11 +2,17 @@
     margin: 0;
     padding: 0;
     font-family: Helvetica;
+    /*background: var(--bg);*/
 }
 
 button{
     border: none;
     background: transparent;
+}
+
+body{
+    min-height: 100vh;
+    position: relative;
 }
 
 .container{
@@ -19,20 +25,20 @@ button{
     flex-direction: row;
 }
 
-
 .txtGrey{
     color: #58667e;
 }
 
 
 :root {
-    --bg : #fff;
+    --background:#DFF6FF;
+    /*--bg : #fff;*/
     --grey-component-color: #eff2f5;
     --txt-grey-selected: #d8d8d8;
     --txt-default-color : #121212;
 }
 [data-theme='dark']{
-    --bg : #121212;
+    --bg : #06283D;
     --grey-component-color: #232323;
     --txt-default-color : #fff;
 }

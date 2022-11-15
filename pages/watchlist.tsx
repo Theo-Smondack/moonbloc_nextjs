@@ -1,6 +1,4 @@
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import {ReactElement} from "react";
 
 export default function Watchlist() {
@@ -14,9 +12,7 @@ export default function Watchlist() {
 Watchlist.getLayout = function getLayout(page:ReactElement) {
     return(
         <Layout>
-            <Navbar/>
             {page}
-            <Footer/>
         </Layout>
     )
 }
