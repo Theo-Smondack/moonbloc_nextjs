@@ -1,10 +1,11 @@
 import Layout from "../components/layout";
 import {ReactElement} from "react";
+import Cryptotable from "../components/cryptotable";
 
 export default function Cryptocurrencies() {
     return (
         <div>
-            <p>This is cryptocurrencies</p>
+            <Cryptotable/>
         </div>
 
     )

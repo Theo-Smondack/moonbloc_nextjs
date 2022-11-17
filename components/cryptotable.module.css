@@ -6,7 +6,7 @@
 .crypto_table th {
     text-align: center;
     padding: 10px;
-    border-bottom: 1px solid rgb(239, 242, 245);
+    border-bottom: 1px solid var(--component-default-border-color);
 
 }
 
@@ -14,8 +14,4 @@
     display: flex;
     gap:5px;
     align-items: center;
-}
-
-[data-theme='dark'] .crypto_table th,[data-theme='dark'] .crypto_table td {
-    border-bottom-color: #232323;
 }

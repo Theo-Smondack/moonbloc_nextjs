@@ -1,17 +1,10 @@
 .containerNav{
-    border-bottom: 1px solid rgb(239, 242, 245);
-}
-
-[data-theme='dark'] .containerNav{
-    border-bottom-color: #232323;
+    border-bottom: 1px solid var(--component-default-border-color);
 }
 
 .headNav {
     font-size: 12px;
     font-weight: 500;
-    font-family: Helvetica;
-    padding-top: 4px;
-    padding-bottom: 4px;
     max-width: 1400px;
     margin: 0 auto;
     padding: 5px 15px;
@@ -44,7 +37,7 @@
 }
 
 .mainNavContainer div:hover {
-    color: #6570ff;
+    color: var(--component-blue);
 }
 
 .containerHeadNav {
@@ -99,15 +92,11 @@
 .sInputContainer input {
     border: none;
     border-radius: 0.75rem;
-    background-color: #dedbde;
+    background-color: var(--component-grey-one);
     width: 100%;
     padding-left: 30px;
     padding-right: 10px;
     height: 35px;
-}
-
-[data-theme='dark'] .sInputContainer input {
-    background-color: #585666;
 }
 
 .hamburgerContainer {
@@ -130,11 +119,7 @@
     margin: 5px auto;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    background-color: #232323;
-}
-
-[data-theme='dark'] .bar {
-    background-color: #ffffff;
+    background-color: var(--txt-default-color);
 }
 
 .toggleMenu {
@@ -147,9 +132,9 @@
     width: 100%;
     text-align: center;
     transition: 0.3s;
-    background-color: #ffffff;
+    background-color: var(--bg);
     padding-left: 0;
-    border-bottom: 1px solid rgb(239, 242, 245);
+    border-bottom: 1px solid var(--component-default-border-color);
 }
 
 .searchContainer{
@@ -172,7 +157,7 @@
     height: 30px;
     width: 80px;
     border-radius: 4px;
-    background-color: var(--grey-component-color);
+    background-color: var(--component-grey-one);
 }
 
 @media (max-width: 1000px) {
@@ -218,18 +203,11 @@
     }
 
     .toggleMenu div:hover {
-        color: #6570ff;
+        color: var(--component-blue);
     }
 
     .toggleMenu.active {
         left: 0;
-    }
-
-
-
-    [data-theme='dark'] .toggleMenu {
-        background-color: #121212;
-        border-bottom-color: #232323;
     }
 
 

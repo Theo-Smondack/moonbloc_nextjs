@@ -1,7 +1,8 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
+    color: var(--txt-default-color);
     /*background: var(--bg);*/
 }
 
@@ -13,6 +14,7 @@ button{
 body{
     min-height: 100vh;
     position: relative;
+    background: var(--bg);
 }
 
 .container{
@@ -26,22 +28,33 @@ body{
 }
 
 .txtGrey{
-    color: #58667e;
+    color: #777c85 !important;
+}
+
+
+
+.titleBlue{
+    color: var(--component-blue);
 }
 
 
 :root {
-    --background:#DFF6FF;
-    /*--bg : #fff;*/
-    --grey-component-color: #eff2f5;
+    --bg : #F3F3F3;
+    --component-blue : #2185D5;
+    --component-grey-one : #dedbde;
+    --component-default-border-color:#E5E5E5;
     --txt-grey-selected: #d8d8d8;
-    --txt-default-color : #121212;
+    --txt-white-selected: #F3F3F3;
+    --txt-default-color : #303841;
 }
 [data-theme='dark']{
-    --bg : #06283D;
-    --grey-component-color: #232323;
-    --txt-default-color : #fff;
+    --bg : #303841;
+    --component-grey-one: #3A4750;
+    --component-default-border-color: #212722;
+    --txt-default-color : #F3F3F3;
 }
+
+
 
 /* Apply style to dark theme mode*/
 /*[data-theme='dark'],*/

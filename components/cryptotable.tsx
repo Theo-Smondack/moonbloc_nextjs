@@ -60,13 +60,13 @@ const Cryptotable: React.FC = () => {
 
                                 </div>
                             </td>
-                            <td>{quote[`${currencySelected?.value}`].price.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
+                            <td>{quote[`${currencySelected?.value}`].price.toFixed(2)} {_symbol}</td>
                             <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_1h*100)/100}</td>
                             <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_24h*100)/100}</td>
                             <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_7d*100)/100}</td>
-                            <td>{quote[`${currencySelected?.value}`].market_cap.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
-                            <td>{quote[`${currencySelected?.value}`].volume_24h.toLocaleString(undefined,{maximumFractionDigits:2})} {_symbol}</td>
-                            <td>{Math.round(total_supply).toLocaleString()} {_symbol}</td>
+                            <td>{quote[`${currencySelected?.value}`].market_cap.toFixed(2)} {_symbol}</td>
+                            <td>{quote[`${currencySelected?.value}`].volume_24h.toFixed(2)} {_symbol}</td>
+                            <td>{Math.round(total_supply)} {_symbol}</td>
                         </tr>
                     ))}
                     </tbody>

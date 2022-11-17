@@ -49,16 +49,18 @@ const CurrencyModal = (props:CurrencyModalProps) => {
                         {
                             Currencies.map((currency:Currency, index:number) => {
                                 let _className = styles.divModal
-                                let _txtGrey = "txtGrey"
+                                let _txtGrey : string = "txtGrey"
+                                let spanClassName : string | undefined;
                                 if (currency === currencySelected) {
                                     _className = `${styles.divModal} ${styles.selected}`
                                     _txtGrey = styles.txtGreySelected
+                                    spanClassName = styles.txtWhiteSelected
                                 }
                                 return (
                                     <div key={index} className={_className}
                                          onClick={() => changeCurrency(currency)}>
                                         <div>
-                                            <span>{currency.name}</span>
+                                            <span className={spanClassName}>{currency.name}</span>
                                             <span className={_txtGrey}>{currency.value} - {currency.symbol}</span>
                                         </div>
                                     </div>

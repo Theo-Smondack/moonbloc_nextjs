@@ -39,7 +39,7 @@ export default function Navbar() {
                         <Link href="/">
                             <div className={styles.moonBlocTitleDiv}
                                  onClick={() => isActive ? setIsActive(!isActive) : null}>
-                                <h1>MoonBloc</h1>
+                                <h1>Moon</h1><h1 className={'titleBlue'}>Bloc</h1>
                             </div>
                         </Link>
                         <div className={styles.mainNavContainer}>
