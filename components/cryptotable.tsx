@@ -5,6 +5,10 @@ import {useCurrencyContext} from "../context/currency";
 import React from "react";
 import {Currency} from "../types/currency";
 import {CryptoData} from "../types/cryptoData";
+import {CryptotableProps} from "../types/props";
+import {isNegative} from "../utils/toolFunctions";
+import {faCaretDown,faCaretUp} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 const fetcher = async (url: RequestInfo | URL) => {
@@ -20,11 +24,15 @@ const fetcher = async (url: RequestInfo | URL) => {
     return res.json();
 }
 
-const Cryptotable: React.FC = () => {
+const Cryptotable: React.FC<CryptotableProps> = (props) => {
     const value = useCurrencyContext();
     const currencySelected: Currency | undefined = value.state.currency;
     const _symbol: string | undefined = currencySelected?.symbol;
-    const {data, error} = useSWR<CryptoData[]>(`/api/cryptocurrency/list/${currencySelected?.value}`, fetcher)
+    let url:string = `/api/cryptocurrency/list/${currencySelected?.value}`;
+    if (props.page){
+        url = `/api/cryptocurrency/list/${currencySelected?.value}?page=${props.page?.toString()}`
+    }
+    const {data, error} = useSWR<CryptoData[]>(url, fetcher)
     if (error) return <div className='container'> failed to load </div>
     if (!data) return <div className='container'> loading... </div>
     return (
@@ -60,13 +68,31 @@ const Cryptotable: React.FC = () => {
 
                             </div>
                         </td>
-                        <td>{quote[`${currencySelected?.value}`].price.toFixed(2)} {_symbol}</td>
-                        <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_1h * 100) / 100}</td>
-                        <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_24h * 100) / 100}</td>
-                        <td>{Math.round(quote[`${currencySelected?.value}`].percent_change_7d * 100) / 100}</td>
-                        <td>{quote[`${currencySelected?.value}`].market_cap.toFixed(2)} {_symbol}</td>
-                        <td>{quote[`${currencySelected?.value}`].volume_24h.toFixed(2)} {_symbol}</td>
-                        <td>{Math.round(total_supply)} {_symbol}</td>
+                        <td>{quote[`${currencySelected?.value}`].price.toLocaleString(undefined,{minimumFractionDigits: 2})} {_symbol}</td>
+                        <td className={isNegative(quote[`${currencySelected?.value}`].percent_change_1h)?styles.negative : styles.positive}>
+                            {quote[`${currencySelected?.value}`].percent_change_1h.toLocaleString(undefined,{minimumFractionDigits: 2})} % <FontAwesomeIcon
+                                icon={isNegative(quote[`${currencySelected?.value}`].percent_change_1h)?faCaretDown : faCaretUp}
+                                style={{fontSize: 12}}
+                                className={isNegative(quote[`${currencySelected?.value}`].percent_change_1h)?styles.negative : styles.positive}
+                            />
+                        </td>
+                        <td className={isNegative(quote[`${currencySelected?.value}`].percent_change_24h)?styles.negative : styles.positive}>
+                            {quote[`${currencySelected?.value}`].percent_change_24h.toLocaleString(undefined,{minimumFractionDigits: 2})} % <FontAwesomeIcon
+                            icon={isNegative(quote[`${currencySelected?.value}`].percent_change_24h)?faCaretDown : faCaretUp}
+                            style={{fontSize: 12}}
+                            className={isNegative(quote[`${currencySelected?.value}`].percent_change_24h)?styles.negative : styles.positive}
+                        />
+                        </td>
+                        <td className={isNegative(quote[`${currencySelected?.value}`].percent_change_7d)?styles.negative : styles.positive}>
+                            {quote[`${currencySelected?.value}`].percent_change_7d.toLocaleString(undefined,{minimumFractionDigits: 2})} % <FontAwesomeIcon
+                            icon={isNegative(quote[`${currencySelected?.value}`].percent_change_7d)?faCaretDown : faCaretUp}
+                            style={{fontSize: 12}}
+                            className={isNegative(quote[`${currencySelected?.value}`].percent_change_7d)?styles.negative : styles.positive}
+                        />
+                        </td>
+                        <td>{quote[`${currencySelected?.value}`].market_cap.toLocaleString(undefined,{minimumFractionDigits: 2})} {_symbol}</td>
+                        <td>{quote[`${currencySelected?.value}`].volume_24h.toLocaleString(undefined,{minimumFractionDigits: 2})} {_symbol}</td>
+                        <td>{Math.round(total_supply).toLocaleString(undefined)} {symbol}</td>
                     </tr>
                 ))}
                 </tbody>

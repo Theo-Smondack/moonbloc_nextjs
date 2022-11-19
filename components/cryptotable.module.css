@@ -16,3 +16,20 @@
     gap: 5px;
     align-items: center;
 }
+
+.negative{
+    color: red !important;
+}
+
+
+.negative > path{
+    color: red !important;
+}
+
+.positive{
+    color: green !important;
+}
+
+.positive > path{
+    color: green !important;
+}
