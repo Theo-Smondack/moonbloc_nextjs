@@ -1,0 +1,56 @@
+.paginationContainer {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+    height: 100%;
+    width: 352px;
+    justify-content: center;
+}
+
+.pagination ul {
+    display: flex;
+    align-items: center;
+}
+
+.pagination li {
+    display: inline-flex;
+    margin-inline-end: 4px;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    min-width: 28px;
+    height: 28px;
+}
+
+.pageNumber{
+    min-width: 32px;
+    height: 32px;
+}
+
+.pageNumber:hover {
+    background-color: var(--component-grey-one);
+}
+
+.active {
+    background-color: var(--component-blue);
+    color: var(--txt-white-selected);
+}
+
+.active:hover {
+    background-color: var(--component-blue);
+    color: var(--txt-white-selected);
+}
+
+
+.arrowLi {
+    min-width: 28px !important;
+    height: 28px !important;
+}

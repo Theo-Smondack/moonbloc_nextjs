@@ -7,7 +7,7 @@ import {Currency} from "../types/currency";
 import Currencies from "../utils/currencies";
 import {CurrencyModalProps} from "../types/props";
 
-const CurrencyModal = (props:CurrencyModalProps) => {
+const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
     }, [])

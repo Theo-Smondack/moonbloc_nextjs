@@ -1,25 +1,32 @@
 import Layout from "../components/layout";
 import Cryptotable from "../components/cryptotable";
 import {NextPageWithLayout} from "./_app";
-import {ReactElement, useState} from "react";
+import {ReactElement, useEffect, useState} from "react";
 import Pagination from "../components/pagination";
 import {useRouter} from "next/router";
 
 const Home: NextPageWithLayout = () => {
-    // const router = useRouter();
-    // const {page} = router.query
-    const [_page,setPage] = useState<number>(1);
+    const router = useRouter();
+    const [_page, setPage] = useState<number>(1)
 
-    const handlePageChange = (paginationPage:number):void => {
+    useEffect(() => {
+        let getPage:number = 1;
+        if (router.query.page) {
+            getPage = parseInt(router.query.page as string)
+        }
+        getPage === 1?router.push('/',undefined,{shallow:true}):null
+
+        setPage(getPage);
+    }, [router])
+
+
+    const handlePageChange = (paginationPage: number): void => {
+        router.push({
+            pathname: '/',
+            query: {page: paginationPage.toString()}
+        })
         setPage(paginationPage)
     }
-    //
-    // if (typeof page === "string") {
-    //     if(!isNaN(parseInt(page))){
-    //         setPage(parseInt(page))
-    //     }
-    // }
-
 
     return (
         <div>
@@ -30,11 +37,11 @@ const Home: NextPageWithLayout = () => {
 }
 
 
-Home.getLayout = function getLayout(page:ReactElement) {
+Home.getLayout = function getLayout(page: ReactElement) {
     return (
-            <Layout>
-                {page}
-            </Layout>
+        <Layout>
+            {page}
+        </Layout>
     )
 }
 
