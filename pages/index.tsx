@@ -10,12 +10,11 @@ const Home: NextPageWithLayout = () => {
     const [_page, setPage] = useState<number>(1)
 
     useEffect(() => {
-        let getPage:number = 1;
+        let getPage: number = 1;
         if (router.query.page) {
             getPage = parseInt(router.query.page as string)
+            getPage === 1 ? router.push('/', undefined, {shallow: true}) : null
         }
-        getPage === 1?router.push('/',undefined,{shallow:true}):null
-
         setPage(getPage);
     }, [router])
 
