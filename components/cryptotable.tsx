@@ -9,6 +9,7 @@ import {CryptotableProps} from "../types/props";
 import {isNegative} from "../utils/toolFunctions";
 import {faCaretDown,faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import LoadingCryptotable from "./loadingCryptotable";
 
 
 const fetcher = async (url: RequestInfo | URL) => {
@@ -34,7 +35,7 @@ const Cryptotable: React.FC<CryptotableProps> = (props) => {
     }
     const {data, error} = useSWR<CryptoData[]>(url, fetcher)
     if (error) return <div className='container'> failed to load </div>
-    if (!data) return <div className='container'> loading... </div>
+    if (!data) return <LoadingCryptotable/>
     return (
         <div className='container' style={{overflow: "auto"}}>
             <table className={styles.crypto_table}>
