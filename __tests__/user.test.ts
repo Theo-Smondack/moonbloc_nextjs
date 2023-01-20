@@ -64,20 +64,38 @@ describe("User model", () => {
     describe('Login user', () => {
         describe('given the password is correct', () => {
             it('should return true', async () => {
-                const user = await createUser(userPayload, validCandidatePassword);
-                const isValid = await loginUser({email: user.email, password: userPayload.password});
-                expect(isValid).toBeTruthy();
+                const newUser = await createUser(userPayload, validCandidatePassword);
+                const user = await loginUser({email: newUser.email, password: userPayload.password});
+                expect(user.firstName).toBe(userPayload.firstName);
+                expect(user.lastName).toBe(userPayload.lastName);
+                expect(user.email).toBe(userPayload.email);
+                expect(user.gender).toBe(userPayload.gender);
+
+            });
+        });
+        describe('given email does not exist', () => {
+            it('should throw an Error: User does not exist', async () => {
+                await createUser(userPayload, validCandidatePassword);
+                const action = async () => {
+                    await loginUser({
+                        email: "wrong@mail.com",
+                        password: 'wrong'
+                    });
+                }
+                await expect(action()).rejects.toThrow(new Error("User does not exist"));
 
             });
         });
         describe('given the password is wrong', () => {
-            it('should return false', async () => {
-                const user = await createUser(userPayload, validCandidatePassword);
-                const isValid = await loginUser({
-                    email: user.email,
-                    password: 'wrong'
-                });
-                expect(isValid).toBeFalsy();
+            it('should throw an Error: Invalid password', async () => {
+                const newUser = await createUser(userPayload, validCandidatePassword);
+                const action = async () => {
+                    await loginUser({
+                        email: newUser.email,
+                        password: 'wrong'
+                    });
+                }
+                await expect(action()).rejects.toThrow(new Error("Invalid password"));
 
             });
         });
