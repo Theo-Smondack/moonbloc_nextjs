@@ -18,10 +18,12 @@ export async function findUser(query: FilterQuery<UserDocument>, options: QueryO
 }
 
 export async function loginUser({email, password}: { email: UserDocument['email'], password: UserDocument['password'] }) {
-    const user: UserClass = await findUser({email}, {lean: false});
-
+    const user = await findUser({email}, {lean: false});
     if (!user) {
         throw new Error("User does not exist");
     }
-    return user.compareLoginPassword(password)
+    if (!await (user as UserClass).compareLoginPassword(password)){
+        throw new Error("Invalid password");
+    }
+    return user
 }
