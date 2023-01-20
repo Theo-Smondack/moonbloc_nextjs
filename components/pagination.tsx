@@ -19,20 +19,20 @@ const Pagination: React.FC<PaginationProps> = (props) => {
     }
 
     let pages: any[] = Array.from({length: 6}, (_, x) => x + 1);
-    pages.push(...['...', 92])
+    pages.push(...['...', 50])
 
     if (props.currentPage >= 5) {
         pages = [1, '...']
         pages.push(...Array.from({length: 5}, (_, x) => x + props.currentPage - 2));
-        pages.push(...['...', 92])
+        pages.push(...['...', 50])
     }
 
-    if (props.currentPage >= 89) {
+    if (props.currentPage >= 47) {
         pages = [1, '...']
-        pages.push(...Array.from({length: 6}, (_, x) => x + 92 - 5));
+        pages.push(...Array.from({length: 6}, (_, x) => x + 50 - 5));
     }
 
-    if (props.currentPage >= 92) {
+    if (props.currentPage >= 50) {
         pages = [1, '...']
         pages.push(...Array.from({length: 6}, (_, x) => x + props.currentPage - 5));
     }

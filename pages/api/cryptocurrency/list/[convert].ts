@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     //Define start
-    const getStart = (page: string | string[]): string => {
+    const getStart = (page: string | string[]| undefined): string => {
         let start: number = 1;
         if (page) {
             if (typeof page === "string") {

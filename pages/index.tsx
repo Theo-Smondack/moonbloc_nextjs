@@ -14,6 +14,7 @@ const Home: NextPageWithLayout = () => {
         if (router.query.page) {
             getPage = parseInt(router.query.page as string)
             getPage === 1 ? router.push('/', undefined, {shallow: true}) : null
+            getPage > 50 ? router.push({pathname:'/',query:{page:50}}, undefined, {shallow: true}) : null
         }
         setPage(getPage);
     }, [router])
