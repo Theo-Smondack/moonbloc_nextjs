@@ -11,10 +11,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const userData: UserInput = req.body.userData
             const candidatePassword: string = req.body.candidatePassword
             await createUser(userData, candidatePassword)
-            res.status(201).json({ok: true})
+            return res.status(201).json({ok: true})
         } catch (error) {
-            res.status(422).json({ok: false, error: (error as Error).message})
+            return res.status(422).json({ok: false, error: (error as Error).message})
         }
     }
-    res.status(405).json({ok:false})
+    return res.status(405).json({ok:false})
 }
