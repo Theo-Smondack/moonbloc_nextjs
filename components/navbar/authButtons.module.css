@@ -1,0 +1,28 @@
+.authButtonContainer{
+    display: flex;
+    gap: 15px;
+}
+.authButton{
+    width: 75px;
+    padding: 7px;
+}
+
+@media (max-width: 1000px) {
+    .authButtonContainer{
+        padding: 0 1rem;
+        gap: 1rem;
+    }
+    .authButton{
+        flex: 1;
+    }
+}
+
+@media (max-width: 545px) {
+    .authButtonContainer{
+        flex-direction: column;
+    }
+    .authButton{
+        width: auto;
+    }
+
+}
