@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/layout/layout";
 import {ReactElement} from "react";
 
 export default function Watchlist() {

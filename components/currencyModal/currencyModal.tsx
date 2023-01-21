@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./currencyModal.module.css";
-import {useCurrencyContext} from "../context/currency";
+import {useCurrencyContext} from "../../context/currency";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
-import {Currency} from "../types/currency";
-import Currencies from "../utils/currencies";
-import {CurrencyModalProps} from "../types/props";
+import {Currency} from "../../types/currency";
+import Currencies from "../../utils/currencies";
+import {CurrencyModalProps} from "../../types/props";
 
 const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
     useEffect(() => {
@@ -32,7 +32,7 @@ const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
     }
 
     return (
-        <div style={{position: props.pos}}>
+        <div style={{position: props.pos,display:"flex",justifyContent:"center"}}>
             <button title="Choose currency" onClick={() => setShow(!isShow)}>
                 <span>{_symbol}</span>
                 <span>{currencySelected?.value}</span>

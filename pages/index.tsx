@@ -1,8 +1,8 @@
-import Layout from "../components/layout";
-import Cryptotable from "../components/cryptotable";
+import Layout from "../components/layout/layout";
+import Cryptotable from "../components/cryptotable/cryptotable";
 import {NextPageWithLayout} from "./_app";
 import {ReactElement, useEffect, useState} from "react";
-import Pagination from "../components/pagination";
+import Pagination from "../components/pagination/pagination";
 import {useRouter} from "next/router";
 
 const Home: NextPageWithLayout = () => {

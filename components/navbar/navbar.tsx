@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import ThemeSwitch from "./ThemeSwitch";
-import {ThemeProvider} from "next-themes";
+import ThemeSwitch from "../ThemeSwitch";
 import {useState} from "react";
-import CurrencyModal from "./currencyModal";
+import CurrencyModal from "../currencyModal/currencyModal";
+import AuthButtons from "./authButtons";
 
 
 export default function Navbar() {
@@ -15,16 +15,16 @@ export default function Navbar() {
     const toggleMenuClassname = isActive ? `${styles.toggleMenu} ${styles.active}` : styles.toggleMenu
 
     return (
-        <ThemeProvider>
             <div>
                 <div className={styles.containerNav}>
                     <div className={`${styles.headNav}`}>
                         <div className={styles.containerHeadNav}>
                             <div className={styles.rightContainerHeadNav}>
                                 <CurrencyModal pos={'relative'}/>
-                                <div>
+                                <div style={{display:"flex"}}>
                                     <ThemeSwitch/>
                                 </div>
+                                <AuthButtons/>
                             </div>
                         </div>
                     </div>
@@ -43,12 +43,7 @@ export default function Navbar() {
                             </div>
                         </Link>
                         <div className={styles.mainNavContainer}>
-                            <Link href="/cryptocurrencies">
-                                <div>
-                                    Cryptocurrencies
-                                </div>
-                            </Link>
-                            <Link href="/watchlist">
+                            <Link href="/pages/watchlist">
                                 <div>
                                     Watchlist
                                 </div>
@@ -84,15 +79,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={toggleMenuClassname}>
-                    <Link href="/cryptocurrencies">
-                        <div onClick={() => setIsActive(!isActive)}>
-                            <div>
-                                Cryptocurrencies
-                            </div>
-
-                        </div>
-                    </Link>
-                    <Link href="/watchlist">
+                    <Link href="/pages/watchlist">
                         <div onClick={() => setIsActive(!isActive)}>
                             <div>
                                 Watchlist
@@ -105,14 +92,12 @@ export default function Navbar() {
                             <ThemeSwitch/>
                         </div>
                     </div>
+                    <AuthButtons/>
                 </div>
                 <div>
 
                 </div>
             </div>
-
-
-        </ThemeProvider>
 
     )
 }

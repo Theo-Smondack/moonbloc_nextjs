@@ -2,7 +2,7 @@ import styles from "./pagination.module.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
-import {PaginationProps} from "../types/props";
+import {PaginationProps} from "../../types/props";
 
 
 const Pagination: React.FC<PaginationProps> = (props) => {

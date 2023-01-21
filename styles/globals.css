@@ -49,10 +49,31 @@ body{
     border-radius: 4px;
 }
 
+.bgBlueButton{
+    color: #F3F3F3;;
+    background-color: var(--component-blue) !important;
+    border-radius: 0.25rem;
+}
+.bgBlueButton:hover{
+    background-color: var(--hover-component-blue) !important;
+}
+
+
+.bdBlueButton{
+    color: var(--component-blue);
+    border: 1px solid var(--component-blue) !important;
+    border-radius: 0.25rem;
+}
+.bdBlueButton:hover{
+    background-color: var(--component-grey-one) !important;
+    border-color: var(--hover-component-blue);
+}
+
 
 :root {
     --bg : #F3F3F3;
     --component-blue : #2185D5;
+    --hover-component-blue : #2490e8;
     --component-grey-one : #dedbde;
     --component-default-border-color:#E5E5E5;
     --txt-grey-selected: #d8d8d8;

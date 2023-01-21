@@ -1,7 +1,7 @@
 import Head from "next/head";
-import {LayoutProps} from "../types/props";
-import Navbar from "./navbar";
-import Footer from "./footer";
+import {LayoutProps} from "../../types/props";
+import Navbar from "../navbar/navbar";
+import Footer from "../footer/footer";
 export const siteTitle:string = 'MoonBloc';
 
 

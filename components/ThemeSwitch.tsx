@@ -24,7 +24,7 @@ const ThemeSwitch = () => {
         <button title="Switch dark/light mode" onClick={() => theme === "light"? setTheme("dark") : setTheme("light")}>
             <FontAwesomeIcon
                 icon={_faIcon}
-                style={{ fontSize: 12, color: _iconColor }}
+                style={{ fontSize: 21, color: _iconColor }}
             />
         </button>
     )
