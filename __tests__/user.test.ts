@@ -32,6 +32,32 @@ describe("User model", () => {
         }
     }
 
+    const emptyUserPayload: UserInput = {
+        email: " ",
+        firstName: "",
+        lastName: "",
+        password: "",
+        gender: Gender.male,
+        address: {
+            street: "24 testing street",
+            city: "Testville",
+            postCode: "87560"
+        }
+    }
+
+    const wrongMailUserPayload: UserInput = {
+        email: "john@example.",
+        firstName: "John",
+        lastName: "Doe",
+        password: "johndpass123",
+        gender: Gender.male,
+        address: {
+            street: "24 testing street",
+            city: "Testville",
+            postCode: "87560"
+        }
+    }
+
     const validCandidatePassword = "johndpass123"
     const unvalidCandidatePassword = "wrongpass"
 
@@ -47,18 +73,28 @@ describe("User model", () => {
                 expect(user.gender).toBe(userPayload.gender);
                 console.log(user)
             });
-
-            it('should return "Passwords do not match"', async () => {
-                const user = createUser(userPayload, unvalidCandidatePassword);
-                await expect(user).rejects.toThrowError('Passwords do not match')
+        });
+        describe('given input is not valid',()=>{
+            it('should throw an Error: "Please fill all required fields"', async () => {
+                const user = createUser(emptyUserPayload, validCandidatePassword);
+                await expect(user).rejects.toThrow(new Error("Please fill all required fields"))
             });
-            it('should return "User already exist"', async function () {
+
+            it('should throw an Error: "Please enter a valid email"', async () => {
+                const user = createUser(wrongMailUserPayload, validCandidatePassword);
+                await expect(user).rejects.toThrow(new Error("Please enter a valid email"))
+            });
+
+            it('should throw an Error: "Passwords do not match"', async () => {
+                const user = createUser(userPayload, unvalidCandidatePassword);
+                await expect(user).rejects.toThrow(new Error('Passwords do not match'))
+            });
+            it('should throw an Error: "User already exist"', async function () {
                 await createUser(userPayload, validCandidatePassword);
                 const newUser = createUser(userPayload, validCandidatePassword);
-                await expect(newUser).rejects.toThrowError('User already exist')
+                await expect(newUser).rejects.toThrow(new Error('User already exist'))
             });
-
-        });
+        })
     });
 
     describe('Login user', () => {
