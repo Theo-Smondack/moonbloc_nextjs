@@ -1,0 +1,68 @@
+.authModalFog {
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    margin: 0;
+    background-color: rgba(33, 133, 213, 0.3);
+    display: flex;
+}
+
+.authModal {
+    font-size: 12pt;
+    padding: 25px;
+    margin: auto;
+    background-color: var(--bg);
+    height: var(--authmodal-height);
+    width: 500px;
+    border-radius: 0.75rem;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition: height 0.25s ease-out;
+}
+
+.authModalContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.closeIconContainer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 21pt;
+}
+
+.authModalHeader {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.authModalHeader h2 {
+    cursor: pointer;
+}
+
+.titleActive {
+    color: var(--component-blue);
+    transition: color 0.5s ease-out;
+}
+
+@media (max-width: 570px) {
+    .authModal {
+        width: initial;
+        margin: inherit;
+        height: 100%;
+        border-radius: 0;
+        position: absolute;
+        transition: inherit;
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

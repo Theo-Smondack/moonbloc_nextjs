@@ -3,27 +3,22 @@ import Currencies from "../utils/currencies";
 import {Currency, CurrencyContextType} from "../types/currency";
 
 interface IProps {
-    children:React.ReactNode;
+    children: React.ReactNode;
 }
 
 
-export const CurrencyContext = React.createContext<CurrencyContextType | null>(null);
+export const CurrencyContext = createContext<CurrencyContextType | null>(null);
 
 const CurrencyProvider = ({children}: IProps) => {
-    const _currency : Currency | undefined = Currencies.find(curr => curr.value === 'USD')
+    const _currency: Currency | undefined = Currencies.find(curr => curr.value === 'USD')
 
-    const [currency, setCurrency] = useState<Currency|undefined>(_currency);
-
-    // const selectCurrency = (value:string): void => {
-    //     const newCurrency:Currency|undefined = Currencies.find(curr => curr.value === value)
-    //     setCurrency(newCurrency);
-    // }
+    const [currency, setCurrency] = useState<Currency | undefined>(_currency);
 
     const value = {
-        state : {
-            currency : currency,
+        state: {
+            currency: currency,
         },
-        setCurrency : setCurrency
+        setCurrency: setCurrency
     }
 
 

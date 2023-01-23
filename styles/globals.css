@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: Helvetica, sans-serif;
@@ -6,18 +6,18 @@
     /*background: var(--bg);*/
 }
 
-button{
+button {
     border: none;
     background: transparent;
 }
 
-body{
+body {
     min-height: 100vh;
     position: relative;
     background: var(--bg);
 }
 
-.container{
+.container {
     padding: 5px 15px;
     max-width: 1400px;
     margin: 0 auto;
@@ -27,66 +27,83 @@ body{
     flex-direction: row;
 }
 
-.txtGrey{
+.txtGrey {
     color: #777c85 !important;
 }
 
 
-
-.titleBlue{
+.titleBlue {
     color: var(--component-blue);
 }
 
-.loadingTd{
+.loadingTd {
     height: 19px;
     padding: 10px;
 }
 
-.loadingDiv{
+.loadingDiv {
     background-color: var(--component-grey-one);
     height: 100%;
     width: 100%;
     border-radius: 4px;
 }
 
-.bgBlueButton{
+.bgBlueButton {
     color: #F3F3F3;;
     background-color: var(--component-blue) !important;
     border-radius: 0.25rem;
 }
-.bgBlueButton:hover{
+
+.bgBlueButton:hover {
     background-color: var(--hover-component-blue) !important;
 }
 
 
-.bdBlueButton{
+.bdBlueButton {
     color: var(--component-blue);
     border: 1px solid var(--component-blue) !important;
     border-radius: 0.25rem;
 }
-.bdBlueButton:hover{
+
+.bdBlueButton:hover {
     background-color: var(--component-grey-one) !important;
     border-color: var(--hover-component-blue);
 }
 
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 15px;
+    transform: scaleY(0);
+    transition: transform 0.25s ease-out;
+    transform-origin: top;
+}
+
+@media (max-width: 570px) {
+    .authForm {
+        transition: initial;
+    }
+}
 
 :root {
-    --bg : #F3F3F3;
-    --component-blue : #2185D5;
-    --hover-component-blue : #2490e8;
-    --component-grey-one : #dedbde;
-    --component-default-border-color:#E5E5E5;
+    --bg: #F3F3F3;
+    --component-blue: #2185D5;
+    --hover-component-blue: #2490e8;
+    --component-grey-one: #dedbde;
+    --component-default-border-color: #E5E5E5;
     --txt-grey-selected: #d8d8d8;
     --txt-white-selected: #F3F3F3;
-    --txt-default-color : #303841;
-}
-[data-theme='dark']{
-    --bg : #303841;
-    --component-grey-one: #3A4750;
-    --component-default-border-color: #212722;
-    --txt-default-color : #F3F3F3;
+    --txt-default-color: #303841;
+    --authmodal-height: 0px;
 }
 
+[data-theme='dark'] {
+    --bg: #303841;
+    --component-grey-one: #3A4750;
+    --component-default-border-color: #212722;
+    --txt-default-color: #F3F3F3;
+}
 
 
 /* Apply style to dark theme mode*/
