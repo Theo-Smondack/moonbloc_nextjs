@@ -1,4 +1,5 @@
 import {ModalState, ModalType} from "../types/authentication";
+import {StatusState} from "../types/status";
 
 export function isNegative(num:number|string):boolean {
     return typeof num === 'number' && num < 0;
@@ -17,4 +18,13 @@ export function isEmptyFields(fields:string[]):boolean {
 export function showAuthModal(callback: ({show, type}: ModalState) => void, show: boolean, type: ModalType|undefined):void {
     callback({show,type})
     show ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto';
+}
+
+export async function handleStatus(callback:({success,message}:StatusState)=>void,success:boolean,message:string) {
+    await callback({success,message})
+    const popup = document.querySelector('.popUpContainer') as HTMLElement
+    popup.style.transform = 'translate(-50%) scaleY(1)'
+    setTimeout(()=> {
+        popup.style.transform = 'translate(-50%) scaleY(0)'
+    },3000)
 }

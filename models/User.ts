@@ -41,10 +41,6 @@ export class UserClass implements UserInput {
     public async compareLoginPassword(candidatePassword: string):Promise<boolean>{
         return bcrypt.compare(candidatePassword,this.password).catch(() => false);
     }
-
-    public async compareRegisterPassword(candidatePassword:string):Promise<boolean>{
-        return candidatePassword === this.password
-    }
 }
 
 
@@ -92,6 +88,5 @@ UserSchema.pre('save', async function (this: UserDocument, next) {
 
 //Compare a candidate password with the user's password
 UserSchema.methods.compareLoginPassword = UserClass.prototype.compareLoginPassword
-UserSchema.methods.compareRegisterPassword = UserClass.prototype.compareRegisterPassword
 
 export default mongoose.models.User || mongoose.model<UserDocument>('User', UserSchema)

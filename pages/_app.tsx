@@ -10,6 +10,7 @@ import {ReactElement, ReactNode} from "react";
 import {NextPage} from "next";
 import CurrencyProvider from "../context/currency";
 import AuthModalProvider from "../context/authModal";
+import StatusProvider from "../context/status";
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -27,11 +28,13 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
 
     return (
         <ThemeProvider defaultTheme="system">
-            <CurrencyProvider>
-                <AuthModalProvider>
-                    {getLayout(<Component {...pageProps}/>)}
-                </AuthModalProvider>
-            </CurrencyProvider>
+            <StatusProvider>
+                <CurrencyProvider>
+                    <AuthModalProvider>
+                        {getLayout(<Component {...pageProps}/>)}
+                    </AuthModalProvider>
+                </CurrencyProvider>
+            </StatusProvider>
         </ThemeProvider>
     )
 }

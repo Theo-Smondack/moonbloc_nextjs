@@ -80,6 +80,21 @@ body {
     transform-origin: top;
 }
 
+.popUpContainer {
+    position: absolute;
+    padding: 30px;
+    left: 50%;
+    top: 2vh;
+    transform: translate(-50%) scaleY(0);
+    transform-origin: top;
+    border-radius: 3rem;
+    transition: transform 0.2s ease-out;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 570px) {
     .authForm {
         transition: initial;
@@ -96,6 +111,11 @@ body {
     --txt-white-selected: #F3F3F3;
     --txt-default-color: #303841;
     --authmodal-height: 0px;
+    --error-bg: rgba(218, 1, 1, 0.6);
+    --error-txt: rgb(132, 16, 16);
+    --success-bg: rgba(25, 135, 84, 0.7);
+    --success-txt: rgb(10, 79, 49);
+
 }
 
 [data-theme='dark'] {
@@ -103,6 +123,8 @@ body {
     --component-grey-one: #3A4750;
     --component-default-border-color: #212722;
     --txt-default-color: #F3F3F3;
+    --success-txt: rgb(0, 255, 145);
+    --error-txt: rgb(65, 0, 0);
 }
 
 

@@ -1,7 +1,8 @@
 import Layout from "../components/layout/layout";
 import {ReactElement} from "react";
+import {NextPageWithLayout} from "./_app";
 
-export default function Watchlist() {
+const Watchlist:NextPageWithLayout = () => {
     return (
         <div>
             <p>This is watchlist</p>
@@ -16,3 +17,4 @@ Watchlist.getLayout = function getLayout(page:ReactElement) {
         </Layout>
     )
 }
+export default Watchlist

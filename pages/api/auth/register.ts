@@ -8,9 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const {method} = req
     if (method === "POST") {
         try {
-            const userData: UserInput = req.body.userData
-            const candidatePassword: string = req.body.candidatePassword
-            await createUser(userData, candidatePassword)
+            const signUpData: UserInput = req.body.data
+            const candidatePassword : string = req.body.candidatePassword
+            await createUser(signUpData, candidatePassword)
             return res.status(201).json({ok: true})
         } catch (error) {
             return res.status(422).json({ok: false, error: (error as Error).message})

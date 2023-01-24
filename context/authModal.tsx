@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState} from "react";
-import {AuthModalContextType, ModalState} from "../types/authentication";
+import {AuthModalContextType, ModalState} from "../types/usersAuthentication";
 
 interface IProps {
     children: React.ReactNode;

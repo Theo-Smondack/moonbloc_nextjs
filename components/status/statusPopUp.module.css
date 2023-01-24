@@ -1,0 +1,20 @@
+.popIcon{
+    margin-right: 5px;
+    font-size: 20pt;
+}
+
+.errorPopUp{
+    background-color: var(--error-bg);
+    color: var(--error-txt);
+}
+.errorPopIcon path{
+    color: var(--error-txt);
+}
+
+.successPopUp{
+    background-color: var(--success-bg);
+    color: var(--success-txt);
+}
+.successPopIcon path{
+    color: var(--success-txt);
+}

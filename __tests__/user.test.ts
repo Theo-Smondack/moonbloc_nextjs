@@ -32,34 +32,7 @@ describe("User model", () => {
         }
     }
 
-    const emptyUserPayload: UserInput = {
-        email: " ",
-        firstName: "",
-        lastName: "",
-        password: "",
-        gender: Gender.male,
-        address: {
-            street: "24 testing street",
-            city: "Testville",
-            postCode: "87560"
-        }
-    }
-
-    const wrongMailUserPayload: UserInput = {
-        email: "john@example.",
-        firstName: "John",
-        lastName: "Doe",
-        password: "johndpass123",
-        gender: Gender.male,
-        address: {
-            street: "24 testing street",
-            city: "Testville",
-            postCode: "87560"
-        }
-    }
-
     const validCandidatePassword = "johndpass123"
-    const unvalidCandidatePassword = "wrongpass"
 
 
     describe('Create user', () => {
@@ -75,20 +48,6 @@ describe("User model", () => {
             });
         });
         describe('given input is not valid',()=>{
-            it('should throw an Error: "Please fill all required fields"', async () => {
-                const user = createUser(emptyUserPayload, validCandidatePassword);
-                await expect(user).rejects.toThrow(new Error("Please fill all required fields"))
-            });
-
-            it('should throw an Error: "Please enter a valid email"', async () => {
-                const user = createUser(wrongMailUserPayload, validCandidatePassword);
-                await expect(user).rejects.toThrow(new Error("Please enter a valid email"))
-            });
-
-            it('should throw an Error: "Passwords do not match"', async () => {
-                const user = createUser(userPayload, unvalidCandidatePassword);
-                await expect(user).rejects.toThrow(new Error('Passwords do not match'))
-            });
             it('should throw an Error: "User already exist"', async function () {
                 await createUser(userPayload, validCandidatePassword);
                 const newUser = createUser(userPayload, validCandidatePassword);

@@ -47,7 +47,7 @@ export default function Navbar() {
                         </div>
                     </Link>
                     <div className={styles.mainNavContainer}>
-                        <Link href="/pages/watchlist">
+                        <Link href="/watchlist">
                             <div>
                                 Watchlist
                             </div>
@@ -83,7 +83,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className={toggleMenuClassname}>
-                <Link href="/pages/watchlist">
+                <Link href="/watchlist">
                     <div onClick={() => handleIsActive(!isActive)}>
                         <div>
                             Watchlist
