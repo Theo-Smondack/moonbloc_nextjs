@@ -35,7 +35,7 @@ const SignUpForm = () => {
         return res.json()
     }
 
-    const handleSingUp = async () => {
+    const handleSignUp = async () => {
         // Verification
         if (isEmptyFields([signUpData.data.email,signUpData.data.password,
             signUpData.data.firstName,signUpData.data.lastName, signUpData.candidatePassword])){
@@ -50,14 +50,13 @@ const SignUpForm = () => {
             await handleStatus(setStatus,false,"Passwords do not match")
             return
         }
-        console.log(signUpData)
         const res = await signUpFetcher('/api/auth/register')
-        console.log(res)
         if (!res.ok){
             await handleStatus(setStatus,false,res.error)
             return
         }
         await handleStatus(setStatus,true,"User successfully created")
+
     }
 
     return (
@@ -110,7 +109,7 @@ const SignUpForm = () => {
                        })}/>
             </div>
             <button type={"submit"} className={`${styles.authFormButton} bgBlueButton`}
-                    onClick={handleSingUp}>Sign Up
+                    onClick={handleSignUp}>Sign Up
             </button>
         </div>
     )

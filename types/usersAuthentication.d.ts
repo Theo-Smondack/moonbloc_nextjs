@@ -1,4 +1,4 @@
-import {UserInput} from "../models/User";
+import {UserDocument, UserInput} from "../models/User";
 
 export enum ModalType {
     Login = "login",
@@ -18,4 +18,9 @@ export type AuthModalContextType = {
 export type SignUpData = {
     data: UserInput,
     candidatePassword : string
+}
+
+export type LogInData = {
+    email:UserDocument["email"],
+    password:UserDocument["password"]
 }

@@ -7,10 +7,12 @@ import ThemeSwitch from "../ThemeSwitch";
 import {useState} from "react";
 import CurrencyModal from "../currencyModal/currencyModal";
 import AuthButtons from "./authButtons";
+import {useSession} from "next-auth/react";
 
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
+    const {data,status} = useSession()
     const hamburgerClassname = isActive ? `${styles.hamburger} ${styles.active}` : styles.hamburger
     const toggleMenuClassname = isActive ? `${styles.toggleMenu} ${styles.active}` : styles.toggleMenu
 
@@ -28,7 +30,7 @@ export default function Navbar() {
                             <div style={{display: "flex"}}>
                                 <ThemeSwitch/>
                             </div>
-                            <AuthButtons/>
+                            {status !== 'authenticated' ? <AuthButtons/> : <div>{data.user?.name}</div>}
                         </div>
                     </div>
                 </div>

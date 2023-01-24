@@ -4,7 +4,7 @@ import Navbar from "../navbar/navbar";
 import Footer from "../footer/footer";
 import AuthModal from "../authModal/authModal";
 import {useAuthModalContext} from "../../context/authModal";
-import StatusPopUp from "../status/statusPopUp";
+import StatusPopUp from "../statusPopup/statusPopUp";
 
 export const siteTitle: string = 'MoonBloc';
 

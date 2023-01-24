@@ -1,5 +1,5 @@
-import {ModalState, ModalType} from "../types/authentication";
 import {StatusState} from "../types/status";
+import {ModalState, ModalType} from "../types/usersAuthentication";
 
 export function isNegative(num:number|string):boolean {
     return typeof num === 'number' && num < 0;
