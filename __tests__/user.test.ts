@@ -44,7 +44,7 @@ describe("User model", () => {
                 console.log(user)
             });
         });
-        describe('given input is not valid',()=>{
+        describe('given input is not valid', () => {
             it('should throw an Error: "User already exist"', async function () {
                 await createUser(userPayload);
                 const newUser = createUser(userPayload);
@@ -71,13 +71,25 @@ describe("User model", () => {
                 const action = async () => {
                     await loginUser({
                         email: "wrong@mail.com",
-                        password: 'wrong'
+                        password: "wrong"
                     });
                 }
                 await expect(action()).rejects.toThrow(new Error("User does not exist"));
 
             });
         });
+        describe('collection does not exist', () => {
+            it('should throw an Error: User does not exist', async () => {
+                const action = async () => {
+                    await loginUser({
+                        email: "john@example.com",
+                        password: "johndpass123"
+                    });
+                }
+                await expect(action()).rejects.toThrow(new Error("User does not exist"));
+            });
+        });
+
         describe('given the password is wrong', () => {
             it('should throw an Error: Invalid password', async () => {
                 const newUser = await createUser(userPayload);

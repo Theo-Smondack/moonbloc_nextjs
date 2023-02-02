@@ -1,5 +1,7 @@
 import {StatusState} from "../types/status";
 import {ModalState, ModalType} from "../types/usersAuthentication";
+import DbConnection from "./dbConnection";
+
 
 export function isNegative(num:number|string):boolean {
     return typeof num === 'number' && num < 0;
@@ -27,4 +29,15 @@ export async function handleStatus(callback:({success,message}:StatusState)=>voi
     setTimeout(()=> {
         popup.style.transform = 'translate(-50%) scaleY(0)'
     },3000)
+}
+
+export async function isCollectionExist(collection:string):Promise<boolean>{
+    const instance = await DbConnection.getInstance()
+    const connection = await instance.getConnection()
+    if (!connection) throw new Error('No connection to the database')
+    if (connection.db){
+        const collections =  await connection.db.listCollections().toArray()
+        return collections.some((col:any) => col.name === collection)
+    }
+    return false
 }

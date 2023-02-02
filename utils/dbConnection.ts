@@ -1,6 +1,6 @@
 import mongoose, {Mongoose} from "mongoose";
 
-
+// const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI as string
 const MONGODB_URI = process.env.MONGODB_URI
 
 if (!MONGODB_URI) {
@@ -8,7 +8,6 @@ if (!MONGODB_URI) {
         'Please define the MONGODB_URI environment variable inside .env.local'
     )
 }
-
 class DbConnection {
     private static instance: DbConnection
     private constructor() {
@@ -28,6 +27,14 @@ class DbConnection {
         }
         return DbConnection.instance
     }
+    public async getConnection() {
+        return mongoose.connection
+    }
+
+    public async closeConnection() {
+        return mongoose.connection.close()
+    }
+
 }
 
 export default DbConnection
