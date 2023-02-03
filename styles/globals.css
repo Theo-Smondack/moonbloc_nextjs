@@ -115,6 +115,7 @@ body {
     --error-txt: rgb(132, 16, 16);
     --success-bg: rgba(25, 135, 84, 0.7);
     --success-txt: rgb(10, 79, 49);
+    --default-shadow: rgba(48, 56, 65, 0.5);
 
 }
 
@@ -125,6 +126,7 @@ body {
     --txt-default-color: #F3F3F3;
     --success-txt: rgb(0, 255, 145);
     --error-txt: rgb(65, 0, 0);
+    --default-shadow: rgba(33, 39, 34, 0.5)
 }
 
 
