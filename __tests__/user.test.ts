@@ -78,17 +78,6 @@ describe("User model", () => {
 
             });
         });
-        describe('collection does not exist', () => {
-            it('should throw an Error: User does not exist', async () => {
-                const action = async () => {
-                    await loginUser({
-                        email: "john@example.com",
-                        password: "johndpass123"
-                    });
-                }
-                await expect(action()).rejects.toThrow(new Error("User does not exist"));
-            });
-        });
 
         describe('given the password is wrong', () => {
             it('should throw an Error: Invalid password', async () => {

@@ -9,8 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (method === "POST") {
         try {
             const signUpData: UserInput = req.body.data
-            const candidatePassword : string = req.body.candidatePassword
-            await createUser(signUpData, candidatePassword)
+            await createUser(signUpData)
             return res.status(201).json({ok: true})
         } catch (error) {
             return res.status(422).json({ok: false, error: (error as Error).message})

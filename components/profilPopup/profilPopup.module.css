@@ -1,0 +1,68 @@
+.profilePopup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    justify-content: center;
+    background-color: var(--bg);
+    height: max-content !important;
+    margin: 0 !important;
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    border: 1px solid var(--component-default-border-color);
+    box-shadow: 10px 10px 10px var(--default-shadow);
+    transition: all 0.2s ease-in-out;
+    border-radius: 1rem;
+    padding: 25px;
+}
+
+.profilePopup div{
+    margin: 0!important;
+    font-size: 12pt;
+}
+
+.profileSideBarContainerTop{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    margin: 0 !important;
+    padding-bottom: 20px;
+}
+
+.profileSideBarContainerBody{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: fit-content;
+    margin: 0 !important;
+    padding-bottom: 20px;
+    gap: 5px;
+}
+
+.profileSideBarContainerBodyItem{
+    padding: 10px;
+    border-radius: 0.25rem;
+    width: 200px;
+}
+.profileSideBarContainerBodyItem:hover{
+    background-color: var(--component-grey-one);
+}
+.itemIcon{
+    margin-right: 10px;
+}
+
+.logoutButton{
+    color: var(--error-txt);
+    background-color: var(--error-bg) !important;
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 10px;
+    border: 1px solid var(--error-txt) !important;
+}
+.logoutButton:hover{
+    background-color: var(--error-bg-hover) !important;
+}

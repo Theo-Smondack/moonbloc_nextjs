@@ -1,6 +1,6 @@
 import {Property} from "csstype";
 import Position = Property.Position;
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 
 type CurrencyModalProps = {
     pos:Position|undefined;
@@ -17,4 +17,8 @@ type PaginationProps = {
 
 type LayoutProps = {
     children:ReactNode;
+}
+
+type profilPopUpProps = {
+    refProp:React.RefObject<HTMLDivElement>;
 }

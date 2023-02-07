@@ -1,0 +1,20 @@
+.profilPicture path{
+    color: var(--txt-default-color);
+}
+
+.profilButtonContainer{
+    position: relative;
+}
+
+.popUpContainer{
+    margin: 0 !important;
+    /*height: 300px !important;*/
+    /*width: 200px !important;*/
+    position: absolute;
+    right: 0;
+    padding: 10px 0 !important;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+
+}
