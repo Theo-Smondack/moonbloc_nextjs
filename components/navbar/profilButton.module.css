@@ -16,5 +16,11 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: stretch;
+}
 
+@media (max-width: 1000px) {
+    .profilButtonContainer{
+        display: flex;
+        padding: 0 10px;
+    }
 }

@@ -20,5 +20,6 @@ type LayoutProps = {
 }
 
 type profilPopUpProps = {
+    onMouseEnter:()=>void;
     refProp:React.RefObject<HTMLDivElement>;
 }

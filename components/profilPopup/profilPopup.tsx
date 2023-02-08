@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faUserCircle, faWallet} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-const ProfilPopup = ({refProp}: profilPopUpProps) => {
+const ProfilPopup = ({refProp,onMouseEnter}: profilPopUpProps) => {
     const router = useRouter()
     const {data} = useSession()
     const handleLogout = async () => {
@@ -15,7 +15,7 @@ const ProfilPopup = ({refProp}: profilPopUpProps) => {
     };
 
     return (
-        <div ref={refProp} className={styles.profilePopup}>
+        <div ref={refProp} className={styles.profilePopup} onMouseEnter={onMouseEnter}>
             <div className={styles.profileSideBarContainer}>
                 <div className={styles.profileSideBarContainerTop}>
                     <h2>Hi, {data?.user?.name}</h2>

@@ -7,15 +7,19 @@ const ProfilButton = () => {
     const [show, setShow] = useState(false)
     const profilButtonRef = useRef<HTMLDivElement>(null)
     const popUpRef = useRef<HTMLDivElement>(null)
+    let timer: NodeJS.Timeout;
+    const handlePopUpMouseEnter = () => {
+        // clear timer
+        clearTimeout(timer);
+    };
     const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (!profilButtonRef.current || !popUpRef.current) {
-            return;
-        }
-        // if (!profilButtonRef.current.contains(event.relatedTarget as Node) &&
-        //     !popUpRef.current.contains(event.relatedTarget as Node)) {
-        //     // setShow(false)
-        //     console.log("Mouse leave")
-        // }
+        // set timer and if mouse leave after 0.5s, hide the popup
+        timer = setTimeout(() => {
+            if (!profilButtonRef.current?.contains(event.relatedTarget as Node) &&
+                !popUpRef.current?.contains(event.relatedTarget as Node)) {
+                setShow(false)
+            }
+        }, 200);
     }
 
     return (
@@ -23,7 +27,7 @@ const ProfilButton = () => {
             <FontAwesomeIcon icon={faUserCircle} style={{fontSize:30}} className={styles.profilPicture}
                              onMouseEnter={() => setShow(true)}
             />
-            {show && <ProfilPopup refProp={popUpRef}/>}
+            {show && <ProfilPopup refProp={popUpRef} onMouseEnter={handlePopUpMouseEnter}/>}
         </div>
     )
 }

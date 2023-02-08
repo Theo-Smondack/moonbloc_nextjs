@@ -1,6 +1,5 @@
 import {StatusState} from "../types/status";
 import {ModalState, ModalType} from "../types/usersAuthentication";
-import DbConnection from "./dbConnection";
 
 
 export function isNegative(num:number|string):boolean {
