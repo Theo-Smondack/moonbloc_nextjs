@@ -1,10 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import {StatusContextType, StatusState} from "../types/status";
-
-
-interface IProps{
-    children:React.ReactNode
-}
+import {IProps} from "../types/props";
 
 export const StatusContext = createContext<StatusContextType | null>(null)
 

@@ -8,5 +8,5 @@ export type CurrencyContextType = {
     state: {
         currency: Currency | undefined;
     },
-    setCurrency: (currency : Currency) => void;
+    setCurrency: (currency: Currency) => void;
 }

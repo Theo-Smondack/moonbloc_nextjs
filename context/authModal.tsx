@@ -1,9 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
 import {AuthModalContextType, ModalState} from "../types/usersAuthentication";
+import {IProps} from "../types/props";
 
-interface IProps {
-    children: React.ReactNode;
-}
 
 
 export const AuthModalContext = createContext<AuthModalContextType | null>(null);

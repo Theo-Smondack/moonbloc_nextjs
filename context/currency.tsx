@@ -1,10 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
 import Currencies from "../utils/currencies";
-import {Currency, CurrencyContextType} from "../types/currency";
-
-interface IProps {
-    children: React.ReactNode;
-}
+import {Currency,CurrencyContextType} from "../types/currency";
+import {IProps} from "../types/props";
 
 
 export const CurrencyContext = createContext<CurrencyContextType | null>(null);

@@ -2,6 +2,10 @@ import {Property} from "csstype";
 import Position = Property.Position;
 import React, {ReactNode} from "react";
 
+type IProps = {
+    children:ReactNode;
+}
+
 type CurrencyModalProps = {
     pos:Position|undefined;
 }
@@ -19,7 +23,17 @@ type LayoutProps = {
     children:ReactNode;
 }
 
-type profilPopUpProps = {
-    onMouseEnter:()=>void;
+type AuthButtonsProps = {
+    setNavbar?:(state:boolean) => void;
+}
+
+type ProfilButtonProps = {
+    isOpen?:boolean;
+    setNavbar?:(state:boolean) => void;
+}
+
+type ProfilPopUpProps = {
+    keepOpenCb:()=>void;
     refProp:React.RefObject<HTMLDivElement>;
+    closePopUp:()=>void;
 }

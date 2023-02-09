@@ -61,6 +61,8 @@
         height: fit-content !important;
         border-bottom: 1px solid var(--component-grey-one) !important;
         margin-top: 44px !important;
+        box-shadow: none;
+        border-radius: initial;
     }
     .modalContainer{
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

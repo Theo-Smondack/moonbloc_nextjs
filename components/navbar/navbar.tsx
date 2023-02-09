@@ -12,8 +12,8 @@ import ProfilButton from "./profilButton";
 
 
 export default function Navbar() {
-    const [isActive, setIsActive] = useState(false);
     const {status} = useSession()
+    const [isActive, setIsActive] = useState<boolean>(false)
     const hamburgerClassname = isActive ? `${styles.hamburger} ${styles.active}` : styles.hamburger
     const toggleMenuClassname = isActive ? `${styles.toggleMenu} ${styles.active}` : styles.toggleMenu
 
@@ -99,7 +99,7 @@ export default function Navbar() {
                         <ThemeSwitch/>
                     </div>
                 </div>
-                <AuthButtons/>
+                {status !== 'authenticated' ? <AuthButtons setNavbar={handleIsActive}/> : <ProfilButton isOpen={isActive} setNavbar={handleIsActive}/>}
             </div>
             <div>
 

@@ -1,4 +1,4 @@
-.profilPicture path{
+.buttonIcon path{
     color: var(--txt-default-color);
 }
 
@@ -6,21 +6,41 @@
     position: relative;
 }
 
-.popUpContainer{
-    margin: 0 !important;
-    /*height: 300px !important;*/
-    /*width: 200px !important;*/
-    position: absolute;
-    right: 0;
-    padding: 10px 0 !important;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: stretch;
+.respContainer{
+    display: none;
+}
+
+.profilButtonRespContainer{
+    display: none;
+}
+
+.userNameLabel{
+    display: none;
 }
 
 @media (max-width: 1000px) {
     .profilButtonContainer{
+        display: none;
+    }
+
+    .respContainer{
+        display: block;
+        position: relative;
+    }
+    .profilButtonRespContainer{
         display: flex;
-        padding: 0 10px;
+        padding: 0 25px;
+        height: fit-content;
+        align-items: center;
+    }
+    .userNameLabel{
+        display: block;
+        margin: 0 0 0 10px !important;
+    }
+    .angleDown{
+        position: absolute;
+        right: 25px;
+        transition: transform 0.3s;
+        transform-origin: center;
     }
 }
