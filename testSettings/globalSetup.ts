@@ -2,8 +2,12 @@ import {config} from './testConfig.json'
 
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import {loadEnvConfig} from "@next/env";
 
 export default async function globalSetup() {
+    const projectDir = process.cwd()
+    loadEnvConfig(projectDir)
+
     if (config.Memory) {
         // Config to decided if an mongodb-memory-server instance should be used
         // it's needed in global space, because we don't want to create a new instance every testSettings-suite

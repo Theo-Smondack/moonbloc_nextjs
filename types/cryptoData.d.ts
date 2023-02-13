@@ -19,3 +19,24 @@ export type CryptoData = {
     [quote:string]:_Quotes;
     total_supply:number;
 }
+
+export type CryptoDataList = CryptoData[]
+
+export type CryptoDataInfo = {
+    id:string;
+    name:string;
+    symbol:string;
+    description:string;
+    logo:string;
+    urls:{
+        website:string[];
+        twitter:string[];
+        explorer:string[];
+        source_code:string[];
+        technical_doc:string[];
+        message_board:string[];
+    }
+
+}
+
+export type CryptoDataUrls = CryptoDataInfo['urls']

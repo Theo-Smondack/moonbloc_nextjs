@@ -1,0 +1,40 @@
+.container{
+    padding: 25px;
+}
+
+.titleContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.title{
+    margin-bottom: 10px;
+}
+
+.bottomContainer{
+    display: flex;
+    gap: 25px;
+
+}
+.descContainer{
+    text-align: justify;
+    flex: 1;
+}
+.linksContainer{
+    flex: 1;
+}
+.linksContainer ul{
+    list-style: none;
+}
+.linksContainer ul>li{
+    display: flex;
+    margin-bottom: 10px;
+    gap: 10px;
+    font-weight: bold;
+}
+.linksContainer ul>li>ul>li{
+    margin-bottom: 10px;
+    font-weight: normal;
+}

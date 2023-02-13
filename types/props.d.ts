@@ -1,6 +1,7 @@
 import {Property} from "csstype";
 import Position = Property.Position;
 import React, {ReactNode} from "react";
+import {CryptoDataUrls} from "./cryptoData";
 
 type IProps = {
     children:ReactNode;
@@ -36,4 +37,8 @@ type ProfilPopUpProps = {
     keepOpenCb:()=>void;
     refProp:React.RefObject<HTMLDivElement>;
     closePopUp:()=>void;
+}
+
+type CryptoUrlsProps = {
+    urls:CryptoDataUrls;
 }

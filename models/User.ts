@@ -1,24 +1,17 @@
 import mongoose, {Schema, Document} from 'mongoose'
 import bcrypt from 'bcryptjs'
 
-export enum Gender {
-    male = 'male',
-    female = 'female'
+type UploadedImage = {
+    data: Buffer;
+    contentType: string;
 }
 
-interface Address {
-    street?: string;
-    city?: string;
-    postCode?: string;
-}
-
-export interface UserInput extends Address{
+export interface UserInput{
     email: string;
     firstName: string;
     lastName: string;
     password: string;
-    gender?: Gender;
-    address?: Address
+    profilePicture?: UploadedImage;
 }
 
 
@@ -27,16 +20,14 @@ export class UserClass implements UserInput {
     public firstName: string
     public lastName: string
     public password: string
-    public gender?: Gender
-    public address?: Address
+    public profilePicture?: UploadedImage
 
-    constructor(email: string, firstName: string, lastName: string, password: string, gender?: Gender, address?: Address) {
+    constructor(email: string, firstName: string, lastName: string, password: string, profilePicture?: UploadedImage) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.gender = gender;
-        this.address = address;
+        this.profilePicture = profilePicture;
     }
     public async compareLoginPassword(candidatePassword: string):Promise<boolean>{
         return bcrypt.compare(candidatePassword,this.password).catch(() => false);
@@ -55,11 +46,9 @@ const UserSchema: Schema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     password: {type: String, required: true},
-    gender: {type: String, enum: Object.values(Gender)},
-    address: {
-        street: {type: String},
-        city: {type: String},
-        postCode: {type: String}
+    profilePicture: {
+        data: {type: Buffer},
+        contentType: {type: String}
     }
 
 }, {

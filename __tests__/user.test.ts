@@ -1,5 +1,5 @@
 import {createUser, findUser, loginUser} from "../services/users";
-import User, {Gender, UserInput} from "../models/User";
+import User, {UserInput} from "../models/User";
 import mongoose from "mongoose";
 import DbConnection from "../utils/dbConnection";
 
@@ -23,24 +23,18 @@ describe("User model", () => {
         email: "john@example.com",
         firstName: "John",
         lastName: "Doe",
-        password: "johndpass123",
-        gender: Gender.male,
-        address: {
-            street: "24 testing street",
-            city: "Testville",
-            postCode: "87560"
-        }
+        password: "johndpass123"
     }
 
     describe('Create user', () => {
         describe('given input is valid', () => {
             it('should create a new user', async () => {
+                // UploadImage()
                 const user = await createUser(userPayload);
                 expect(user.password).toHaveLength(60);
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
-                expect(user.gender).toBe(userPayload.gender);
                 console.log(user)
             });
         });
@@ -61,8 +55,6 @@ describe("User model", () => {
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
-                expect(user.gender).toBe(userPayload.gender);
-
             });
         });
         describe('given email does not exist', () => {

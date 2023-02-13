@@ -1,4 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
+import {CryptoData} from "../../../../types/cryptoData";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const query = req.query
@@ -12,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     //Define start
-    const getStart = (page: string | string[]| undefined): string => {
+    const getStart = (page: string | string[] | undefined): string => {
         let start: number = 1;
         if (page) {
             if (typeof page === "string") {
@@ -41,7 +42,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         throw new Error('Something wrong from api call')
     }).then((data) => {
-        res.status(200).json(data.data)
+        const jsonData = data.data.map((item: CryptoData) => {
+            return {
+                id: item.id,
+                name: item.name,
+                symbol: item.symbol,
+                cmc_rank: item.cmc_rank,
+                quote: {
+                    [convert as string]: {
+                        percent_change_1h: item.quote[convert as string].percent_change_1h,
+                        percent_change_24h: item.quote[convert as string].percent_change_24h,
+                        percent_change_7d: item.quote[convert as string].percent_change_7d,
+                        market_cap: item.quote[convert as string].market_cap,
+                        volume_24h: item.quote[convert as string].volume_24h,
+                        price: item.quote[convert as string].price,
+                    }
+                },
+                total_supply: item.total_supply === null ? 0 : item.total_supply
+            }
+        })
+        res.status(200).json(jsonData)
     }).catch((error) => {
         res.status(500)
         console.log(error)

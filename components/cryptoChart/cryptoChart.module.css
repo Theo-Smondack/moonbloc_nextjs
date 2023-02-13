@@ -1,0 +1,7 @@
+.container{
+    padding: 25px;
+    height: 400px;
+    border-radius: 2rem;
+    background-color: var(--component-grey-one);
+    margin-bottom: 25px;
+}

@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faUserCircle, faWallet} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-const ProfilPopup = ({refProp,keepOpenCb,closePopUp}: ProfilPopUpProps) => {
+const ProfilPopup = ({refProp, keepOpenCb, closePopUp}: ProfilPopUpProps) => {
     const router = useRouter()
     const {data} = useSession()
     const handleLogout = async () => {
@@ -14,6 +14,7 @@ const ProfilPopup = ({refProp,keepOpenCb,closePopUp}: ProfilPopUpProps) => {
         closePopUp()
         await router.push('/');
     };
+
 
     return (
         <div ref={refProp} className={styles.profilePopup} onMouseEnter={keepOpenCb}>
@@ -28,7 +29,7 @@ const ProfilPopup = ({refProp,keepOpenCb,closePopUp}: ProfilPopUpProps) => {
                             Profil
                         </div>
                     </Link>
-                    <Link href="/watchlist" >
+                    <Link href="/watchlist">
                         <div className={styles.profileSideBarContainerBodyItem} onClick={closePopUp}>
                             <FontAwesomeIcon icon={faStar} className={styles.itemIcon}/>
                             Watchlist

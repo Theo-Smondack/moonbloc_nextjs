@@ -29,3 +29,4 @@ export async function handleStatus(callback:({success,message}:StatusState)=>voi
         popup.style.transform = 'translate(-50%) scaleY(0)'
     },3000)
 }
+

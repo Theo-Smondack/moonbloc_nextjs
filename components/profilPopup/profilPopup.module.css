@@ -75,8 +75,6 @@
         border-radius: inherit;
         border: none;
         position: inherit;
-        transition:transform 0.3s;
-        transform-origin: top;
         width: inherit;
         align-items: stretch;
         padding-top: 0 !important;

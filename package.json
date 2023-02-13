@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch --verbose true"
+    "test": "NODE_EN=test jest --watch --verbose true"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -16,7 +16,9 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@types/bcryptjs": "^2.4.2",
     "bcryptjs": "^2.4.3",
+    "chart.js": "^4.2.1",
     "dotenv": "^16.0.1",
+    "html-react-parser": "^3.0.9",
     "mongodb": "^4.12.1",
     "mongodb-memory-server": "^8.10.1",
     "mongoose": "^6.7.3",

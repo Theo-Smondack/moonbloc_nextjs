@@ -12,15 +12,19 @@ import CurrencyProvider from "../context/currency";
 import AuthModalProvider from "../context/authModal";
 import StatusProvider from "../context/status";
 import {SessionProvider} from "next-auth/react";
+import Head from "next/head"
 
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+
+export type NextPageWithLayout<P = {} , IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode
 }
 
 type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout
 }
+
+export const siteTitle: string = 'MoonBloc';
 
 
 function MyApp({Component, pageProps}: AppPropsWithLayout) {
@@ -33,6 +37,10 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
                 <StatusProvider>
                     <CurrencyProvider>
                         <AuthModalProvider>
+                            <Head>
+                                <title>{siteTitle}</title>
+                                <link rel="icon" href="/favicon.ico"/>
+                            </Head>
                             {getLayout(<Component {...pageProps}/>)}
                         </AuthModalProvider>
                     </CurrencyProvider>
