@@ -8,7 +8,11 @@
     text-align: center;
     padding: 10px;
     border-bottom: 1px solid var(--component-default-border-color);
+}
 
+.crypto_table tr:hover{
+    cursor: pointer;
+    /*background-color: var(--component-grey-one);*/
 }
 
 .name_div {

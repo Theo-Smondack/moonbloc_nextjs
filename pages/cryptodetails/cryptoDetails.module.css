@@ -1,12 +1,58 @@
 .container{
     padding: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.headContainer{
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.loadingHeadContainer{
+    height: 5vh;
+    width: 100%;
+    border-radius: 2rem;
+    background-color: var(--component-grey-one);
+    margin-bottom: 25px;
+}
+.loadingChartContainer{
+    height: 50vh;
+    max-height: 450px;
+    border-radius: 2rem;
+    background-color: var(--component-grey-one);
+    margin-bottom: 25px;
+}
+.loadingBottomContainer{
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+.loadingDescContainer{
+    flex: 1;
+    height: 50vh;
+    border-radius: 2rem;
+    background-color: var(--component-grey-one);
+}
+.loadingLinksContainer{
+    flex: 1;
+    max-width: 500px;
+    height: 50vh;
+    border-radius: 2rem;
+    background-color: var(--component-grey-one);
 }
 
 .titleContainer{
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 25px;
+}
+.priceContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .title{
@@ -24,12 +70,12 @@
 }
 .linksContainer{
     flex: 1;
+    max-width: 500px;
 }
 .linksContainer ul{
     list-style: none;
 }
 .linksContainer ul>li{
-    display: flex;
     margin-bottom: 10px;
     gap: 10px;
     font-weight: bold;
@@ -37,4 +83,35 @@
 .linksContainer ul>li>ul>li{
     margin-bottom: 10px;
     font-weight: normal;
+    overflow: auto;
+}
+.linksContainer ul>li>ul>li{
+    margin-bottom: 10px;
+    font-weight: normal;
+    overflow: auto;
+    word-wrap: break-word;
+}
+@media(max-width: 1000px){
+    .bottomContainer{
+        flex-direction: column;
+    }
+    .linksContainer{
+        max-width: inherit;
+    }
+
+    .linksContainer ul>li{
+        display: inherit;
+    }
+
+    .linksContainer ul>li>ul>li{
+        display: inherit;
+    }
+}
+
+@media(max-width: 450px){
+    .headContainer{
+        flex-direction: column;
+        gap:5px;
+        align-items: inherit;
+    }
 }

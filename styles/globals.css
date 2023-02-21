@@ -95,6 +95,23 @@ body {
     align-items: center;
 }
 
+.negative{
+    color: red !important;
+}
+
+
+.negative > path{
+    color: red !important;
+}
+
+.positive{
+    color: green !important;
+}
+
+.positive > path{
+    color: green !important;
+}
+
 @media (max-width: 570px) {
     .authForm {
         transition: initial;
@@ -103,8 +120,9 @@ body {
 
 :root {
     --bg: #F3F3F3;
-    --component-blue: #2185D5;
+    --component-blue: #2797f3;
     --hover-component-blue: #2490e8;
+    --component-blue-light: rgba(33, 133, 213, 0.3);
     --component-grey-one: #dedbde;
     --component-default-border-color: #E5E5E5;
     --txt-grey-selected: #d8d8d8;

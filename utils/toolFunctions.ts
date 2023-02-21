@@ -30,3 +30,38 @@ export async function handleStatus(callback:({success,message}:StatusState)=>voi
     },3000)
 }
 
+export function replaceDuplicatesWithEmptyStrings(arr: string[]): string[] {
+    const uniqueValues = new Set<string>();
+    const result: string[] = [];
+
+    for (const value of arr) {
+        if (uniqueValues.has(value)) {
+            result.push('');
+        } else {
+            uniqueValues.add(value);
+            result.push(value);
+        }
+    }
+
+    return result;
+}
+export function findMinMax(numbers: number[]): { min: number, max: number } {
+    if (numbers.length === 0) {
+        throw new Error('Array cannot be empty');
+    }
+
+    let min = numbers[0];
+    let max = numbers[0];
+
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] < min) {
+            min = numbers[i];
+        }
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+
+    return {min, max};
+}
+

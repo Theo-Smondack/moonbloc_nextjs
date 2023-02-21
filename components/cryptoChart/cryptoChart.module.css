@@ -1,7 +1,38 @@
 .container{
-    padding: 25px;
-    height: 400px;
+    margin-bottom: 25px;
+    height: 50vh;
+    max-height: 450px;
+}
+.container canvas{
+    margin-bottom: 25px;
+}
+.loading{
+    width: 100%;
     border-radius: 2rem;
     background-color: var(--component-grey-one);
     margin-bottom: 25px;
+    height: 45vh;
+    max-height: 450px;
+}
+.timeFrameContainer{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    gap: 5px;
+}
+.timeFrameContainer div{
+    border-radius: 0.25rem;
+    padding: 4px;
+    cursor: pointer;
+}
+.active{
+    background-color: var(--component-blue);
+    color: #F3F3F3;
+}
+
+.active:hover{
+    background-color: var(--component-blue) !important;
+}
+.timeFrameContainer div:hover{
+    background-color: var(--component-grey-one);
 }

@@ -42,3 +42,7 @@ type ProfilPopUpProps = {
 type CryptoUrlsProps = {
     urls:CryptoDataUrls;
 }
+
+type CryptoChartProps = {
+    id:string;
+}

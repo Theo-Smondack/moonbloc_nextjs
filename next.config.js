@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images : {
-    domains:['s2.coinmarketcap.com']
+    domains:['assets.coingecko.com']
   },
   typescript:{
     ignoreBuildErrors:false,

@@ -16,17 +16,6 @@ const CryptoUrls = ({urls}: CryptoUrlsProps) => {
                 </li>
             }
             {
-                urls.twitter?.length > 0 &&
-                <li>
-                    Twitter
-                    <ul>
-                        {
-                            urls.twitter.map((url, index) => <li key={index}><a href={url}>{url}</a></li>)
-                        }
-                    </ul>
-                </li>
-            }
-            {
                 urls.explorer?.length > 0 &&
                 <li>
                     Explorer
@@ -44,17 +33,6 @@ const CryptoUrls = ({urls}: CryptoUrlsProps) => {
                     <ul>
                         {
                             urls.source_code.map((url, index) => <li key={index}><a href={url}>{url}</a></li>)
-                        }
-                    </ul>
-                </li>
-            }
-            {
-                urls.technical_doc?.length > 0 &&
-                <li>
-                    Technical Documentation
-                    <ul>
-                        {
-                            urls.technical_doc.map((url, index) => <li key={index}><a href={url}>{url}</a></li>)
                         }
                     </ul>
                 </li>

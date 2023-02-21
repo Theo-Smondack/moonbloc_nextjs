@@ -1,22 +1,13 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {CryptoDataInfo} from "../../../types/cryptoData";
 
+
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-    const { id } = req.query
+    const {id,convert} = req.query
     // Define URL
-    const url = new URL(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/info`)
-    //Define query parameters
-    const params:{[index:string]:string} = {
-        'id': `${id}`,
-    }
-    // Query parameters append to URL
-    for (let i in params) {
-        url.searchParams.append(i, params[i])
-    }
+    const url = new URL(`https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`)
     // Fetch data from external API
-    await fetch(url, {
-        headers: {"X-CMC_PRO_API_KEY": process.env.CMC_API_KEY},
-    }).then((response) => {
+    await fetch(url).then((response) => {
         if (response.ok) {
             return response.json();
         }
@@ -24,18 +15,18 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
         throw new Error('Something wrong')
     }).then((responseJson) => {
         const jsonData : CryptoDataInfo = {
-            id: responseJson.data[id as string].id,
-            name: responseJson.data[id as string].name,
-            symbol: responseJson.data[id as string].symbol,
-            description: responseJson.data[id as string].description,
-            logo: responseJson.data[id as string].logo,
+            id: responseJson.id,
+            name: responseJson.name,
+            price: responseJson.market_data.current_price[`${convert}`],
+            price_change_percentage_24h: responseJson.market_data.price_change_percentage_24h,
+            symbol: responseJson.symbol.toUpperCase(),
+            description: responseJson.description.en,
+            logo: responseJson.image.large,
             urls: {
-                website: responseJson.data[id as string].urls.website,
-                twitter: responseJson.data[id as string].urls.twitter,
-                explorer: responseJson.data[id as string].urls.explorer,
-                source_code: responseJson.data[id as string].urls.source_code,
-                technical_doc: responseJson.data[id as string].urls.technical_doc,
-                message_board: responseJson.data[id as string].urls.message_board,
+                website: responseJson.links.homepage,
+                explorer: responseJson.links.blockchain_site,
+                source_code: responseJson.links.repos_url.github,
+                message_board: responseJson.links.chat_url,
             }
         }
         res.status(200).json(jsonData)

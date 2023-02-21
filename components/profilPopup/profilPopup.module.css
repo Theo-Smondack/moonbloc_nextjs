@@ -47,6 +47,7 @@
     padding: 10px;
     border-radius: 0.25rem;
     width: 200px;
+    cursor: pointer;
 }
 .profileSideBarContainerBodyItem:hover{
     background-color: var(--component-grey-one);
@@ -62,6 +63,7 @@
     border-radius: 0.25rem;
     padding: 10px;
     border: 1px solid var(--error-txt) !important;
+    cursor: pointer;
 }
 .logoutButton:hover{
     background-color: var(--error-bg-hover) !important;
