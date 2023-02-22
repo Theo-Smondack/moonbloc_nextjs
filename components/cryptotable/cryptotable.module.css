@@ -9,6 +9,15 @@
     padding: 10px;
     border-bottom: 1px solid var(--component-default-border-color);
 }
+.crypto_table tbody tr{
+    cursor:default;
+}
+.crypto_table tbody tr td:nth-child(1){
+    cursor:pointer;
+}
+.crypto_table tbody tr td:nth-child(3){
+    cursor:pointer;
+}
 
 .star path{
     color: var(--component-grey-one);
