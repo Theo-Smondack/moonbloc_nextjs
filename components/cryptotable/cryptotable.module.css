@@ -10,9 +10,12 @@
     border-bottom: 1px solid var(--component-default-border-color);
 }
 
-.crypto_table tr:hover{
+.star path{
+    color: var(--component-grey-one);
     cursor: pointer;
-    /*background-color: var(--component-grey-one);*/
+}
+.watchlisted path{
+    color: var(--watchlist-star) !important;
 }
 
 .name_div {
@@ -36,4 +39,47 @@
 
 .positive > path{
     color: green !important;
+}
+
+@media(max-width: 1096px){
+/*    make the last column include the last th of cryptotable display none*/
+    .crypto_table th:nth-last-child(1), .crypto_table td:nth-last-child(1){
+        display: none;
+    }
+}
+@media(max-width: 929px){
+    /*    make the two last column include the two last th of cryptotable display none*/
+    .crypto_table th:nth-last-child(2), .crypto_table td:nth-last-child(2){
+        display: none;
+    }
+}
+@media(max-width: 929px){
+    /*    make the two last column include the two last th of cryptotable display none*/
+    .crypto_table th:nth-last-child(2), .crypto_table td:nth-last-child(2){
+        display: none;
+    }
+    /*    make the fifth column disaply none include the fifth th*/
+    .crypto_table th:nth-child(5), .crypto_table td:nth-child(5){
+        display: none;
+    }
+}
+
+@media(max-width: 656px){
+    /*    make the two last column include the two last th of cryptotable display none*/
+    .crypto_table th:nth-last-child(2), .crypto_table td:nth-last-child(2){
+        display: none;
+    }
+    /*    make the fifth and sixth column display none include the fifth and the sixth*/
+
+    .crypto_table th:nth-child(5), .crypto_table td:nth-child(5){
+        display: none;
+    }
+    .crypto_table th:nth-child(7), .crypto_table td:nth-child(7){
+        display: none;
+    }
+/*    make cryptotable font size equal to 10pt*/
+    .crypto_table td, .crypto_table th{
+        font-size: 10pt;
+    }
+
 }

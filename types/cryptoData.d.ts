@@ -1,5 +1,5 @@
 export type CryptoData = {
-    id:number;
+    id:string;
     market_cap_rank:number;
     market_cap:number;
     percent_change_1h:number;

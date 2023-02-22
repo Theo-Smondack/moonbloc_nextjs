@@ -26,6 +26,12 @@ body {
     justify-content: flex-start;
     flex-direction: row;
 }
+@media(max-width: 656px){
+    .container{
+        overflow: hidden;
+    }
+
+}
 
 .txtGrey {
     color: #777c85 !important;
@@ -135,6 +141,7 @@ body {
     --success-bg: rgba(25, 135, 84, 0.7);
     --success-txt: rgb(10, 79, 49);
     --default-shadow: rgba(48, 56, 65, 0.5);
+    --watchlist-star: #ffdc73
 }
 
 [data-theme='dark'] {
