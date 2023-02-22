@@ -1,5 +1,6 @@
 import mongoose, {Schema, Document} from 'mongoose'
 import bcrypt from 'bcryptjs'
+import {CryptoData} from "../types/cryptoData";
 
 type UploadedImage = {
     data: Buffer;
@@ -11,6 +12,8 @@ export interface UserInput{
     firstName: string;
     lastName: string;
     password: string;
+    watchlist?: string[];
+
     profilePicture?: UploadedImage;
 }
 
@@ -20,14 +23,16 @@ export class UserClass implements UserInput {
     public firstName: string
     public lastName: string
     public password: string
+    public watchlist?: CryptoData['id'][] = []
     public profilePicture?: UploadedImage
 
-    constructor(email: string, firstName: string, lastName: string, password: string, profilePicture?: UploadedImage) {
+    constructor(email: string, firstName: string, lastName: string, password: string,watchlist?: CryptoData['id'][], profilePicture?: UploadedImage) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.profilePicture = profilePicture;
+        this.watchlist = watchlist;
     }
     public async compareLoginPassword(candidatePassword: string):Promise<boolean>{
         return bcrypt.compare(candidatePassword,this.password).catch(() => false);
@@ -46,6 +51,7 @@ const UserSchema: Schema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     password: {type: String, required: true},
+    watchlist: [{type: String,required: true}],
     profilePicture: {
         data: {type: Buffer},
         contentType: {type: String}

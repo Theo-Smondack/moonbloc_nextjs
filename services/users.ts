@@ -2,7 +2,7 @@ import User, {UserDocument, UserInput, UserClass} from "../models/User";
 import {FilterQuery, QueryOptions} from "mongoose";
 
 export async function createUser(input: UserInput) {
-    const user: UserClass = new UserClass(input.email, input.firstName, input.lastName, input.password, input.gender, input.address)
+    const user: UserClass = new UserClass(input.email, input.firstName, input.lastName, input.password, input.watchlist, input.profilePicture)
     const userExist = await User.findOne({email:user.email},'email',{lean:true})
     if (userExist){
         throw new Error("User already exist")
@@ -23,4 +23,8 @@ export async function loginUser({email, password}: { email: UserDocument['email'
         throw new Error("Invalid password");
     }
     return user
+}
+
+export async function updateUser(email: UserDocument['email'], update: Partial<UserInput>) {
+    return User.findOneAndUpdate({email}, update, {new: true})
 }

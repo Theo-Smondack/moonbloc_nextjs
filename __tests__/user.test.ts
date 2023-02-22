@@ -1,4 +1,4 @@
-import {createUser, findUser, loginUser} from "../services/users";
+import {createUser, findUser, loginUser, updateUser} from "../services/users";
 import User, {UserInput} from "../models/User";
 import mongoose from "mongoose";
 import DbConnection from "../utils/dbConnection";
@@ -23,7 +23,7 @@ describe("User model", () => {
         email: "john@example.com",
         firstName: "John",
         lastName: "Doe",
-        password: "johndpass123"
+        password: "johndpass123",
     }
 
     describe('Create user', () => {
@@ -35,6 +35,7 @@ describe("User model", () => {
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
+                expect(user.watchlist).toBeDefined();
                 console.log(user)
             });
         });
@@ -55,6 +56,7 @@ describe("User model", () => {
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
+                expect(user.watchlist).toBeDefined();
             });
         });
         describe('given email does not exist', () => {
@@ -96,4 +98,32 @@ describe("User model", () => {
 
         });
     })
+
+    describe('Update user', () => {
+        describe('given input is valid', () => {
+            it('should update the user', async () => {
+                const newUser = await createUser(userPayload);
+                const update = {
+                    firstName: "Jack",
+                    watchlist: ['bitcoin', 'ethereum']
+                }
+                const user = await updateUser(newUser.email, update);
+                expect(user?.firstName).toBe(update.firstName);
+                expect(user?.watchlist).toStrictEqual(update.watchlist);
+            });
+        });
+        describe('given input is wrong', () => {
+            it('should not add the user new prop : myProps', async () => {
+                const newUser = await createUser(userPayload);
+                console.log(newUser)
+                const update = {
+                    firstName: "John",
+                    myProps: 'bitcoin',
+                }
+                const user = await updateUser(newUser.email, update);
+                console.log(user)
+                expect(user?.myProps).toBeUndefined();
+            });
+        });
+    });
 });
