@@ -69,7 +69,7 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
                 })
             })();
         }
-    }, [watchlist, session])
+    }, [watchlist])
 
 
     const {data, error} = useSWR<CryptoDataList>(url, defaultDataFetcher)
