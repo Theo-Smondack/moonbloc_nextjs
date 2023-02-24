@@ -1,16 +1,17 @@
+import {getUserWatchlist} from "../../../services/users";
 import {NextApiRequest, NextApiResponse} from "next";
 import DbConnection from "../../../utils/dbConnection";
-import {createUser} from "../../../services/users";
-import {UserInput} from "../../../models/User";
+import {UserDocument} from "../../../models/User";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await DbConnection.getInstance()
-    const {method} = req
-    if (method === "POST") {
+    const {method,query} = req
+    const {email} = query
+    if (method === "GET") {
         try {
-            const signUpData = req.body.data as UserInput
-            const user = await createUser(signUpData)
-            return res.status(201).json({ok: true,user: user})
+            const userEmail = email as UserDocument['email']
+            const watchlist = await getUserWatchlist(userEmail)
+            return res.status(200).json({ok: true, watchlist: watchlist})
         } catch (error) {
             return res.status(422).json({ok: false, error: (error as Error).message})
         }

@@ -59,6 +59,14 @@
     margin-bottom: 10px;
 }
 
+.star path{
+    color: var(--component-grey-one);
+    cursor: pointer;
+}
+.watchlisted path{
+    color: var(--watchlist-star) !important;
+}
+
 .bottomContainer{
     display: flex;
     gap: 25px;

@@ -23,7 +23,7 @@ describe("User model", () => {
         email: "john@example.com",
         firstName: "John",
         lastName: "Doe",
-        password: "johndpass123",
+        password: "johndpass123"
     }
 
     describe('Create user', () => {
@@ -121,7 +121,6 @@ describe("User model", () => {
                     myProps: 'bitcoin',
                 }
                 const user = await updateUser(newUser.email, update);
-                console.log(user)
                 expect(user?.myProps).toBeUndefined();
             });
         });

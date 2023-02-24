@@ -5,37 +5,42 @@ import React, {useEffect, useState} from "react";
 import {PaginationProps} from "../../types/props";
 
 
-const Pagination: React.FC<PaginationProps> = (props) => {
-    const [pageIndex, setPageIndex] = useState<number>(props.currentPage)
+const Pagination = ({currentPage,pageCallback,totalPages}:PaginationProps) => {
+    const [pageIndex, setPageIndex] = useState<number>(currentPage)
     useEffect(() => {
-        setPageIndex(props.currentPage)
-    }, [props.currentPage])
+        setPageIndex(currentPage)
+    }, [currentPage])
 
     const switchPage = (value: number): void => {
-        if (value >= 1 && value <= 92) {
+        if (value >= 1 && value <= totalPages) {
             setPageIndex(value)
-            props.pageCallback(value);
+            pageCallback(value);
         }
     }
-
     let pages: any[] = Array.from({length: 6}, (_, x) => x + 1);
-    pages.push(...['...', 50])
 
-    if (props.currentPage >= 5) {
-        pages = [1, '...']
-        pages.push(...Array.from({length: 5}, (_, x) => x + props.currentPage - 2));
-        pages.push(...['...', 50])
+    if (totalPages > 8) {
+        pages.push(...['...', totalPages])
+        if (currentPage >= 5) {
+            pages = [1, '...']
+            pages.push(...Array.from({length: 5}, (_, x) => x + currentPage - 2));
+            pages.push(...['...', totalPages])
+        }
+
+        if (currentPage >= totalPages - 3) {
+            pages = [1, '...']
+            pages.push(...Array.from({length: 6}, (_, x) => x + totalPages - 5));
+        }
+
+        if (currentPage >= totalPages) {
+            pages = [1, '...']
+            pages.push(...Array.from({length: 6}, (_, x) => x + currentPage - 5));
+        }
+    }else if (totalPages < 8 && totalPages > 1) {
+        pages = Array.from({length: totalPages}, (_, x) => x + 1);
     }
 
-    if (props.currentPage >= 47) {
-        pages = [1, '...']
-        pages.push(...Array.from({length: 6}, (_, x) => x + 50 - 5));
-    }
 
-    if (props.currentPage >= 50) {
-        pages = [1, '...']
-        pages.push(...Array.from({length: 6}, (_, x) => x + props.currentPage - 5));
-    }
 
     return (
         <div className={styles.paginationContainer}>

@@ -23,10 +23,10 @@ export class UserClass implements UserInput {
     public firstName: string
     public lastName: string
     public password: string
-    public watchlist?: CryptoData['id'][] = []
+    public watchlist: CryptoData['id'][] = []
     public profilePicture?: UploadedImage
 
-    constructor(email: string, firstName: string, lastName: string, password: string,watchlist?: CryptoData['id'][], profilePicture?: UploadedImage) {
+    constructor(email: string, firstName: string, lastName: string, password: string,watchlist: CryptoData['id'][], profilePicture?: UploadedImage) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

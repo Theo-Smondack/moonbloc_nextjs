@@ -13,11 +13,13 @@ type CurrencyModalProps = {
 
 type CryptotableProps = {
     page:number|undefined;
+    isWatchlist:boolean;
 }
 
 type PaginationProps = {
     currentPage:number;
     pageCallback:(paginationPage:number) => void;
+    totalPages:number;
 }
 
 type LayoutProps = {

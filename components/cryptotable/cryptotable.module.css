@@ -26,6 +26,12 @@
 .watchlisted path{
     color: var(--watchlist-star) !important;
 }
+.noWatchlistContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
 
 .name_div {
     display: flex;
