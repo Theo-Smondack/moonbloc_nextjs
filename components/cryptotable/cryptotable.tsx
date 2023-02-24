@@ -57,6 +57,7 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
         if (session.data.user) {
             const userEmail = session.data.user.email as string
             (async () => {
+                console.log('updating watchlist', watchlist)
                 await fetch(`/api/user/update`, {
                     method: 'POST',
                     headers: {
