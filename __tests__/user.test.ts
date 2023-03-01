@@ -1,17 +1,15 @@
-import {createUser, findUser, loginUser, updateUser} from "../services/users";
+import {createUser, findUser, getUserWallets, loginUser, updateUser} from "../services/users";
 import User, {UserInput} from "../models/User";
-import mongoose from "mongoose";
+import {createWallet} from "../services/wallet";
 import DbConnection from "../utils/dbConnection";
 
+let instance: DbConnection;
 beforeAll(async () => {
-    console.log('Before all')
-    await DbConnection.getInstance()
+    instance = await DbConnection.getInstance();
 });
 
 afterAll(async () => {
-    console.log('After all')
-    await mongoose.disconnect();
-    console.log('Mongoose disconnected')
+    await instance.closeConnection();
 });
 
 describe("User model", () => {
@@ -29,14 +27,12 @@ describe("User model", () => {
     describe('Create user', () => {
         describe('given input is valid', () => {
             it('should create a new user', async () => {
-                // UploadImage()
                 const user = await createUser(userPayload);
                 expect(user.password).toHaveLength(60);
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
                 expect(user.watchlist).toBeDefined();
-                console.log(user)
             });
         });
         describe('given input is not valid', () => {
@@ -115,7 +111,6 @@ describe("User model", () => {
         describe('given input is wrong', () => {
             it('should not add the user new prop : myProps', async () => {
                 const newUser = await createUser(userPayload);
-                console.log(newUser)
                 const update = {
                     firstName: "John",
                     myProps: 'bitcoin',
@@ -123,6 +118,15 @@ describe("User model", () => {
                 const user = await updateUser(newUser.email, update);
                 expect(user?.myProps).toBeUndefined();
             });
+        });
+    });
+
+    describe('Get user wallets', () => {
+        it('should return the user wallets', async () => {
+            const newUser = await createUser(userPayload);
+            await createWallet({walletTitle: "wallet1"}, newUser._id);
+            const wallets = await getUserWallets(newUser.email);
+            expect(wallets).toHaveLength(1);
         });
     });
 });

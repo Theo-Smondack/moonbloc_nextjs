@@ -1,6 +1,8 @@
-import User, {UserDocument, UserInput, UserClass} from "../models/User";
+import User, {UserClass, UserDocument, UserInput} from "../models/User";
 import {FilterQuery, QueryOptions} from "mongoose";
 import {CryptoData} from "../types/cryptoData";
+import {findWallets} from "./wallet";
+import {WalletDocument} from "../models/Wallet";
 
 export async function createUser(input: UserInput) {
     const user: UserClass = new UserClass(input.email, input.firstName, input.lastName, input.password, input.watchlist as CryptoData['id'][], input.profilePicture)
@@ -32,6 +34,14 @@ export async function getUserWatchlist(email: UserDocument['email']) {
         throw new Error("User does not exist");
     }
     return user.watchlist
+}
+
+export async function getUserWallets(email: UserDocument['email']): Promise<WalletDocument[]> {
+    const user = await findUser({email}, {lean: false});
+    if (!user) {
+        throw new Error("User does not exist");
+    }
+    return await findWallets({userID: user._id})
 }
 
 export async function updateUser(email: UserDocument['email'], update: Partial<UserInput>) {

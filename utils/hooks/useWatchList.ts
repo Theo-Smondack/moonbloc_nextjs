@@ -16,6 +16,7 @@ const useWatchlist = () => {
             const userEmail = data.user.email as string
             (async () => {
                 const res = await fetch(`/api/user/watchlist?email=${userEmail}`).then(res => res.json(), error => console.log(error))
+                console.log('fetching watchlist', res.watchlist)
                 res.ok ? setWatchlist(res.watchlist) : null
             })()
         }

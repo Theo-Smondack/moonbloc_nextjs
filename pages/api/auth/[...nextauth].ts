@@ -31,10 +31,11 @@ export const authOptions = {
 
 
         })
+
     ],
     jwt:{
         maxAge:5
-    }
+    },
 }
 
 export default NextAuth(authOptions)
