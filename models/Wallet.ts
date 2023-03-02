@@ -1,4 +1,4 @@
-import {CryptoData} from "../types/cryptoData";
+
 import mongoose, {model, Schema} from "mongoose";
 
 export interface WalletInput {
@@ -8,16 +8,15 @@ export interface WalletInput {
 export class WalletClass implements WalletInput {
     public walletTitle: string;
     public userID: mongoose.Types.ObjectId;
-    public assets: CryptoData['id'][] = [];
 
-    constructor(walletTitle: string, userID: mongoose.Types.ObjectId, assets: CryptoData['id'][]) {
+    constructor(walletTitle: string, userID: mongoose.Types.ObjectId) {
         this.walletTitle = walletTitle;
         this.userID = userID;
-        this.assets = assets;
     }
 }
 
 export interface WalletDocument extends WalletClass, Document {
+    _id: mongoose.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -25,7 +24,6 @@ export interface WalletDocument extends WalletClass, Document {
 const WalletSchema: Schema = new Schema({
         walletTitle: {type: String, required: true},
         userID: {type: mongoose.Types.ObjectId, ref: 'User', required: true},
-        assets: [{type: String, required: true}]
     }, {
         timestamps: true
     }

@@ -65,3 +65,6 @@ export function findMinMax(numbers: number[]): { min: number, max: number } {
     return {min, max};
 }
 
+export const removeNullUndefined = (obj: { [key: string]: any }) => Object.entries(obj).reduce((a: { [key: string]: any }, [k, v]) => (v == null ? a : ((a[k] = v), a)), {});
+
+
