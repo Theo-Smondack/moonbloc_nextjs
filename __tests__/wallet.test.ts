@@ -19,17 +19,23 @@ let instance: DbConnection;
 
 beforeAll(async () => {
     instance = await DbConnection.getInstance();
-    user = await createUser(userPayload);
+    await Wallet.deleteMany({});
+    await User.deleteMany({});
 });
 
 afterAll(async () => {
-    await User.deleteMany({});
     await instance.closeConnection();
 });
 
 describe('Wallet model', () => {
+    beforeEach(async () => {
+        user = await createUser(userPayload);
+    });
+
     afterEach(async () => {
+        await User.deleteMany({});
         await Wallet.deleteMany({});
+        await Transaction.deleteMany({});
     });
 
     const walletPayload: WalletInput = {

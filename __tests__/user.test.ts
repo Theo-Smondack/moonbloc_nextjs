@@ -2,6 +2,8 @@ import {createUser, findUser, getUserWallets, loginUser, updateUser} from "../se
 import User, {UserInput} from "../models/User";
 import {createWallet} from "../services/wallet";
 import DbConnection from "../utils/dbConnection";
+import Wallet from "../models/Wallet";
+import Transaction from "../models/Transaction";
 
 let instance: DbConnection;
 beforeAll(async () => {
@@ -15,6 +17,8 @@ afterAll(async () => {
 describe("User model", () => {
     afterEach(async () => {
         await User.deleteMany({});
+        await Wallet.deleteMany({});
+        await Transaction.deleteMany({});
     });
 
     const userPayload: UserInput = {

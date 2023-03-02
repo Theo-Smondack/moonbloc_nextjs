@@ -1,6 +1,6 @@
 import DbConnection from "../utils/dbConnection";
-import {UserDocument, UserInput} from "../models/User";
-import {WalletDocument, WalletInput} from "../models/Wallet";
+import User, {UserDocument, UserInput} from "../models/User";
+import Wallet, {WalletDocument, WalletInput} from "../models/Wallet";
 import {createUser} from "../services/users";
 import {createWallet} from "../services/wallet";
 import Transaction, {TransactionInput} from "../models/Transaction";
@@ -22,8 +22,6 @@ const walletPayload:WalletInput = {
 
 beforeAll(async () => {
     instance = await DbConnection.getInstance();
-    user = await createUser(userPayload);
-    wallet = await createWallet(walletPayload, user._id);
 });
 
 afterAll(async () => {
@@ -31,7 +29,13 @@ afterAll(async () => {
 });
 
 describe('Transaction model', () => {
+    beforeEach(async () => {
+        user = await createUser(userPayload);
+        wallet = await createWallet(walletPayload, user._id);
+    })
     afterEach(async () => {
+        await User.deleteMany({});
+        await Wallet.deleteMany({});
         await Transaction.deleteMany({});
     });
 
