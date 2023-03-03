@@ -1,6 +1,6 @@
 import {CryptoData} from "../types/cryptoData";
 import {Currency} from "../types/currency";
-import mongoose, {model, Schema} from "mongoose";
+import mongoose, {model, models, Schema} from "mongoose";
 
 export interface TransactionInput {
     type: 'buy' | 'sell';
@@ -55,4 +55,4 @@ const TransactionSchema: Schema = new Schema({
 
 });
 
-export default model<TransactionDocument>('Transaction', TransactionSchema);
+export default models.Transaction || model<TransactionDocument>('Transaction', TransactionSchema);

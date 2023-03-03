@@ -1,5 +1,5 @@
 
-import mongoose, {model, Schema} from "mongoose";
+import mongoose, {model, models, Schema} from "mongoose";
 
 export interface WalletInput {
     walletTitle: string;
@@ -29,4 +29,4 @@ const WalletSchema: Schema = new Schema({
     }
 );
 
-export default model<WalletDocument>('Wallet', WalletSchema);
+export default models.Wallet || model<WalletDocument>('Wallet', WalletSchema);
