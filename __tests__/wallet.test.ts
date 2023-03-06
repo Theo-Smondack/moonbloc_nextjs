@@ -1,7 +1,13 @@
 import User, {UserDocument, UserInput} from "../models/User";
 import Wallet, {WalletDocument, WalletInput} from "../models/Wallet";
 import {createUser} from "../services/users";
-import {createWallet, findWallets, getWalletAssetsQuantity, getWalletTransactions} from "../services/wallet";
+import {
+    createWallet, deleteWallet,
+    findWallets,
+    getWalletAssetsQuantity,
+    getWalletTransactions,
+    updateWallet
+} from "../services/wallet";
 import DbConnection from "../utils/dbConnection";
 import {createTransaction} from "../services/transactions";
 import Transaction from "../models/Transaction";
@@ -58,11 +64,11 @@ describe('Wallet model', () => {
             });
             it('should throw an Error: "This user already has the maximum of wallets"', async () => {
                 await createWallet(walletPayload, user._id);
-                await createWallet({walletTitle:"Wallet 2"}, user._id);
-                await createWallet({walletTitle:"Wallet 3"}, user._id);
-                await createWallet({walletTitle:"Wallet 4"}, user._id);
-                await createWallet({walletTitle:"Wallet 5"}, user._id);
-                const newWallet = createWallet({walletTitle:"Wallet 6"}, user._id);
+                await createWallet({walletTitle: "Wallet 2"}, user._id);
+                await createWallet({walletTitle: "Wallet 3"}, user._id);
+                await createWallet({walletTitle: "Wallet 4"}, user._id);
+                await createWallet({walletTitle: "Wallet 5"}, user._id);
+                const newWallet = createWallet({walletTitle: "Wallet 6"}, user._id);
                 await expect(newWallet).rejects.toThrow(new Error('This user already has the maximum of wallets'))
             });
         })
@@ -71,8 +77,8 @@ describe('Wallet model', () => {
         describe('given input is valid', () => {
             it('should return an array of wallets', async () => {
                 await createWallet(walletPayload, user._id);
-                await createWallet({walletTitle:"Wallet 2"}, user._id);
-                await createWallet({walletTitle:"Wallet 3"}, user._id);
+                await createWallet({walletTitle: "Wallet 2"}, user._id);
+                await createWallet({walletTitle: "Wallet 3"}, user._id);
                 const wallets = await findWallets({userID: user._id})
                 expect(wallets).toHaveLength(3)
             });
@@ -81,11 +87,43 @@ describe('Wallet model', () => {
 
     })
 
-    async function addTransactions(wallet:WalletDocument){
-        await createTransaction({date: new Date(2022,2,12,1,35,5), fee: 0.02, from: "usd", price: 120, quantity: 1, to: "ethereum", type: "buy"}, wallet._id);
-        await createTransaction({date: new Date(2023,0,25,13,14,46), fee: 0.02, from: "usd", price: 120, quantity: 1, to: "bitcoin", type: "buy"}, wallet._id);
-        await createTransaction({date: new Date(2023,1,20,10,54,18), fee: 0.02, from: "ethereum", price: 250, quantity: 0.745, to: "usd", type: "sell"}, wallet._id);
-        await createTransaction({date: new Date(2023,1,20,10,54,18), fee: 0.02, from: "usd", price: 250, quantity: 0.0013567, to: "bitcoin", type: "buy"}, wallet._id);
+    async function addTransactions(wallet: WalletDocument) {
+        await createTransaction({
+            date: new Date(2022, 2, 12, 1, 35, 5),
+            fee: 0.02,
+            from: "usd",
+            price: 120,
+            quantity: 1,
+            to: "ethereum",
+            type: "buy"
+        }, wallet._id);
+        await createTransaction({
+            date: new Date(2023, 0, 25, 13, 14, 46),
+            fee: 0.02,
+            from: "usd",
+            price: 120,
+            quantity: 1,
+            to: "bitcoin",
+            type: "buy"
+        }, wallet._id);
+        await createTransaction({
+            date: new Date(2023, 1, 20, 10, 54, 18),
+            fee: 0.02,
+            from: "ethereum",
+            price: 250,
+            quantity: 0.745,
+            to: "usd",
+            type: "sell"
+        }, wallet._id);
+        await createTransaction({
+            date: new Date(2023, 1, 20, 10, 54, 18),
+            fee: 0.02,
+            from: "usd",
+            price: 250,
+            quantity: 0.0013567,
+            to: "bitcoin",
+            type: "buy"
+        }, wallet._id);
     }
 
     describe('Find transactions', () => {
@@ -93,22 +131,25 @@ describe('Wallet model', () => {
         beforeEach(async () => {
             wallet = await createWallet(walletPayload, user._id);
             await addTransactions(wallet);
-          });
+        });
 
         afterEach(async () => {
             await Transaction.deleteMany({});
         })
         describe('given input is valid', () => {
             it('should return a array of transaction with a length of 4', async () => {
-                const transactions = await getWalletTransactions({walletID:wallet._id});
+                const transactions = await getWalletTransactions({walletID: wallet._id});
                 expect(transactions).toHaveLength(4)
             });
             it('should return a array of transaction with a length of 2', async () => {
-                const transactions = await getWalletTransactions({walletID:wallet._id, assets:"ethereum"});
+                const transactions = await getWalletTransactions({walletID: wallet._id, assets: "ethereum"});
                 expect(transactions).toHaveLength(2)
             });
             it('should return a array of transaction with a length of 1', async () => {
-                const transactions = await getWalletTransactions({walletID:wallet._id, date:new Date(2023,0,26)},false);
+                const transactions = await getWalletTransactions({
+                    walletID: wallet._id,
+                    date: new Date(2023, 0, 26)
+                }, false);
                 expect(transactions).toHaveLength(2)
             });
 
@@ -120,16 +161,37 @@ describe('Wallet model', () => {
         it('should return an object with bitcoin value to 1.0013567 and ethereum to 0.255', async () => {
             const wallet = await createWallet(walletPayload, user._id);
             await addTransactions(wallet);
-            const assetsQuantity = await getWalletAssetsQuantity({walletID:wallet._id});
-            expect(assetsQuantity).toEqual({bitcoin:1.0013567,ethereum:0.255})
+            const assetsQuantity = await getWalletAssetsQuantity({walletID: wallet._id});
+            expect(assetsQuantity).toEqual({bitcoin: 1.0013567, ethereum: 0.255})
         });
         it('should return an object with bitcoin value to 1 and ethereum to 1', async () => {
             const wallet = await createWallet(walletPayload, user._id);
             await addTransactions(wallet);
-            const assetsQuantity = await getWalletAssetsQuantity({walletID:wallet._id, date:new Date(2023,0,26)});
-            expect(assetsQuantity).toEqual({bitcoin:1,ethereum:1})
+            const assetsQuantity = await getWalletAssetsQuantity({walletID: wallet._id, date: new Date(2023, 0, 26)});
+            expect(assetsQuantity).toEqual({bitcoin: 1, ethereum: 1})
         });
 
+    });
+
+    describe('Update wallet', () => {
+        it('should update a wallet', async () => {
+            const wallet = await createWallet(walletPayload, user._id);
+            const updatedWallet = await updateWallet({
+                walletID: wallet._id,
+                walletTitle: "New wallet title",
+                userID: user._id
+            });
+            expect(updatedWallet.walletTitle).toBe("New wallet title");
+        });
+    });
+
+    describe('Delete wallet', () => {
+        it('should delete wallet', async () => {
+            const wallet = await createWallet(walletPayload, user._id);
+            await deleteWallet(wallet._id);
+            const deletedWallet = await Wallet.findById(wallet._id);
+            expect(deletedWallet).toBeNull();
+        });
     });
 
 });

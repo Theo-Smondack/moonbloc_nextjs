@@ -35,6 +35,16 @@ export async function findWallets(query: FilterQuery<WalletDocument>, options: Q
     return Wallet.find(query, null, options);
 }
 
+export async function updateWallet({walletID, walletTitle,userID}: { walletID: mongoose.Types.ObjectId, walletTitle: string, userID:mongoose.Types.ObjectId}) {
+    const walletExist = await Wallet.findOne({walletTitle:walletTitle,userID},'walletTitle',{lean:true})
+    if (!walletExist) return Wallet.findOneAndUpdate({_id:walletID}, {walletTitle:walletTitle}, {new: true})
+}
+
+export async function deleteWallet(walletID: mongoose.Types.ObjectId) {
+    const wallet = await Wallet.findOne({_id:walletID},null,{lean:true})
+    if (wallet) await Wallet.deleteOne({_id:walletID})
+}
+
 export async function getWalletTransactions(filter:WalletTransactionFilter,isEndDate?:boolean,fields?:string): Promise<TransactionDocument[]> {
     if (!filter.walletID) throw new Error('walletID is required');
     const parsedFilters = removeNullUndefined({
@@ -72,3 +82,4 @@ export async function getWalletAssetsQuantity(filter:WalletTransactionFilterWith
     }
     return {}
 }
+
