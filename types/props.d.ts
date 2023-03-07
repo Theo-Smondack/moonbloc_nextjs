@@ -48,3 +48,7 @@ type CryptoUrlsProps = {
 type CryptoChartProps = {
     id:string;
 }
+
+type createWalletModalProps = {
+    showCallback:(show:boolean)=>void;
+}
