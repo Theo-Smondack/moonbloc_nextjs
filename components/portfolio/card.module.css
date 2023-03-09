@@ -1,0 +1,23 @@
+.card{
+    background-color: var(--bg);
+    border: 1px solid var(--component-grey-one);
+    border-radius: 2rem;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.hoveredCard{
+    border-color: var(--component-blue);
+    outline: 2px solid var(--component-blue);
+}
+
+.cardTitleContainer{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+}

@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })
         return
     }
-    const {walletTitle, userEmail,walletID} = req.body;
+    const {walletTitle,userEmail,walletID} = req.body;
     if (!walletTitle || !userEmail || !walletID || typeof walletTitle !== 'string' || !isEmail(userEmail)) {
         res.status(400).json({
             ok: false,
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const {_id} = await findUser({email: userEmail})
         try {
             await updateWallet({walletID,walletTitle,userID:_id})
-            res.status(200).json({ok: true})
+            res.status(200).json({ok: true, message: 'Wallet updated successfully'})
         } catch (error) {
             res.status(400).json({
                 ok: false,

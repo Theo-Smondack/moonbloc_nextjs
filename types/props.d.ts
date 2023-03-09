@@ -49,6 +49,20 @@ type CryptoChartProps = {
     id:string;
 }
 
-type createWalletModalProps = {
-    showCallback:(show:boolean)=>void;
+type WalletModalProps = {
+    type: 'create' | 'edit';
+    showCallback:(show:boolean,type:WalletModalProps['type'],walletID?:string)=>void;
+    walletID?:string;
+}
+type CardProps = {
+    index:number;
+    id:string;
+    title:string;
+}
+
+type CardPopupProps = {
+    index:number;
+    hoverCallback:(hover:boolean)=>void;
+    id:string;
+
 }

@@ -24,8 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const {_id} = await findUser({email: userEmail})
         try {
-            await createWallet({walletTitle: walletTitle}, _id)
-            res.status(200).json({ok: true, message: "Wallet created successfully"})
+            const wallet = await createWallet({walletTitle: walletTitle}, _id)
+            res.status(200).json({ok: true, message: "Wallet created successfully", wallet : wallet})
         } catch (error) {
             res.status(400).json({
                 ok: false,

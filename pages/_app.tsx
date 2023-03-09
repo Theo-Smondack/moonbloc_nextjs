@@ -14,6 +14,7 @@ import StatusProvider from "../context/status";
 import {SessionProvider} from "next-auth/react";
 import Head from "next/head"
 import WatchlistProvider from "../context/watchlist";
+import WalletsProvider from "../context/wallets";
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -37,13 +38,15 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
                 <StatusProvider>
                     <CurrencyProvider>
                         <WatchlistProvider>
-                            <AuthModalProvider>
-                                <Head>
-                                    <title>{siteTitle}</title>
-                                    <link rel="icon" href="/favicon.ico"/>
-                                </Head>
-                                {getLayout(<Component {...pageProps}/>)}
-                            </AuthModalProvider>
+                            <WalletsProvider>
+                                <AuthModalProvider>
+                                    <Head>
+                                        <title>{siteTitle}</title>
+                                        <link rel="icon" href="/favicon.ico"/>
+                                    </Head>
+                                    {getLayout(<Component {...pageProps}/>)}
+                                </AuthModalProvider>
+                            </WalletsProvider>
                         </WatchlistProvider>
                     </CurrencyProvider>
                 </StatusProvider>

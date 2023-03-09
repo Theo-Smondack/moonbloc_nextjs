@@ -1,0 +1,60 @@
+.cardPopup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    justify-content: center;
+    background-color: var(--bg);
+    height: max-content !important;
+    margin-left: -150px;
+    position: absolute;
+    border: 1px solid var(--component-default-border-color);
+    box-shadow: 10px 10px 10px var(--default-shadow);
+    transition: all 0.2s ease-in-out;
+    border-radius: 1rem;
+    padding: 25px;
+}
+.cardPopupContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: fit-content;
+    margin: 0 !important;
+    gap: 5px;
+}
+.cardPopupContainerItem{
+    padding: 10px;
+    border-radius: 0.25rem;
+    width: 100px;
+    cursor: pointer;
+}
+.deleteItem{
+    color: var(--error-txt);
+    background-color: var(--error-bg);
+}
+.deleteItem > svg > path{
+    color: var(--error-txt);
+}
+
+.deleteItem:hover{
+    background-color: var(--error-bg-hover) !important;
+}
+.ellipsisContainer{
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.ellipsisContainer:hover:not(:has(.cardPopup:hover)){
+    background-color: var(--component-grey-one);
+}
+
+.ellipsis{
+    font-size: 1.5rem;
+}
+.cardPopupContainerItem:hover{
+    background-color: var(--component-grey-one);
+}
+.itemIcon{
+    margin-right: 10px;
+}

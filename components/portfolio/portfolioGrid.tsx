@@ -1,57 +1,48 @@
 import styles from './portfolioGrid.module.css'
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEllipsis, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import WalletModal from "./walletModal";
 import {useSession} from "next-auth/react";
+import Card from "./card";
+import {useWalletsContext} from "../../context/wallets";
 import {WalletDocument} from "../../models/Wallet";
+import {getDataFromApi} from "../../utils/toolFunctions";
+import {WalletModalProps} from "../../types/props";
+import {useWalletModalContext} from "../../context/walletModal";
 
 const PortfolioGrid = () => {
     const {data} = useSession()
-    const [portfolioList, setPortfolioList] = useState<WalletDocument[]>([]);
-    const [showWalletModal, setShowWalletModal] = useState<boolean>(false);
-
-    const getUserWallets = async (url: RequestInfo | URL) => {
-        const res = await fetch(url, {method: 'GET'})
-        return res.json()
-    }
-
-
+    const {wallets} = useWalletsContext()
+    const [walletList, setWalletList] = useState<WalletDocument[]>([])
+    const {state,setState} = useWalletModalContext()
 
     useEffect(() => {
         if (data?.user?.email) {
-            getUserWallets(`/api/user/wallet/find?userEmail=${data?.user?.email}`).then(r => setPortfolioList(r.wallets))
+            getDataFromApi(`/api/user/wallet/find?userEmail=${data?.user?.email}`).then(r => setWalletList(r.wallets))
         }
         return
-    }, [data])
+    }, [wallets])
 
-    const showModal = (show:boolean) => {
+    const showModal = (show:boolean,type:WalletModalProps['type'],walletID?:string) => {
         show ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'unset';
-        setShowWalletModal(show);
-        if (!show) getUserWallets(`/api/user/wallet/find?userEmail=${data?.user?.email}`).then(r => setPortfolioList(r.wallets))
+        setState({show,type,walletID});
     }
 
     return (
         <div className={styles.container}>
-            {showWalletModal ? <WalletModal showCallback={showModal}/> : null}
+            {state.show ? <WalletModal showCallback={showModal} type={state.type} walletID={state.walletID}/> : null}
             <div className={styles.grid}>
-                {portfolioList.length < 5 ?
+                {walletList.length < 5 ?
                     (
-                        <div className={styles.addCard} onClick={() => showModal(true)}>
+                        <div className={styles.addCard} onClick={() => showModal(true,'create')}>
                             <FontAwesomeIcon icon={faPlus} className={styles.addWalletIcon}/>
                         </div>) : null}
                 {
-                    portfolioList.map((portfolio,index) => {
+                    walletList.map((portfolio,index) => {
                         const id = portfolio._id as unknown as string
                         return (
-                            <div className={styles.card} key={index}>
-                                <div className={styles.ellipsisContainer} onClick={() => alert(id)}>
-                                    <FontAwesomeIcon icon={faEllipsis} className={styles.ellipsis}/>
-                                </div>
-                                <div className={styles.cardTitleContainer}>
-                                    <h2>{portfolio.walletTitle}</h2>
-                                </div>
-                            </div>
+                            <Card id={id} title={portfolio.walletTitle} key={index} index={index}/>
                         )
                     })
                 }
