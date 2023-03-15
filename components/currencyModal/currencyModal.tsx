@@ -6,6 +6,7 @@ import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import {Currency} from "../../types/currency";
 import Currencies from "../../utils/currencies";
 import {CurrencyModalProps} from "../../types/props";
+import Image from "next/image";
 
 const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
     useEffect(() => {
@@ -25,7 +26,6 @@ const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
 
     const value = useCurrencyContext();
     const currencySelected : Currency | undefined = value.state.currency
-    const _symbol : string | undefined = currencySelected?.symbol
     const changeCurrency = (currency : Currency) => {
         value.setCurrency(currency);
         setShow(false);
@@ -33,10 +33,10 @@ const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
 
     return (
         <div style={{position: props.pos,display:"flex",justifyContent:"center"}}>
-            <button title="Choose currency" onClick={() => setShow(!isShow)}>
-                <span>{_symbol}</span>
+            <button className={styles.chooseCurrencyButton} title="Choose currency" onClick={() => setShow(!isShow)}>
+                <span><Image src={currencySelected?.image as string} alt={'Currency logo'} width={20} height={20}/></span>
                 <span>{currencySelected?.value}</span>
-                <span>
+                <span style={{marginLeft:3}}>
                     <FontAwesomeIcon
                         icon={faCaretDown}
                         style={{fontSize: 12}}
@@ -61,7 +61,7 @@ const CurrencyModal:React.FC<CurrencyModalProps> = (props) => {
                                          onClick={() => changeCurrency(currency)}>
                                         <div>
                                             <span className={spanClassName}>{currency.name}</span>
-                                            <span className={_txtGrey}>{currency.value} - {currency.symbol}</span>
+                                            <span className={`${_txtGrey} ${styles.symbolImage}`}>{currency.value} - <Image src={currency.image} alt={'Currency logo'} width={20} height={20}/></span>
                                         </div>
                                     </div>
                                 )

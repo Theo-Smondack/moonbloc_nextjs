@@ -5,7 +5,7 @@ import {createUser} from "../../../../services/users";
 import {createWallet} from "../../../../services/wallet";
 import Transaction from "../../../../models/Transaction";
 import {createTransaction} from "../../../../services/transactions";
-import handler from "../../../../pages/api/user/wallet/find/[wallet]";
+import handler from "../../../../pages/api/user/wallet/find/[id]";
 import {NextApiRequest, NextApiResponse} from "next";
 
 let instance:DbConnection;
@@ -57,8 +57,7 @@ describe('Get wallet details', () => {
             const req = {
                 method: 'GET',
                 query: {
-                    title : wallet.walletTitle,
-                    walletID: wallet._id
+                    id: wallet._id
                 }
             }
             const res = {

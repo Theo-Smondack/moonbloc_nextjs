@@ -2,9 +2,13 @@ import {WalletDocument} from "../models/Wallet";
 import {walletAssets} from "../services/wallet";
 
 export type WalletResponse = {
-    walletTitle: WalletDocument['walletTitle'];
-    walletID: WalletDocument['_id'];
-    assets: walletAssets;
+    ok : boolean;
+    wallet:{
+        walletTitle: WalletDocument['walletTitle'];
+        walletID: WalletDocument['_id'] | string;
+        assets: walletAssets;
+    }
+
 }
 
 export type WalletsState = WalletDocument[];

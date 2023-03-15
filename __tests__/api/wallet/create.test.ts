@@ -50,7 +50,7 @@ describe("Wallet create api", () => {
             }
             await create(req as NextApiRequest, res as unknown as NextApiResponse);
             expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith({ok: true});
+            expect(res.json).toHaveBeenCalledWith({ok: true, message: "Wallet created successfully",wallet:res.json.mock.calls[0][0].wallet});
         });
     })
     describe("given input is not valid",  () => {
@@ -66,7 +66,7 @@ describe("Wallet create api", () => {
             expect(res.status).toHaveBeenCalledWith(405);
             expect(res.json).toHaveBeenCalledWith({ok: false, error: "Method not allowed"});
         });
-         it('should throw an Error  : "Invalid credentials"', function () {
+         it('should throw an Error  : "Invalid credentials"', async function () {
             const req = {
                 method: "POST",
                 body: {
@@ -78,7 +78,7 @@ describe("Wallet create api", () => {
                 status: jest.fn().mockReturnThis(),
                 json: jest.fn().mockReturnThis(),
             };
-            create(req as NextApiRequest, res as unknown as NextApiResponse);
+            await create(req as NextApiRequest, res as unknown as NextApiResponse);
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.json).toHaveBeenCalledWith({ok: false, error: "Invalid credentials"});
         });

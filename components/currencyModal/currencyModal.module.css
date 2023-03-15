@@ -39,6 +39,16 @@
     width: 100%;
 }
 
+.symbolImage{
+    display: flex;
+    align-items: center;
+}
+.chooseCurrencyButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .selected{
     background-color: var(--component-blue);
 }

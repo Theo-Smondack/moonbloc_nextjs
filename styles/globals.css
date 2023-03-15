@@ -55,7 +55,7 @@ body {
 }
 
 .bgBlueButton {
-    color: #F3F3F3;;
+    color: #F3F3F3;
     background-color: var(--component-blue) !important;
     border-radius: 0.25rem;
 }

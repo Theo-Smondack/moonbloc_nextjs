@@ -66,3 +66,12 @@ type CardPopupProps = {
     id:string;
 
 }
+
+type NoAssetWalletProps = {
+    walletID:string;
+}
+
+type TransactionModalProps = {
+    showCallback:(show:boolean)=>void;
+
+}

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "NODE_EN=test jest --watch --verbose true"
+    "test": "NODE_EN=test jest --watch --runInBand --verbose true"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

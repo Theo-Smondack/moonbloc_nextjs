@@ -2,7 +2,7 @@ import styles from './cardPopup.module.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEllipsis, faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {CardPopupProps} from "../../types/props";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useWalletsContext} from "../../context/wallets";
 import {useWalletModalContext} from "../../context/walletModal";
 
@@ -48,9 +48,14 @@ const CardPopup = ({id,hoverCallback}: CardPopupProps) => {
         }, 10)
     }
 
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation()
+        setShowPopup(true)
+    }
+
 
     return (
-        <div className={styles.ellipsisContainer} onClick={() => setShowPopup(true)} onMouseEnter={() => hoverCallback(false)}
+        <div className={styles.ellipsisContainer} onClick={(e) => handleClick(e)} onMouseEnter={() => hoverCallback(false)}
              onMouseLeave={() => hoverCallback(true)}>
             <FontAwesomeIcon icon={faEllipsis} className={styles.ellipsis}/>
             {showPopup ?
