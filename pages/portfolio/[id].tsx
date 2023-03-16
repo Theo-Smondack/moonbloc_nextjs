@@ -36,7 +36,7 @@ const PortfolioPage: NextPageWithLayout = () => {
     return (
         <div className={styles.container}>
             <h1>{walletTitle}</h1>
-            {Object.keys(assets).length ? <div>Il y a des assets</div> : <NoAssetWallet walletID={walletID as string}/>}
+            {Object.keys(assets).length ? <div>Il y a des assets</div> : <NoAssetWallet walletID={walletID as string} walletTitle={walletTitle}/>}
         </div>
     );
 }

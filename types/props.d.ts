@@ -2,6 +2,7 @@ import {Property} from "csstype";
 import Position = Property.Position;
 import React, {ReactNode} from "react";
 import {CryptoDataUrls} from "./cryptoData";
+import {WalletDocument} from "../models/Wallet";
 
 type IProps = {
     children:ReactNode;
@@ -69,6 +70,13 @@ type CardPopupProps = {
 
 type NoAssetWalletProps = {
     walletID:string;
+    walletTitle:WalletDocument['walletTitle'];
+}
+
+type AssetSelectorProps = {
+    walletTitle:WalletDocument['walletTitle'];
+    showCallback:(show:boolean)=>void;
+
 }
 
 type TransactionModalProps = {

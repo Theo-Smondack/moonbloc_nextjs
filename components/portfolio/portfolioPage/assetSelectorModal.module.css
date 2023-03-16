@@ -48,42 +48,10 @@
     gap: 1rem;
     padding: 15px;
 }
-.typeContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.type{
-    padding: 15px 30px;
-    border: solid var(--component-blue);
-    cursor: pointer;
-    font-size: 12pt;
-    font-weight: 600;
-    color: var(--component-blue);
-}
-.leftType{
-    border-width: 1px 0 1px 1px;
-    border-radius: 0.5rem 0 0 0.5rem;
-
-}
-.rightType{
-    border-radius: 0 0.5rem 0.5rem 0;
-    border-width: 1px 1px 1px 0;
-}
-.activeType{
-    background-color: var(--component-blue);
-    color: #F3F3F3;
-}
 
 .inputGroup {
     display: flex;
     flex-direction: column;
-}
-
-.inputSelectGroup {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
 }
 
 .inputLabel{
@@ -100,19 +68,28 @@
     font-size: 12pt;
     outline-color: var(--component-blue);
 }
-.selectorButton{
-    display: flex;
-    align-items: center;
-    gap:3px;
 
+.searchResultContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--component-grey-one);
+    padding: 10px;
+    border-radius: 0.5rem;
+}
+.searchResultContainer:hover{
+    background-color: var(--component-grey-one);
+    cursor: pointer;
 }
 
-
-.formButton{
-    margin-top: 1rem;
+.searchResultName{
     font-size: 12pt;
-    padding: 15px;
-    outline: none;
+    margin-left: 10px;
+}
+.searchResultSymbol{
+    font-size: 12pt;
+    font-weight: 300;
+    margin-left: 5px;
 }
 
 @media (max-width: 570px) {
