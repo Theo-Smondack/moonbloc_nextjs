@@ -14,10 +14,10 @@ import {Line} from "react-chartjs-2";
 import React, {useRef, useState} from "react";
 import {CryptoChartProps} from "../../types/props";
 import useSWR from "swr";
-import {defaultDataFetcher} from "../../utils/fetchers";
+import {defaultDataFetcher} from "../../helpers/fetchers";
 import {useCurrencyContext} from "../../context/currency";
 import {useTheme} from "next-themes";
-import {findMinMax} from "../../utils/toolFunctions";
+import {findMinMax} from "../../helpers/toolFunctions";
 
 const CryptoChart = ({id}: CryptoChartProps) => {
 

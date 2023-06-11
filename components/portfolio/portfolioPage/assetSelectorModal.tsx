@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import Image from "next/image";
-import {Cryptos} from "../../../utils/allCryptos";
+import {Cryptos} from "../../../helpers/allCryptos";
 
 export type searchValue = {
     symbol: string,

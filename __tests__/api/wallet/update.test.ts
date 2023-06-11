@@ -1,7 +1,7 @@
 import update from "../../../pages/api/user/wallet/update";
 import {NextApiRequest, NextApiResponse} from "next";
 import User, {UserDocument, UserInput} from "../../../models/User";
-import DbConnection from "../../../utils/dbConnection";
+import DbConnection from "../../../helpers/dbConnection";
 import {createUser} from "../../../services/users";
 import {createWallet} from "../../../services/wallet";
 import Wallet, {WalletDocument} from "../../../models/Wallet";

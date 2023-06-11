@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState} from "react";
-import Currencies from "../utils/currencies";
+import Currencies from "../helpers/currencies";
 import {Currency,CurrencyContextType} from "../types/currency";
 import {IProps} from "../types/props";
 

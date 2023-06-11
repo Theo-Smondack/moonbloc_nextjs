@@ -1,6 +1,6 @@
 import styles from './authButtons.module.css'
 import {useAuthModalContext} from "../../context/authModal";
-import {showAuthModal} from "../../utils/toolFunctions";
+import {showAuthModal} from "../../helpers/toolFunctions";
 import {AuthButtonsProps} from "../../types/props";
 
 export enum ModalType {

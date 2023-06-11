@@ -1,5 +1,5 @@
 // import {NextApiRequest, NextApiResponse} from "next";
-// import currencies from "../../utils/currencies";
+// import currencies from "../../helpers/currencies";
 // import {AssetApiResponseList} from "../../types/wallet";
 //
 //

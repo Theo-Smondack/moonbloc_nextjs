@@ -8,7 +8,7 @@ import StatusPopUp from "../statusPopup/statusPopUp";
 import {useSession} from "next-auth/react";
 import {useEffect} from "react";
 import {useWalletsContext} from "../../context/wallets";
-import {getDataFromApi} from "../../utils/toolFunctions";
+import {getDataFromApi} from "../../helpers/toolFunctions";
 
 export default function Layout({children}: LayoutProps) {
     const {modalState} = useAuthModalContext()

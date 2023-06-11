@@ -1,8 +1,8 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {isEmail} from "../../../../utils/toolFunctions";
+import {isEmail} from "../../../../helpers/toolFunctions";
 import {findUser} from "../../../../services/users";
 import {findWallets} from "../../../../services/wallet";
-import DbConnection from "../../../../utils/dbConnection";
+import DbConnection from "../../../../helpers/dbConnection";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await DbConnection.getInstance()

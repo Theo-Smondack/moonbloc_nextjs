@@ -7,7 +7,7 @@ import {useSession} from "next-auth/react";
 import Card from "./card";
 import {useWalletsContext} from "../../context/wallets";
 import {WalletDocument} from "../../models/Wallet";
-import {getDataFromApi} from "../../utils/toolFunctions";
+import {getDataFromApi} from "../../helpers/toolFunctions";
 import {WalletModalProps} from "../../types/props";
 import {useWalletModalContext} from "../../context/walletModal";
 

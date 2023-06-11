@@ -1,6 +1,6 @@
 import {getUserWatchlist} from "../../../services/users";
 import {NextApiRequest, NextApiResponse} from "next";
-import DbConnection from "../../../utils/dbConnection";
+import DbConnection from "../../../helpers/dbConnection";
 import {UserDocument} from "../../../models/User";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -4,7 +4,7 @@ import {NextPageWithLayout} from "../_app";
 import {useRouter} from "next/router";
 import {Asset, AssetList, WalletResponse} from "../../types/wallet";
 import useSWR from "swr";
-import {defaultDataFetcher} from "../../utils/fetchers";
+import {defaultDataFetcher} from "../../helpers/fetchers";
 import styles from './portfoliopage.module.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";

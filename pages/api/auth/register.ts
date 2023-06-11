@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import DbConnection from "../../../utils/dbConnection";
+import DbConnection from "../../../helpers/dbConnection";
 import {createUser} from "../../../services/users";
 import {UserInput} from "../../../models/User";
 

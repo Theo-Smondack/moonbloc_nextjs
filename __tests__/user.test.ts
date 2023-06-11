@@ -1,7 +1,7 @@
 import {createUser, findUser, getUserWallets, loginUser, updateUser} from "../services/users";
 import User, {UserInput} from "../models/User";
 import {createWallet} from "../services/wallet";
-import DbConnection from "../utils/dbConnection";
+import DbConnection from "../helpers/dbConnection";
 import Wallet from "../models/Wallet";
 import Transaction from "../models/Transaction";
 

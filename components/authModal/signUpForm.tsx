@@ -1,7 +1,7 @@
 import styles from './authForm.module.css'
 import {ChangeEvent, useEffect, useState} from "react";
 import {SignUpData} from "../../types/usersAuthentication";
-import {handleStatus, isEmail, isEmptyFields} from "../../utils/toolFunctions";
+import {handleStatus, isEmail, isEmptyFields} from "../../helpers/toolFunctions";
 import {useStatusContext} from "../../context/status";
 
 const SignUpForm = () => {

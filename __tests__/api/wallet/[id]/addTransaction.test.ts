@@ -1,6 +1,6 @@
 import User, {UserDocument, UserInput} from "../../../../models/User";
 import Wallet, {WalletDocument, WalletInput} from "../../../../models/Wallet";
-import DbConnection from "../../../../utils/dbConnection";
+import DbConnection from "../../../../helpers/dbConnection";
 import {createWallet} from "../../../../services/wallet";
 import {createUser} from "../../../../services/users";
 import addTransaction from "../../../../pages/api/user/wallet/[id]/addTransaction";

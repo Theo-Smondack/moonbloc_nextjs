@@ -8,7 +8,7 @@ import {
     getWalletTransactions,
     updateWallet
 } from "../services/wallet";
-import DbConnection from "../utils/dbConnection";
+import DbConnection from "../helpers/dbConnection";
 import {createTransaction} from "../services/transactions";
 import Transaction from "../models/Transaction";
 

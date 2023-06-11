@@ -4,7 +4,7 @@ import {useCurrencyContext} from "../../context/currency";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
 import {Currency} from "../../types/currency";
-import Currencies from "../../utils/currencies";
+import Currencies from "../../helpers/currencies";
 import {CurrencyModalProps} from "../../types/props";
 import Image from "next/image";
 

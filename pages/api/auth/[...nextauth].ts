@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 import {loginUser} from "../../../services/users";
 import {UserDocument} from "../../../models/User";
-import DbConnection from "../../../utils/dbConnection";
+import DbConnection from "../../../helpers/dbConnection";
 
 
 export const authOptions = {

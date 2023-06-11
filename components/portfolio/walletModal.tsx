@@ -5,7 +5,7 @@ import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import React, {useState} from "react";
 import {useSession} from "next-auth/react";
 import {WalletInput} from "../../models/Wallet";
-import {handleStatus} from "../../utils/toolFunctions";
+import {handleStatus} from "../../helpers/toolFunctions";
 import {useStatusContext} from "../../context/status";
 import {useWalletsContext} from "../../context/wallets";
 

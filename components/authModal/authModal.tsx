@@ -6,7 +6,7 @@ import {useState} from "react";
 import LogInForm from "./logInForm";
 import SignUpForm from "./signUpForm";
 import {useAuthModalContext} from "../../context/authModal";
-import {showAuthModal} from "../../utils/toolFunctions";
+import {showAuthModal} from "../../helpers/toolFunctions";
 
 const AuthModal = () => {
     const {modalState, setModalState} = useAuthModalContext()

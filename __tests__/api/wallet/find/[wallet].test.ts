@@ -1,4 +1,4 @@
-import DbConnection from "../../../../utils/dbConnection";
+import DbConnection from "../../../../helpers/dbConnection";
 import User, {UserInput} from "../../../../models/User";
 import Wallet, {WalletDocument, WalletInput} from "../../../../models/Wallet";
 import {createUser} from "../../../../services/users";

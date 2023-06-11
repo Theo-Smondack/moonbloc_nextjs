@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {getWalletAssets} from "../../../../../services/wallet";
 import mongoose from "mongoose";
 import {Asset, WalletResponse} from "../../../../../types/wallet";
-import DbConnection from "../../../../../utils/dbConnection";
+import DbConnection from "../../../../../helpers/dbConnection";
 import Wallet from "../../../../../models/Wallet";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

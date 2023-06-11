@@ -4,7 +4,7 @@ import Layout from "../../components/layout/layout";
 import {useRouter} from "next/router";
 import useSWR from "swr";
 import {CryptoDataInfo} from "../../types/cryptoData";
-import {defaultDataFetcher} from "../../utils/fetchers";
+import {defaultDataFetcher} from "../../helpers/fetchers";
 import CryptoChart from "../../components/cryptoChart/cryptoChart";
 import styles from './cryptoDetails.module.css'
 import Image from "next/image";
@@ -18,7 +18,7 @@ import {useWatchlistContext} from "../../context/watchlist";
 import {ModalType} from "../../components/navbar/authButtons";
 import {useSession} from "next-auth/react";
 import {useAuthModalContext} from "../../context/authModal";
-import useWatchlist from "../../utils/hooks/useWatchList";
+import useWatchlist from "../../helpers/hooks/useWatchList";
 
 
 function convertTextWithUrls(text: string) {

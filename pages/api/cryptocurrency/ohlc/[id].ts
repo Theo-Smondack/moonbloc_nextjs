@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next"
-import {replaceDuplicatesWithEmptyStrings} from "../../../../utils/toolFunctions";
+import {replaceDuplicatesWithEmptyStrings} from "../../../../helpers/toolFunctions";
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
     const {id,days,currency} = req.query

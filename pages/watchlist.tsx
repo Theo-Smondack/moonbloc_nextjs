@@ -5,7 +5,7 @@ import Cryptotable from "../components/cryptotable/cryptotable";
 import Pagination from "../components/pagination/pagination";
 import {useRouter} from "next/router";
 import {CryptoData} from "../types/cryptoData";
-import useWatchlist from "../utils/hooks/useWatchList";
+import useWatchlist from "../helpers/hooks/useWatchList";
 
 const Watchlist: NextPageWithLayout = () => {
     const router = useRouter();

@@ -1,7 +1,7 @@
 import styles from "./authForm.module.css";
 import {ChangeEvent, useEffect, useState} from "react";
 import {LogInData} from "../../types/usersAuthentication";
-import {handleStatus, isEmail, isEmptyFields, showAuthModal} from "../../utils/toolFunctions";
+import {handleStatus, isEmail, isEmptyFields, showAuthModal} from "../../helpers/toolFunctions";
 import {useStatusContext} from "../../context/status";
 import {signIn} from "next-auth/react";
 import {useAuthModalContext} from "../../context/authModal";

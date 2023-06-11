@@ -2,7 +2,7 @@ import Wallet, {WalletClass, WalletDocument, WalletInput} from "../models/Wallet
 import mongoose, {FilterQuery, QueryOptions} from "mongoose";
 import {TransactionDocument} from "../models/Transaction";
 import {findTransactions} from "./transactions";
-import {removeNullUndefined} from "../utils/toolFunctions";
+import {removeNullUndefined} from "../helpers/toolFunctions";
 import {WalletTransactionFilter, WalletTransactionFilterWithoutAssets, AssetList} from "../types/wallet";
 
 export async function createWallet(input: WalletInput, userID: mongoose.Types.ObjectId): Promise<WalletDocument> {

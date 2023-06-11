@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {deleteWallet} from "../../../../services/wallet";
-import DbConnection from "../../../../utils/dbConnection";
+import DbConnection from "../../../../helpers/dbConnection";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await DbConnection.getInstance()

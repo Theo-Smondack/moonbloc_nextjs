@@ -4,7 +4,7 @@ import {NextPageWithLayout} from "./_app";
 import {ReactElement, useEffect, useState} from "react";
 import Pagination from "../components/pagination/pagination";
 import {useRouter} from "next/router";
-import useWatchlist from "../utils/hooks/useWatchList";
+import useWatchlist from "../helpers/hooks/useWatchList";
 
 const Home: NextPageWithLayout = () => {
     const router = useRouter();
