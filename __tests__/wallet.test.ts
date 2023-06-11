@@ -4,7 +4,7 @@ import {createUser} from "../services/users";
 import {
     createWallet, deleteWallet,
     findWallets,
-    getWalletAssetsQuantity,
+    getWalletAssets,
     getWalletTransactions,
     updateWallet
 } from "../services/wallet";
@@ -161,14 +161,23 @@ describe('Wallet model', () => {
         it('should return an object with bitcoin value to 1.0013567 and ethereum to 0.255', async () => {
             const wallet = await createWallet(walletPayload, user._id);
             await addTransactions(wallet);
-            const assetsQuantity = await getWalletAssetsQuantity({walletID: wallet._id});
-            expect(assetsQuantity).toEqual({bitcoin: 1.0013567, ethereum: 0.255})
+            const assets = await getWalletAssets({walletID: wallet._id});
+            expect(assets).toHaveLength(2);
+            expect(assets).toEqual(expect.arrayContaining([
+                expect.objectContaining({id: "bitcoin", quantity: 1.0013567}),
+                expect.objectContaining({id: "ethereum", quantity: 0.255})
+            ]))
         });
         it('should return an object with bitcoin value to 1 and ethereum to 1', async () => {
             const wallet = await createWallet(walletPayload, user._id);
             await addTransactions(wallet);
-            const assetsQuantity = await getWalletAssetsQuantity({walletID: wallet._id, date: new Date(2023, 0, 26)});
-            expect(assetsQuantity).toEqual({bitcoin: 1, ethereum: 1})
+            const assets = await getWalletAssets({walletID: wallet._id, date: new Date(2023, 0, 26)});
+            console.log(assets)
+            expect(assets).toHaveLength(2);
+            expect(assets).toEqual(expect.arrayContaining([
+                expect.objectContaining({id: "bitcoin", quantity: 1}),
+                expect.objectContaining({id: "ethereum", quantity: 1})
+            ]))
         });
 
     });

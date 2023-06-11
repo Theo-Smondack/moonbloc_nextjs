@@ -1,4 +1,59 @@
 .container{
     padding: 25px;
     max-width: 1400px;
+    margin: 0 auto;
+    font-size: 12pt;
+}
+
+.icon{
+    font-size: 2rem;
+}
+.icon>path{
+    color: #F3F3F3;
+}
+.addTransactionButton{
+    font-size: 12pt;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+}
+.addTransactionButton > p{
+    color: #F3F3F3;
+}
+
+.headContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.noAssetContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 53vh;
+}
+
+@media(max-width: 670px){
+    .container, .addTransactionButton{
+        font-size: 10pt;
+    }
+    .icon{
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 550px){
+    .addTransactionButton > p{
+        display: none;
+    }
+
+}
+@media(max-width: 500px){
+    .container, .addTransactionButton{
+        font-size: 8pt;
+    }
+
 }

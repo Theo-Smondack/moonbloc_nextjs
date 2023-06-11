@@ -57,7 +57,8 @@ describe('Get wallet details', () => {
             const req = {
                 method: 'GET',
                 query: {
-                    id: wallet._id
+                    id: wallet._id,
+                    currency: 'usd'
                 }
             }
             const res = {

@@ -6,18 +6,18 @@ import {useState} from "react";
 import Image from "next/image";
 import {Cryptos} from "../../../utils/allCryptos";
 
-type searchValue = {
+export type searchValue = {
     symbol: string,
     name: string,
     id: string,
-    image: string
+    image: string,
+    price: number
 }
 
 type searchValueState = searchValue[]
 
-const AssetSelectorModal = ({showCallback, walletTitle}: AssetSelectorProps) => {
+const AssetSelectorModal = ({showCallback, title,addAsset}: AssetSelectorProps) => {
     const [searchValue, setSearchValue] = useState<searchValueState>([])
-
     const searchCrypto = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target
         if (value.length > 0) {
@@ -29,7 +29,8 @@ const AssetSelectorModal = ({showCallback, walletTitle}: AssetSelectorProps) => 
                         symbol: crypto.symbol.toUpperCase(),
                         name: crypto.name,
                         id: crypto.id,
-                        image: crypto.image
+                        image: crypto.image,
+                        price: crypto.current_price
                     }
                 });
                 setSearchValue(filteredData)
@@ -40,9 +41,9 @@ const AssetSelectorModal = ({showCallback, walletTitle}: AssetSelectorProps) => 
     }
 
     const selectCrypto = (crypto:searchValue) => {
-        console.log(crypto);
         setSearchValue([])
         showCallback(false);
+        addAsset(crypto)
     }
 
     return (
@@ -53,7 +54,7 @@ const AssetSelectorModal = ({showCallback, walletTitle}: AssetSelectorProps) => 
                 </div>
                 <div className={styles.modalContainer}>
                     <div className={styles.modalHeader}>
-                        <h2>Add crypto to {walletTitle}</h2>
+                        <h2>{title}</h2>
                     </div>
                     <div className={styles.modalForm}>
                         <div className={styles.inputGroup}>

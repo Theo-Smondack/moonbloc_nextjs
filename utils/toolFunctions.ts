@@ -73,3 +73,4 @@ export const getDataFromApi = async (url: RequestInfo | URL) => {
     return res.json()
 }
 
+

@@ -3,6 +3,8 @@ import Position = Property.Position;
 import React, {ReactNode} from "react";
 import {CryptoDataUrls} from "./cryptoData";
 import {WalletDocument} from "../models/Wallet";
+import {Asset, ResponseAsset, WalletResponse} from "./wallet";
+import {searchValue} from "../components/portfolio/portfolioPage/assetSelectorModal";
 
 type IProps = {
     children:ReactNode;
@@ -74,12 +76,19 @@ type NoAssetWalletProps = {
 }
 
 type AssetSelectorProps = {
-    walletTitle:WalletDocument['walletTitle'];
+    title:string;
     showCallback:(show:boolean)=>void;
+    addAsset: (asset:searchValue) => void;
 
 }
 
 type TransactionModalProps = {
     showCallback:(show:boolean)=>void;
+    setAsset:React.Dispatch<React.SetStateAction<Asset|null>>;
+    Asset:Asset;
 
+}
+
+type AssetListProps = {
+    Assets:WalletResponse['assets'];
 }
