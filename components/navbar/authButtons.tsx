@@ -1,15 +1,15 @@
 import styles from './authButtons.module.css'
-import {useAuthModalContext} from "../../context/authModal";
-import {showAuthModal} from "../../helpers/toolFunctions";
-import {AuthButtonsProps} from "../../types/props";
+import { useAuthModalContext } from '../../context/authModal';
+import { showAuthModal } from '../../helpers/toolFunctions';
+import { AuthButtonsProps } from '../../types/props';
 
 export enum ModalType {
-    Login = "login",
-    Signup = "signup"
+    Login = 'login',
+    Signup = 'signup'
 }
 
-const AuthButtons = ({setNavbar}:AuthButtonsProps) => {
-    const {setModalState} = useAuthModalContext()
+const AuthButtons = ({ setNavbar }:AuthButtonsProps) => {
+    const { setModalState } = useAuthModalContext()
     const handleClick = (type:ModalType) => {
         showAuthModal(setModalState, true, type)
         if (setNavbar) {
@@ -17,7 +17,7 @@ const AuthButtons = ({setNavbar}:AuthButtonsProps) => {
         }
     }
     return (
-        <div style={{marginRight: "0 !important"}}>
+        <div style={{ marginRight: '0 !important' }}>
             <div className={styles.authButtonContainer}>
                 <button className={`${styles.authButton} bdBlueButton`}
                         onClick={() => handleClick(ModalType.Login)}>

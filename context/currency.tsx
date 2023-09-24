@@ -1,12 +1,12 @@
-import React, {createContext, useContext, useState} from "react";
-import Currencies from "../helpers/currencies";
-import {Currency,CurrencyContextType} from "../types/currency";
-import {IProps} from "../types/props";
+import React, { createContext, useContext, useState } from 'react';
+import Currencies from '../helpers/currencies';
+import { Currency,CurrencyContextType } from '../types/currency';
+import { IProps } from '../types/props';
 
 
 export const CurrencyContext = createContext<CurrencyContextType | null>(null);
 
-const CurrencyProvider = ({children}: IProps) => {
+const CurrencyProvider = ({ children }: IProps) => {
     const _currency: Currency | undefined = Currencies.find(curr => curr.value === 'USD')
 
     const [currency, setCurrency] = useState<Currency | undefined>(_currency);
@@ -15,7 +15,7 @@ const CurrencyProvider = ({children}: IProps) => {
         state: {
             currency: currency,
         },
-        setCurrency: setCurrency
+        setCurrency: setCurrency,
     }
 
 

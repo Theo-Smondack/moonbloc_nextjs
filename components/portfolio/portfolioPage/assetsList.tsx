@@ -1,15 +1,15 @@
 import styles from './assetsList.module.css'
-import {AssetListProps} from "../../../types/props";
-import {Asset} from "../../../types/wallet";
-import Image from "next/image";
-import React, {useEffect, useMemo, useState} from "react";
-import {useCurrencyContext} from "../../../context/currency";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
-import TransactionModal from "./transactionModal";
+import { AssetListProps } from '../../../types/props';
+import { Asset } from '../../../types/wallet';
+import Image from 'next/image';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useCurrencyContext } from '../../../context/currency';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import TransactionModal from './transactionModal';
 
-const AssetsList = ({Assets}: AssetListProps) => {
-    const {state: {currency}} = useCurrencyContext();
+const AssetsList = ({ Assets }: AssetListProps) => {
+    const { state: { currency } } = useCurrencyContext();
     const currencySymbol = currency?.symbol || '$';
     const [showModal, setShowModal] = useState<boolean>(false)
     const [asset, setAsset] = useState<Asset | null>(null)

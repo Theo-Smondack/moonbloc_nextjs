@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import {MongoMemoryServer} from "mongodb-memory-server";
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 let MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI as string
 const DB_NAME = process.env.DB_NAME as string
@@ -17,8 +17,8 @@ class DbConnection {
             mongoMemoryServer = await MongoMemoryServer.create()
         }
         if (!DbConnection.instance) {
-            mongoose.set("strictQuery", false);
-            await mongoose.connect(MONGODB_URI, {dbName: DB_NAME}).then(() => console.log('Mongoose connexion successful'), (error) => {
+            mongoose.set('strictQuery', false);
+            await mongoose.connect(MONGODB_URI, { dbName: DB_NAME }).then(() => console.log('Mongoose connexion successful'), (error) => {
                 throw Error(`Error at mongoose connexion : ${error}`)
             });
             DbConnection.instance = new DbConnection()

@@ -1,6 +1,6 @@
-import {WalletDocument} from "../models/Wallet";
-import mongoose from "mongoose";
-import {CryptoData} from "./cryptoData";
+import { WalletDocument } from '../models/Wallet';
+import mongoose from 'mongoose';
+import { CryptoData } from './cryptoData';
 
 
 export type Asset = {

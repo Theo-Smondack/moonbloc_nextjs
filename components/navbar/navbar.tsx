@@ -1,18 +1,18 @@
 import styles from './navbar.module.css'
-import Image from "next/image";
-import Link from "next/link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import ThemeSwitch from "../ThemeSwitch";
-import {useState} from "react";
-import CurrencyModal from "../currencyModal/currencyModal";
-import AuthButtons from "./authButtons";
-import {useSession} from "next-auth/react";
-import ProfilButton from "./profilButton";
+import Image from 'next/image';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import ThemeSwitch from '../ThemeSwitch';
+import { useState } from 'react';
+import CurrencyModal from '../currencyModal/currencyModal';
+import AuthButtons from './authButtons';
+import { useSession } from 'next-auth/react';
+import ProfilButton from './profilButton';
 
 
 export default function Navbar() {
-    const {status} = useSession()
+    const { status } = useSession()
     const [isActive, setIsActive] = useState<boolean>(false)
     const hamburgerClassname = isActive ? `${styles.hamburger} ${styles.active}` : styles.hamburger
     const toggleMenuClassname = isActive ? `${styles.toggleMenu} ${styles.active}` : styles.toggleMenu
@@ -28,7 +28,7 @@ export default function Navbar() {
                     <div className={styles.containerHeadNav}>
                         <div className={styles.rightContainerHeadNav}>
                             <CurrencyModal pos={'relative'}/>
-                            <div style={{display: "flex"}}>
+                            <div style={{ display: 'flex' }}>
                                 <ThemeSwitch/>
                             </div>
                             {status !== 'authenticated' ? <AuthButtons/> : <ProfilButton/>}
@@ -60,7 +60,7 @@ export default function Navbar() {
                         <div className={styles.sInputContainer}>
                             <FontAwesomeIcon
                                 icon={faMagnifyingGlass}
-                                style={{fontSize: 16}}
+                                style={{ fontSize: 16 }}
                             />
                             <input type="text" placeholder="Searching for ..."/>
                         </div>
@@ -70,7 +70,7 @@ export default function Navbar() {
                         <div className={styles.mainNavResp}>
                             <FontAwesomeIcon
                                 icon={faMagnifyingGlass}
-                                style={{fontSize: 21}}
+                                style={{ fontSize: 21 }}
                                 onClick={() => alert('search')}
                             />
                         </div>

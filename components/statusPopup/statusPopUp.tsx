@@ -1,10 +1,10 @@
 import styles from './statusPopUp.module.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleCheck, faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
-import {useStatusContext} from "../../context/status";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { useStatusContext } from '../../context/status';
 
 const StatusPopUp = () => {
-    const {statusState} = useStatusContext()
+    const { statusState } = useStatusContext()
     return (
         <div className={`popUpContainer ${statusState.success ? styles.successPopUp : styles.errorPopUp}`}>
             <FontAwesomeIcon

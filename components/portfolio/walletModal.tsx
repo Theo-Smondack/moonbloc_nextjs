@@ -1,18 +1,18 @@
 import styles from './walletModal.module.css'
-import {WalletModalProps} from "../../types/props";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
-import {useSession} from "next-auth/react";
-import {WalletInput} from "../../models/Wallet";
-import {handleStatus} from "../../helpers/toolFunctions";
-import {useStatusContext} from "../../context/status";
-import {useWalletsContext} from "../../context/wallets";
+import { WalletModalProps } from '../../types/props';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { WalletInput } from '../../models/Wallet';
+import { handleStatus } from '../../helpers/toolFunctions';
+import { useStatusContext } from '../../context/status';
+import { useWalletsContext } from '../../context/wallets';
 
-const WalletModal = ({showCallback,type,walletID}:WalletModalProps) => {
-    const {data} = useSession()
-    const {setStatus} = useStatusContext()
-    const {wallets,setWallets} = useWalletsContext()
+const WalletModal = ({ showCallback,type,walletID }:WalletModalProps) => {
+    const { data } = useSession()
+    const { setStatus } = useStatusContext()
+    const { wallets,setWallets } = useWalletsContext()
     interface WalletModalInput extends WalletInput{
         userEmail: string
         walletID: string
@@ -29,16 +29,16 @@ const WalletModal = ({showCallback,type,walletID}:WalletModalProps) => {
     const [walletData, setWalletData] = useState<WalletModalInput | WalletModalCreateInput>({
         walletTitle: _walletTitle,
         userEmail: data?.user ? data?.user.email as string : '',
-        walletID: walletID ? walletID : undefined
+        walletID: walletID ? walletID : undefined,
     })
 
     const postToApi = async (url: RequestInfo | URL) => {
         const res = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(walletData)
+            body: JSON.stringify(walletData),
         })
         return res.json()
     }
@@ -47,7 +47,7 @@ const WalletModal = ({showCallback,type,walletID}:WalletModalProps) => {
 
     const handleSubmit = async () => {
         if (walletData.walletTitle === '') {
-            await handleStatus(setStatus, false, "Please fill all required fields")
+            await handleStatus(setStatus, false, 'Please fill all required fields')
             return
         }
         const res = await postToApi(url)
@@ -55,9 +55,9 @@ const WalletModal = ({showCallback,type,walletID}:WalletModalProps) => {
             await handleStatus(setStatus, false, res.error)
             return
         }
-        if (type === 'create'){
+        if (type === 'create') {
             setWallets([...wallets,res.wallet])
-        }else if (type === 'edit'){
+        }else if (type === 'edit') {
             const _wallet = wallets.find(wallet => wallet._id as unknown as string === walletID)
             if (!_wallet) return
             _wallet.walletTitle = walletData.walletTitle
@@ -79,11 +79,11 @@ const WalletModal = ({showCallback,type,walletID}:WalletModalProps) => {
                     <div className={styles.modalForm}>
                         <div className={styles.inputGroup}>
                             <div className={styles.inputLabel}>Wallet name</div>
-                            <input type={"text"} className={styles.inputClass} placeholder={'Enter a wallet name...'}
+                            <input type={'text'} className={styles.inputClass} placeholder={'Enter a wallet name...'}
                                    value={walletData.walletTitle}
-                                   onChange={(e) => setWalletData({...walletData, walletTitle: e.target.value})}/>
+                                   onChange={(e) => setWalletData({ ...walletData, walletTitle: e.target.value })}/>
                         </div>
-                        <button type={"submit"} className={`${styles.formButton} bgBlueButton`} onClick={handleSubmit}>
+                        <button type={'submit'} className={`${styles.formButton} bgBlueButton`} onClick={handleSubmit}>
                             {type === 'create' ? 'Create' : 'Save'}
                         </button>
                     </div>

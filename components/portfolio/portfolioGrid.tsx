@@ -1,22 +1,22 @@
 import styles from './portfolioGrid.module.css'
-import {useEffect, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import WalletModal from "./walletModal";
-import {useSession} from "next-auth/react";
-import Card from "./card";
-import {useWalletsContext} from "../../context/wallets";
-import {WalletDocument} from "../../models/Wallet";
-import {getDataFromApi} from "../../helpers/toolFunctions";
-import {WalletModalProps} from "../../types/props";
-import {useWalletModalContext} from "../../context/walletModal";
+import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import WalletModal from './walletModal';
+import { useSession } from 'next-auth/react';
+import Card from './card';
+import { useWalletsContext } from '../../context/wallets';
+import { WalletDocument } from '../../models/Wallet';
+import { getDataFromApi } from '../../helpers/toolFunctions';
+import { WalletModalProps } from '../../types/props';
+import { useWalletModalContext } from '../../context/walletModal';
 
 
 const PortfolioGrid = () => {
-    const {data} = useSession()
-    const {wallets} = useWalletsContext()
+    const { data } = useSession()
+    const { wallets } = useWalletsContext()
     const [walletList, setWalletList] = useState<WalletDocument[]>([])
-    const {state, setState} = useWalletModalContext()
+    const { state, setState } = useWalletModalContext()
 
     useEffect(() => {
         if (data?.user?.email) {
@@ -27,7 +27,7 @@ const PortfolioGrid = () => {
 
     const showModal = (show: boolean, type: WalletModalProps['type'], walletID?: string) => {
         show ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'unset';
-        setState({show, type, walletID});
+        setState({ show, type, walletID });
     }
 
     return (

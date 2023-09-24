@@ -1,15 +1,15 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown, faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import styles from './profilButton.module.css'
-import ProfilPopup from "../profilPopup/profilPopup";
-import React, {useEffect, useRef, useState} from "react";
-import {useSession} from "next-auth/react";
-import {ProfilButtonProps} from "../../types/props";
+import ProfilPopup from '../profilPopup/profilPopup';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { ProfilButtonProps } from '../../types/props';
 
-const ProfilButton = ({setNavbar, isOpen}: ProfilButtonProps) => {
+const ProfilButton = ({ setNavbar, isOpen }: ProfilButtonProps) => {
     const [show, setShow] = useState<boolean>(false)
     const [rotated, setRotated] = useState<boolean>(false)
-    const {data} = useSession()
+    const { data } = useSession()
     const profilButtonRef = useRef<HTMLDivElement>(null)
     const popUpRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
@@ -51,7 +51,7 @@ const ProfilButton = ({setNavbar, isOpen}: ProfilButtonProps) => {
             <div className={styles.profilButtonContainer} ref={profilButtonRef} onMouseLeave={(event) => {
                 handleMouseLeave(event)
             }}>
-                <FontAwesomeIcon icon={faUserCircle} style={{fontSize: 30}} className={styles.buttonIcon}
+                <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: 30 }} className={styles.buttonIcon}
                                  onMouseEnter={() => setShow(true)}
                 />
                 {show && <ProfilPopup closePopUp={() => setShow(false)} refProp={popUpRef}
@@ -60,10 +60,10 @@ const ProfilButton = ({setNavbar, isOpen}: ProfilButtonProps) => {
             {/*Pop up in responsive screen*/}
             <div className={styles.respContainer} ref={profilButtonRef}>
                 <div className={styles.profilButtonRespContainer} onClick={handleClick}>
-                    <FontAwesomeIcon icon={faUserCircle} style={{fontSize: 30}} className={styles.buttonIcon}/>
+                    <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: 30 }} className={styles.buttonIcon}/>
                     <div className={styles.userNameLabel}>{data?.user?.name}</div>
                     <FontAwesomeIcon icon={faAngleDown}
-                                     style={{fontSize: 30, transform: rotated ? "rotate(180deg)" : "rotate(0deg)"}}
+                                     style={{ fontSize: 30, transform: rotated ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                      className={`${styles.buttonIcon} ${styles.angleDown}`}/>
                 </div>
                 {show && <ProfilPopup closePopUp={closePopUpCallback} refProp={popUpRef}

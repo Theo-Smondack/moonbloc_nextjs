@@ -1,8 +1,8 @@
-import {UserDocument, UserInput} from "../models/User";
+import { UserDocument, UserInput } from '../models/User';
 
 export enum ModalType {
-    Login = "login",
-    Signup = "signup"
+    Login = 'login',
+    Signup = 'signup'
 }
 
 export type ModalState = {
@@ -21,6 +21,6 @@ export type SignUpData = {
 }
 
 export type LogInData = {
-    email:UserDocument["email"],
-    password:UserDocument["password"]
+    email:UserDocument['email'],
+    password:UserDocument['password']
 }

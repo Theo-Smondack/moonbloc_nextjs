@@ -1,5 +1,5 @@
-import {StatusState} from "../types/status";
-import {ModalState, ModalType} from "../types/usersAuthentication";
+import { StatusState } from '../types/status';
+import { ModalState, ModalType } from '../types/usersAuthentication';
 
 
 export function isNegative(num:number|string):boolean {
@@ -16,13 +16,13 @@ export function isEmptyFields(fields:string[]):boolean {
     return res.includes(false)
 }
 
-export function showAuthModal(callback: ({show, type}: ModalState) => void, show: boolean, type: ModalType|undefined):void {
-    callback({show,type})
+export function showAuthModal(callback: ({ show, type }: ModalState) => void, show: boolean, type: ModalType|undefined):void {
+    callback({ show,type })
     show ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto';
 }
 
-export async function handleStatus(callback:({success,message}:StatusState)=>void,success:boolean,message:string) {
-    await callback({success,message})
+export async function handleStatus(callback:({ success,message }:StatusState)=>void,success:boolean,message:string) {
+    await callback({ success,message })
     const popup = document.querySelector('.popUpContainer') as HTMLElement
     popup.style.transform = 'translate(-50%) scaleY(1)'
     setTimeout(()=> {
@@ -62,14 +62,14 @@ export function findMinMax(numbers: number[]): { min: number, max: number } {
         }
     }
 
-    return {min, max};
+    return { min, max };
 }
 
 export const removeNullUndefined = (obj: { [key: string]: any }) => Object.entries(obj).reduce((a: { [key: string]: any }, [k, v]) => (v == null ? a : ((a[k] = v), a)), {});
 
 
 export const getDataFromApi = async (url: RequestInfo | URL) => {
-    const res = await fetch(url, {method: 'GET'})
+    const res = await fetch(url, { method: 'GET' })
     return res.json()
 }
 

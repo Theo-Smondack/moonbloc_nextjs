@@ -1,4 +1,4 @@
-import DbConnection from "../helpers/dbConnection";
+import DbConnection from '../helpers/dbConnection';
 
 describe('MongoDB tests', () => {
     const instance = DbConnection.getInstance();

@@ -1,16 +1,16 @@
-import React, {createContext, useContext, useState} from "react";
-import {AuthModalContextType, ModalState} from "../types/usersAuthentication";
-import {IProps} from "../types/props";
+import React, { createContext, useContext, useState } from 'react';
+import { AuthModalContextType, ModalState } from '../types/usersAuthentication';
+import { IProps } from '../types/props';
 
 
 
 export const AuthModalContext = createContext<AuthModalContextType | null>(null);
 
-const AuthModalProvider = ({children}: IProps) => {
-    const [modalState, setModalState] = useState<ModalState>({show: false});
+const AuthModalProvider = ({ children }: IProps) => {
+    const [modalState, setModalState] = useState<ModalState>({ show: false });
     const value = {
         modalState: modalState,
-        setModalState: setModalState
+        setModalState: setModalState,
     }
     return <AuthModalContext.Provider value={value}>{children}</AuthModalContext.Provider>;
 }

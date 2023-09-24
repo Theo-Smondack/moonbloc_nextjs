@@ -1,10 +1,10 @@
-import {useWatchlistContext} from "../../context/watchlist";
-import {useSession} from "next-auth/react";
-import {useEffect} from "react";
+import { useWatchlistContext } from '../../context/watchlist';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 const useWatchlist = () => {
-    const {watchlist, setWatchlist} = useWatchlistContext();
-    const {status, data} = useSession();
+    const { watchlist, setWatchlist } = useWatchlistContext();
+    const { status, data } = useSession();
 
     useEffect(() => {
         if (status !== 'authenticated') {
@@ -21,7 +21,7 @@ const useWatchlist = () => {
         }
     }, [status])
 
-    return {watchlist, setWatchlist}
+    return { watchlist, setWatchlist }
 }
 
 export default useWatchlist

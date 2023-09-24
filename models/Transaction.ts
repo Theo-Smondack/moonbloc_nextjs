@@ -1,6 +1,6 @@
-import {CryptoData} from "../types/cryptoData";
-import {Currency} from "../types/currency";
-import mongoose, {model, models, Schema} from "mongoose";
+import { CryptoData } from '../types/cryptoData';
+import { Currency } from '../types/currency';
+import mongoose, { model, models, Schema } from 'mongoose';
 
 export interface TransactionInput {
     type: 'buy' | 'sell';
@@ -42,16 +42,16 @@ export interface TransactionDocument extends TransactionClass, Document {
 }
 
 const TransactionSchema: Schema = new Schema({
-    type: {type: String, required: true},
-    from: {type: String, required: true},
-    to: {type: String, required: true},
-    quantity: {type: Number, required: true},
-    price: {type: Number, required: true},
-    date: {type: Date, required: true},
-    fee: {type: Number, required: true},
-    walletID: {type: mongoose.Types.ObjectId, required: true}
+    type: { type: String, required: true },
+    from: { type: String, required: true },
+    to: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    price: { type: Number, required: true },
+    date: { type: Date, required: true },
+    fee: { type: Number, required: true },
+    walletID: { type: mongoose.Types.ObjectId, required: true },
 }, {
-    timestamps: true
+    timestamps: true,
 
 });
 

@@ -1,7 +1,7 @@
-import React from "react";
-import {CryptoUrlsProps} from "../../types/props";
+import React from 'react';
+import { CryptoUrlsProps } from '../../types/props';
 
-const CryptoUrls = ({urls}: CryptoUrlsProps) => {
+const CryptoUrls = ({ urls }: CryptoUrlsProps) => {
     return (
         <ul>
             {

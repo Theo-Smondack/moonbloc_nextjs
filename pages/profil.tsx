@@ -1,6 +1,6 @@
-import Layout from "../components/layout/layout";
-import {ReactElement} from "react";
-import {NextPageWithLayout} from "./_app";
+import Layout from '../components/layout/layout';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from './_app';
 
 const Profil:NextPageWithLayout = () => {
     return (

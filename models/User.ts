@@ -1,6 +1,6 @@
-import mongoose, {Schema, Document} from 'mongoose'
+import mongoose, { Schema, Document } from 'mongoose'
 import bcrypt from 'bcryptjs'
-import {CryptoData} from "../types/cryptoData";
+import { CryptoData } from '../types/cryptoData';
 
 type UploadedImage = {
     data: Buffer;
@@ -34,7 +34,7 @@ export class UserClass implements UserInput {
         this.profilePicture = profilePicture;
         this.watchlist = watchlist;
     }
-    public async compareLoginPassword(candidatePassword: string):Promise<boolean>{
+    public async compareLoginPassword(candidatePassword: string):Promise<boolean> {
         return bcrypt.compare(candidatePassword,this.password).catch(() => false);
     }
 }
@@ -47,22 +47,22 @@ export interface UserDocument extends UserClass, Document {
 }
 
 const UserSchema: Schema = new Schema({
-    email: {type: String, required: true, unique: true},
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    password: {type: String, required: true},
-    watchlist: [{type: String,required: true}],
+    email: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    password: { type: String, required: true },
+    watchlist: [{ type: String,required: true }],
     profilePicture: {
-        data: {type: Buffer},
-        contentType: {type: String}
-    }
+        data: { type: Buffer },
+        contentType: { type: String },
+    },
 
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 //To indicate to Mongo to examinate that a document who have the "email" property will be unique
-UserSchema.index({email: 1})
+UserSchema.index({ email: 1 })
 
 //To compose fullName virtual porperty that can get and set but do not get persisted to MongoDB
 UserSchema.virtual('fullName').get(function (this: UserDocument) {
@@ -71,7 +71,7 @@ UserSchema.virtual('fullName').get(function (this: UserDocument) {
 //Using pre middleware before saving a User
 UserSchema.pre('save', async function (this: UserDocument, next) {
     // only has the password if it has been modified or is new
-    if (!this.isModified("password")) return next();
+    if (!this.isModified('password')) return next();
 
     //Random additional data
     const salt = await bcrypt.genSalt(10);

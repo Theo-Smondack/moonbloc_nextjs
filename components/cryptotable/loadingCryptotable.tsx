@@ -1,5 +1,5 @@
-import styles from "./cryptotable.module.css";
-import React from "react";
+import styles from './cryptotable.module.css';
+import React from 'react';
 
 const LoadingCryptotable = () => {
     const rows = [];

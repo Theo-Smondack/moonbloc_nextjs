@@ -1,14 +1,14 @@
 import styles from './profilPopup.module.css'
-import {signOut, useSession} from "next-auth/react";
-import {ProfilPopUpProps} from "../../types/props";
-import {useRouter} from "next/router";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faStar, faUserCircle, faWallet} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
+import { signOut, useSession } from 'next-auth/react';
+import { ProfilPopUpProps } from '../../types/props';
+import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faUserCircle, faWallet } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
-const ProfilPopup = ({refProp, keepOpenCb, closePopUp}: ProfilPopUpProps) => {
+const ProfilPopup = ({ refProp, keepOpenCb, closePopUp }: ProfilPopUpProps) => {
     const router = useRouter()
-    const {data} = useSession()
+    const { data } = useSession()
     const handleLogout = async () => {
         await signOut();
         closePopUp()

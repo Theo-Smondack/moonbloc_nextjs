@@ -1,19 +1,19 @@
 
-import {LayoutProps} from "../../types/props";
-import Navbar from "../navbar/navbar";
-import Footer from "../footer/footer";
-import AuthModal from "../authModal/authModal";
-import {useAuthModalContext} from "../../context/authModal";
-import StatusPopUp from "../statusPopup/statusPopUp";
-import {useSession} from "next-auth/react";
-import {useEffect} from "react";
-import {useWalletsContext} from "../../context/wallets";
-import {getDataFromApi} from "../../helpers/toolFunctions";
+import { LayoutProps } from '../../types/props';
+import Navbar from '../navbar/navbar';
+import Footer from '../footer/footer';
+import AuthModal from '../authModal/authModal';
+import { useAuthModalContext } from '../../context/authModal';
+import StatusPopUp from '../statusPopup/statusPopUp';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import { useWalletsContext } from '../../context/wallets';
+import { getDataFromApi } from '../../helpers/toolFunctions';
 
-export default function Layout({children}: LayoutProps) {
-    const {modalState} = useAuthModalContext()
-    const {data,status} = useSession()
-    const {setWallets} = useWalletsContext()
+export default function Layout({ children }: LayoutProps) {
+    const { modalState } = useAuthModalContext()
+    const { data,status } = useSession()
+    const { setWallets } = useWalletsContext()
 
     useEffect(() => {
         if (status === 'authenticated' && data?.user?.email) {

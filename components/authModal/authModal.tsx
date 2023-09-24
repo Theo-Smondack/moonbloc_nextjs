@@ -1,15 +1,15 @@
 import styles from './authModal.module.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import {ModalType} from "../navbar/authButtons";
-import {useState} from "react";
-import LogInForm from "./logInForm";
-import SignUpForm from "./signUpForm";
-import {useAuthModalContext} from "../../context/authModal";
-import {showAuthModal} from "../../helpers/toolFunctions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { ModalType } from '../navbar/authButtons';
+import { useState } from 'react';
+import LogInForm from './logInForm';
+import SignUpForm from './signUpForm';
+import { useAuthModalContext } from '../../context/authModal';
+import { showAuthModal } from '../../helpers/toolFunctions';
 
 const AuthModal = () => {
-    const {modalState, setModalState} = useAuthModalContext()
+    const { modalState, setModalState } = useAuthModalContext()
     const [modalType, setModalType] = useState<ModalType | undefined>(modalState.type)
 
     const setModalHeight = () => {

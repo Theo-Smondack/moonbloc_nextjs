@@ -1,9 +1,9 @@
-import {NextApiRequest, NextApiResponse} from "next";
-import {CryptoDataInfo} from "../../../types/cryptoData";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { CryptoDataInfo } from '../../../types/cryptoData';
 
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-    const {id,convert} = req.query
+    const { id,convert } = req.query
     // Define URL
     const url = new URL(`https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`)
     // Fetch data from external API
@@ -27,7 +27,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
                 explorer: responseJson.links.blockchain_site,
                 source_code: responseJson.links.repos_url.github,
                 message_board: responseJson.links.chat_url,
-            }
+            },
         }
         res.status(200).json(jsonData)
     }).catch((error) => {

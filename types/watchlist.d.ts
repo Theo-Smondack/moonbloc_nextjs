@@ -1,6 +1,6 @@
-import {UserDocument} from "../models/User";
+import { UserDocument } from '../models/User';
 
-export type WatchlistState = UserDocument["watchlist"];
+export type WatchlistState = UserDocument['watchlist'];
 
 export type WatchlistContextType = {
     watchlist:WatchlistState;

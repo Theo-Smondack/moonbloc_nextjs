@@ -1,26 +1,26 @@
 import styles from './cardPopup.module.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEllipsis, faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {CardPopupProps} from "../../types/props";
-import React, {useEffect, useRef, useState} from "react";
-import {useWalletsContext} from "../../context/wallets";
-import {useWalletModalContext} from "../../context/walletModal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CardPopupProps } from '../../types/props';
+import React, { useEffect, useRef, useState } from 'react';
+import { useWalletsContext } from '../../context/wallets';
+import { useWalletModalContext } from '../../context/walletModal';
 
 
-const CardPopup = ({id,hoverCallback}: CardPopupProps) => {
+const CardPopup = ({ id,hoverCallback }: CardPopupProps) => {
     const [showPopup, setShowPopup] = useState<boolean>(false)
-    const {wallets,setWallets} = useWalletsContext()
-    const {setState} = useWalletModalContext()
+    const { wallets,setWallets } = useWalletsContext()
+    const { setState } = useWalletModalContext()
 
     const handleDelete =  async() => {
         await fetch(`/api/user/wallet/delete`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                walletID: id
-            })
+                walletID: id,
+            }),
         }).then(res => {
             if (res.ok) {
                 const newWallets = wallets.filter(wallet => wallet._id as unknown as string !== id)
@@ -31,7 +31,7 @@ const CardPopup = ({id,hoverCallback}: CardPopupProps) => {
 
     const popupRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
-        document.addEventListener("click", handleClickOutside, true)
+        document.addEventListener('click', handleClickOutside, true)
     }, [])
     const handleClickOutside = (e: MouseEvent) => {
         if (popupRef.current) {
@@ -42,7 +42,7 @@ const CardPopup = ({id,hoverCallback}: CardPopupProps) => {
     }
 
     const handleEdit = () => {
-        setState({show: true, type: 'edit', walletID: id})
+        setState({ show: true, type: 'edit', walletID: id })
         setTimeout(() => {
             setShowPopup(false)
         }, 10)

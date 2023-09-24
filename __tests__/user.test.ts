@@ -1,9 +1,9 @@
-import {createUser, findUser, getUserWallets, loginUser, updateUser} from "../services/users";
-import User, {UserInput} from "../models/User";
-import {createWallet} from "../services/wallet";
-import DbConnection from "../helpers/dbConnection";
-import Wallet from "../models/Wallet";
-import Transaction from "../models/Transaction";
+import { createUser, findUser, getUserWallets, loginUser, updateUser } from '../services/users';
+import User, { UserInput } from '../models/User';
+import { createWallet } from '../services/wallet';
+import DbConnection from '../helpers/dbConnection';
+import Wallet from '../models/Wallet';
+import Transaction from '../models/Transaction';
 
 let instance: DbConnection;
 beforeAll(async () => {
@@ -14,7 +14,7 @@ afterAll(async () => {
     await instance.closeConnection();
 });
 
-describe("User model", () => {
+describe('User model', () => {
     afterEach(async () => {
         await User.deleteMany({});
         await Wallet.deleteMany({});
@@ -22,10 +22,10 @@ describe("User model", () => {
     });
 
     const userPayload: UserInput = {
-        email: "john@example.com",
-        firstName: "John",
-        lastName: "Doe",
-        password: "johndpass123"
+        email: 'john@example.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        password: 'johndpass123',
     }
 
     describe('Create user', () => {
@@ -52,7 +52,7 @@ describe("User model", () => {
         describe('given the password is correct', () => {
             it('should return true', async () => {
                 const newUser = await createUser(userPayload);
-                const user = await loginUser({email: newUser.email, password: userPayload.password});
+                const user = await loginUser({ email: newUser.email, password: userPayload.password });
                 expect(user.firstName).toBe(userPayload.firstName);
                 expect(user.lastName).toBe(userPayload.lastName);
                 expect(user.email).toBe(userPayload.email);
@@ -64,11 +64,11 @@ describe("User model", () => {
                 await createUser(userPayload);
                 const action = async () => {
                     await loginUser({
-                        email: "wrong@mail.com",
-                        password: "wrong"
+                        email: 'wrong@mail.com',
+                        password: 'wrong',
                     });
                 }
-                await expect(action()).rejects.toThrow(new Error("User does not exist"));
+                await expect(action()).rejects.toThrow(new Error('User does not exist'));
 
             });
         });
@@ -79,10 +79,10 @@ describe("User model", () => {
                 const action = async () => {
                     await loginUser({
                         email: newUser.email,
-                        password: 'wrong'
+                        password: 'wrong',
                     });
                 }
-                await expect(action()).rejects.toThrow(new Error("Invalid password"));
+                await expect(action()).rejects.toThrow(new Error('Invalid password'));
 
             });
         });
@@ -91,7 +91,7 @@ describe("User model", () => {
     describe('Full name virtual property', () => {
         it('should return the user full name', async () => {
             await createUser(userPayload);
-            const user = await findUser({email: userPayload.email}, {lean: false});
+            const user = await findUser({ email: userPayload.email }, { lean: false });
             expect(user?.fullName).toBe(
                 `${userPayload.firstName} ${userPayload.lastName}`
             );
@@ -104,8 +104,8 @@ describe("User model", () => {
             it('should update the user', async () => {
                 const newUser = await createUser(userPayload);
                 const update = {
-                    firstName: "Jack",
-                    watchlist: ['bitcoin', 'ethereum']
+                    firstName: 'Jack',
+                    watchlist: ['bitcoin', 'ethereum'],
                 }
                 const user = await updateUser(newUser.email, update);
                 expect(user?.firstName).toBe(update.firstName);
@@ -116,7 +116,7 @@ describe("User model", () => {
             it('should not add the user new prop : myProps', async () => {
                 const newUser = await createUser(userPayload);
                 const update = {
-                    firstName: "John",
+                    firstName: 'John',
                     myProps: 'bitcoin',
                 }
                 const user = await updateUser(newUser.email, update);
@@ -128,7 +128,7 @@ describe("User model", () => {
     describe('Get user wallets', () => {
         it('should return the user wallets', async () => {
             const newUser = await createUser(userPayload);
-            await createWallet({walletTitle: "wallet1"}, newUser._id);
+            await createWallet({ walletTitle: 'wallet1' }, newUser._id);
             const wallets = await getUserWallets(newUser.email);
             expect(wallets).toHaveLength(1);
         });

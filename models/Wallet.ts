@@ -1,5 +1,5 @@
 
-import mongoose, {model, models, Schema} from "mongoose";
+import mongoose, { model, models, Schema } from 'mongoose';
 
 export interface WalletInput {
     walletTitle: string;
@@ -22,10 +22,10 @@ export interface WalletDocument extends WalletClass, Document {
 }
 
 const WalletSchema: Schema = new Schema({
-        walletTitle: {type: String, required: true},
-        userID: {type: mongoose.Types.ObjectId, ref: 'User', required: true},
+        walletTitle: { type: String, required: true },
+        userID: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
     }, {
-        timestamps: true
+        timestamps: true,
     }
 );
 

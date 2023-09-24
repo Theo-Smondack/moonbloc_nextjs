@@ -1,8 +1,8 @@
-import {NextApiRequest, NextApiResponse} from "next"
-import {replaceDuplicatesWithEmptyStrings} from "../../../../helpers/toolFunctions";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { replaceDuplicatesWithEmptyStrings } from '../../../../helpers/toolFunctions';
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-    const {id,days,currency} = req.query
+    const { id,days,currency } = req.query
     // Define URL
     const url = new URL(`https://api.coingecko.com/api/v3/coins/${id}/ohlc?vs_currency=${currency}&days=${days}`)
 
@@ -38,7 +38,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
         const jsonData = {
             labels: oneDayLabels ? oneDayLabels : labels,
             parsedLabels: parsedLabels,
-            cryptoOHLC: cryptoOHLC
+            cryptoOHLC: cryptoOHLC,
         }
 
         res.status(200).json(jsonData)

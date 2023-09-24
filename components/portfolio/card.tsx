@@ -1,10 +1,10 @@
-import styles from "./card.module.css";
-import CardPopup from "./cardPopup";
-import {CardProps} from "../../types/props";
-import {useState} from "react";
-import Link from "next/link";
+import styles from './card.module.css';
+import CardPopup from './cardPopup';
+import { CardProps } from '../../types/props';
+import { useState } from 'react';
+import Link from 'next/link';
 
-const Card = ({title, id, index}: CardProps) => {
+const Card = ({ title, id, index }: CardProps) => {
     const [isHovered, setIsHovered] = useState<boolean>(false)
     return (
         <Link href={`/portfolio/${id}`} key={index}>

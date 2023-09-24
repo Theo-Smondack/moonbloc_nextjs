@@ -1,27 +1,27 @@
-import useSWR from "swr";
+import useSWR from 'swr';
 import styles from './cryptotable.module.css'
-import Image from "next/image";
-import {useCurrencyContext} from "../../context/currency";
-import React, {useEffect} from "react";
-import {Currency} from "../../types/currency";
-import {CryptoData, CryptoDataList} from "../../types/cryptoData";
-import {CryptotableProps} from "../../types/props";
-import {isNegative} from "../../helpers/toolFunctions";
-import {faCaretDown, faCaretUp, faStar} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import LoadingCryptotable from "./loadingCryptotable";
-import Link from "next/link";
-import {defaultDataFetcher} from "../../helpers/fetchers";
-import {useSession} from "next-auth/react";
-import {useAuthModalContext} from "../../context/authModal";
-import {ModalType} from "../navbar/authButtons";
-import {useWatchlistContext} from "../../context/watchlist";
+import Image from 'next/image';
+import { useCurrencyContext } from '../../context/currency';
+import React, { useEffect } from 'react';
+import { Currency } from '../../types/currency';
+import { CryptoData, CryptoDataList } from '../../types/cryptoData';
+import { CryptotableProps } from '../../types/props';
+import { isNegative } from '../../helpers/toolFunctions';
+import { faCaretDown, faCaretUp, faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingCryptotable from './loadingCryptotable';
+import Link from 'next/link';
+import { defaultDataFetcher } from '../../helpers/fetchers';
+import { useSession } from 'next-auth/react';
+import { useAuthModalContext } from '../../context/authModal';
+import { ModalType } from '../navbar/authButtons';
+import { useWatchlistContext } from '../../context/watchlist';
 
-const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
+const Cryptotable = ({ page, isWatchlist }: CryptotableProps) => {
     const value = useCurrencyContext();
     const session = useSession()
-    const {setModalState} = useAuthModalContext()
-    const {watchlist, setWatchlist} = useWatchlistContext();
+    const { setModalState } = useAuthModalContext()
+    const { watchlist, setWatchlist } = useWatchlistContext();
     const currencySelected: Currency | undefined = value.state.currency;
     const _symbol: string | undefined = currencySelected?.symbol;
     let url: string = `/api/cryptocurrency/list?convert=${currencySelected?.value}&page=1`;
@@ -44,7 +44,7 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
     }
     const handleStarClick = async (target: EventTarget, id: string) => {
         if (session.status !== 'authenticated') {
-            setModalState({show: true, type: ModalType.Login})
+            setModalState({ show: true, type: ModalType.Login })
             return
         }
         updateWatchlist(id);
@@ -61,25 +61,25 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
                 await fetch(`/api/user/update`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         email: userEmail,
-                        update: {watchlist: watchlist}
-                    })
+                        update: { watchlist: watchlist },
+                    }),
                 })
             })();
         }
     }, [watchlist])
 
 
-    const {data, error} = useSWR<CryptoDataList>(url, defaultDataFetcher)
+    const { data, error } = useSWR<CryptoDataList>(url, defaultDataFetcher)
     if (error) return <div className='container'> failed to load </div>
     if (!data) return <LoadingCryptotable/>
     if (isWatchlist && !watchlist.length) return <div className={styles.noWatchlistContainer}>No crypto in
         watchlist</div>
     return (
-        <div className='container' style={{overflow: "auto"}}>
+        <div className='container' style={{ overflow: 'auto' }}>
             <table className={styles.crypto_table}>
                 <thead>
                 <tr>
@@ -106,13 +106,13 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
                                price,
                                volume_24h,
                                symbol,
-                               image
+                               image,
                            }: CryptoData) => (
                     <tr key={id}>
                         <td onClick={(e) => {
                             handleStarClick(e.target, id)
                         }}>
-                            <FontAwesomeIcon icon={faStar} style={{fontSize: 12}}
+                            <FontAwesomeIcon icon={faStar} style={{ fontSize: 12 }}
                                              className={`${styles.star} ${watchlist.includes(id) ? styles.watchlisted : null}`}/>
                         </td>
                         <td>{market_cap_rank}</td>
@@ -126,35 +126,35 @@ const Cryptotable = ({page, isWatchlist}: CryptotableProps) => {
                                         alt="Crypto logo"
                                     />
                                     <p>{name}</p>
-                                    <p className={'txtGrey'} style={{fontWeight: 300}}>{symbol}</p>
+                                    <p className={'txtGrey'} style={{ fontWeight: 300 }}>{symbol}</p>
 
                                 </div>
                             </td>
                         </Link>
-                        <td>{price.toLocaleString(undefined, {minimumFractionDigits: 2})} {_symbol}</td>
+                        <td>{price.toLocaleString(undefined, { minimumFractionDigits: 2 })} {_symbol}</td>
                         <td className={isNegative(percent_change_1h) ? styles.negative : styles.positive}>
-                            {percent_change_1h.toLocaleString(undefined, {minimumFractionDigits: 2})} % <FontAwesomeIcon
+                            {percent_change_1h.toLocaleString(undefined, { minimumFractionDigits: 2 })} % <FontAwesomeIcon
                             icon={isNegative(percent_change_1h) ? faCaretDown : faCaretUp}
-                            style={{fontSize: 12}}
+                            style={{ fontSize: 12 }}
                             className={isNegative(percent_change_1h) ? styles.negative : styles.positive}
                         />
                         </td>
                         <td className={isNegative(percent_change_24h) ? styles.negative : styles.positive}>
-                            {percent_change_24h.toLocaleString(undefined, {minimumFractionDigits: 2})} % <FontAwesomeIcon
+                            {percent_change_24h.toLocaleString(undefined, { minimumFractionDigits: 2 })} % <FontAwesomeIcon
                             icon={isNegative(percent_change_24h) ? faCaretDown : faCaretUp}
-                            style={{fontSize: 12}}
+                            style={{ fontSize: 12 }}
                             className={isNegative(percent_change_24h) ? styles.negative : styles.positive}
                         />
                         </td>
                         <td className={isNegative(percent_change_7d) ? styles.negative : styles.positive}>
-                            {percent_change_7d.toLocaleString(undefined, {minimumFractionDigits: 2})} % <FontAwesomeIcon
+                            {percent_change_7d.toLocaleString(undefined, { minimumFractionDigits: 2 })} % <FontAwesomeIcon
                             icon={isNegative(percent_change_7d) ? faCaretDown : faCaretUp}
-                            style={{fontSize: 12}}
+                            style={{ fontSize: 12 }}
                             className={isNegative(percent_change_7d) ? styles.negative : styles.positive}
                         />
                         </td>
-                        <td>{market_cap.toLocaleString(undefined, {minimumFractionDigits: 2})} {_symbol}</td>
-                        <td>{volume_24h.toLocaleString(undefined, {minimumFractionDigits: 2})} {_symbol}</td>
+                        <td>{market_cap.toLocaleString(undefined, { minimumFractionDigits: 2 })} {_symbol}</td>
+                        <td>{volume_24h.toLocaleString(undefined, { minimumFractionDigits: 2 })} {_symbol}</td>
                     </tr>
                 ))}
                 </tbody>

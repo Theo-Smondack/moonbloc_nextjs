@@ -1,22 +1,22 @@
 import '../styles/globals.css'
-import "@fortawesome/fontawesome-svg-core/styles.css"
-import {config} from "@fortawesome/fontawesome-svg-core";
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 config.autoAddCss = false;
-import {ThemeProvider} from "next-themes";
+import { ThemeProvider } from 'next-themes';
 
-import {AppProps} from "next/app";
-import {ReactElement, ReactNode} from "react";
-import {NextPage} from "next";
-import CurrencyProvider from "../context/currency";
-import AuthModalProvider from "../context/authModal";
-import StatusProvider from "../context/status";
-import {SessionProvider} from "next-auth/react";
-import Head from "next/head"
-import WatchlistProvider from "../context/watchlist";
-import WalletsProvider from "../context/wallets";
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
+import { AppProps } from 'next/app';
+import { ReactElement, ReactNode } from 'react';
+import { NextPage } from 'next';
+import CurrencyProvider from '../context/currency';
+import AuthModalProvider from '../context/authModal';
+import StatusProvider from '../context/status';
+import { SessionProvider } from 'next-auth/react';
+import Head from 'next/head'
+import WatchlistProvider from '../context/watchlist';
+import WalletsProvider from '../context/wallets';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -33,7 +33,7 @@ export const siteTitle: string = 'MoonBloc';
 const queryClient = new QueryClient();
 
 
-function MyApp({Component, pageProps}: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     // Use the layout defined at the page level, if available
     const getLayout = Component.getLayout || ((page) => page)
 

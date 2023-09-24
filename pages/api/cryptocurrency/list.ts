@@ -1,13 +1,13 @@
-import {NextApiRequest, NextApiResponse} from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const query = req.query
-    const {page, convert,ids} = query;
+    const { page, convert,ids } = query;
     // Define URL
     const url = new URL(`https://api.coingecko.com/api/v3/coins/markets`)
 
-    if (typeof page !== "string") {
-        return res.status(400).json({message: "Page must be a string"})
+    if (typeof page !== 'string') {
+        return res.status(400).json({ message: 'Page must be a string' })
     }
 //     ids=bitcoin%2Cethereum%2Cnano
 
@@ -19,11 +19,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'order': 'market_cap_desc',
         'vs_currency': `${convert}`,
         'sparkline': 'false',
-        'price_change_percentage': '1h,24h,7d'
+        'price_change_percentage': '1h,24h,7d',
     }
     ids ? params.ids = ids : null
 // Query parameters append to URL
-    for (let i in params) {
+    for (const i in params) {
         url.searchParams.append(i, params[i])
     }
 // Fetch data from external API

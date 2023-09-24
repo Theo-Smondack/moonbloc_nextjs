@@ -1,14 +1,14 @@
-import React, {createContext, useContext, useState} from "react";
-import {StatusContextType, StatusState} from "../types/status";
-import {IProps} from "../types/props";
+import React, { createContext, useContext, useState } from 'react';
+import { StatusContextType, StatusState } from '../types/status';
+import { IProps } from '../types/props';
 
 export const StatusContext = createContext<StatusContextType | null>(null)
 
-const StatusProvider = ({children}:IProps) => {
-    const [status,setStatus] = useState<StatusState>({message:"",success:false})
+const StatusProvider = ({ children }:IProps) => {
+    const [status,setStatus] = useState<StatusState>({ message:'',success:false })
     const value = {
         statusState:status,
-        setStatus:setStatus
+        setStatus:setStatus,
     }
     return <StatusContext.Provider value={value}>{children}</StatusContext.Provider>
 

@@ -1,10 +1,10 @@
-import {Property} from "csstype";
+import { Property } from 'csstype';
 import Position = Property.Position;
-import React, {ReactNode} from "react";
-import {CryptoDataUrls} from "./cryptoData";
-import {WalletDocument} from "../models/Wallet";
-import {Asset, ResponseAsset, WalletResponse} from "./wallet";
-import {searchValue} from "../components/portfolio/portfolioPage/assetSelectorModal";
+import React, { ReactNode } from 'react';
+import { CryptoDataUrls } from './cryptoData';
+import { WalletDocument } from '../models/Wallet';
+import { Asset, ResponseAsset, WalletResponse } from './wallet';
+import { searchValue } from '../components/portfolio/portfolioPage/assetSelectorModal';
 
 type IProps = {
     children:ReactNode;

@@ -1,5 +1,5 @@
 export const defaultDataFetcher = async (url: RequestInfo | URL) => {
-    const res = await fetch(url,{method: 'GET'})
+    const res = await fetch(url,{ method: 'GET' })
     if (!res.ok) {
         const error = new SwrErr('An error occurred while fetching the data.');
         // Attach extra info to the error object.
