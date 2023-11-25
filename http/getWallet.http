@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/user/wallet/find/652aa327a4ef30097db1655e?currency=usd
+Accept: application/json
