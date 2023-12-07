@@ -1,6 +1,9 @@
-import { CryptoData } from '../types/cryptoData'
-import { Currency } from '../types/currency'
 import mongoose, { Schema } from 'mongoose'
+
+// Types imports
+import { CryptoData } from '../types/cryptoData'
+import { Asset } from '../types/wallet'
+import { Currency } from '../types/currency'
 
 export interface TransactionInput {
   type: 'buy' | 'sell'
@@ -63,6 +66,46 @@ const TransactionSchema: Schema = new Schema(
     timestamps: true,
   }
 )
+
+// Update wallet on creating transaction
+TransactionSchema.pre('save', async function () {
+  const wallet = await mongoose.models.Wallet.findOne(
+    { _id: this.walletID },
+    null,
+    { lean: true }
+  )
+  if (!wallet) throw new Error('Wallet not found')
+  const assets = wallet.assets
+  //#region Handle sell transaction
+  if (this.type === 'sell') {
+    const assetIndex = assets.findIndex(
+      (asset: Asset) => asset.id === this.from.toLowerCase()
+    )
+    assets[assetIndex].quantity -= this.quantity
+  }
+  //#endregion
+  //#region Handle buy transaction
+  else if (this.type === 'buy') {
+    const assetIndex = assets.findIndex(
+      (asset: Asset) => asset.id === this.to.toLowerCase()
+    )
+    if (assetIndex === -1) {
+      assets.push({
+        id: this.to.toLowerCase(),
+        quantity: this.quantity,
+      })
+    } else {
+      assets[assetIndex].quantity += this.quantity
+    }
+  }
+  //#endregion
+  // Update wallet assets
+  await mongoose.models.Wallet.findOneAndUpdate(
+    { _id: this.walletID },
+    { assets },
+    { new: true }
+  )
+})
 
 TransactionSchema.index({ walletID: 1, from: 1, to: 1, type: 1 })
 

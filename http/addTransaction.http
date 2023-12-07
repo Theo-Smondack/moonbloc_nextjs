@@ -3,11 +3,11 @@ Content-Type: application/json
 
 {
   "transaction": {
-    "date":"2023-10-30",
-    "fee":0.02,
-    "from":"usd",
+    "date":"2023-12-03",
+    "fee": 0.00000115,
+    "from":"bitcoin",
     "price":0.5,
-    "quantity":17268.83,
+    "quantity":0.02689267,
     "to":"ethereum",
     "type":"sell"
   }
