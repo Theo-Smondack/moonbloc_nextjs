@@ -1,5 +1,8 @@
 import mongoose, { model, models, Query, Schema } from 'mongoose'
 
+// Helpers imports
+import { getUSDRate } from '../helpers/currencies'
+
 // Models imports
 import Transaction from './Transaction'
 
@@ -9,21 +12,29 @@ import { AssetList } from '../types/wallet'
 export interface WalletInput {
   walletTitle: string
   assets?: AssetList
+  totalBuyUSD?: number
+  totalSellUSD?: number
 }
 
 export class WalletClass implements WalletInput {
   public walletTitle: string
   public userID: mongoose.Types.ObjectId
   public assets?: AssetList
+  public totalBuyUSD?: number
+  public totalSellUSD?: number
 
   constructor(
     walletTitle: string,
     userID: mongoose.Types.ObjectId,
-    assets?: AssetList
+    assets?: AssetList,
+    totalBuyUSD?: number,
+    totalSellUSD?: number
   ) {
     this.walletTitle = walletTitle
     this.userID = userID
     this.assets = assets
+    this.totalBuyUSD = totalBuyUSD
+    this.totalSellUSD = totalSellUSD
   }
 }
 
@@ -38,6 +49,8 @@ const WalletSchema: Schema = new Schema<WalletDocument>(
     walletTitle: { type: String, required: true },
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     assets: [{ type: Object }],
+    totalBuyUSD: { type: Number },
+    totalSellUSD: { type: Number },
   },
   {
     timestamps: true,
@@ -47,6 +60,7 @@ const WalletSchema: Schema = new Schema<WalletDocument>(
   }
 )
 
+//#region Methods
 WalletSchema.methods.getAssets = function (): AssetList {
   return this.assets
 }
@@ -54,6 +68,15 @@ WalletSchema.methods.getAssets = function (): AssetList {
 WalletSchema.methods.getWalletTitle = function (): WalletInput['walletTitle'] {
   return this.walletTitle
 }
+
+WalletSchema.methods.getTotalInvested = async function (
+  currency: string
+): Promise<number> {
+  const usdRate: number = parseFloat(await getUSDRate(currency))
+  if (usdRate === 1) return this.totalBuyUSD
+  return this.totalBuyUSD * usdRate
+}
+//#endregion
 
 //#region Middlewares
 WalletSchema.pre(

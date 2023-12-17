@@ -1,2 +1,2 @@
-GET http://localhost:3000/api/usdRate?currency=USD
+GET http://localhost:3000/api/usdRate?currency=EUR&date=2020-12-18
 Accept: application/json

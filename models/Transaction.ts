@@ -4,6 +4,8 @@ import mongoose, { Schema } from 'mongoose'
 import { CryptoData } from '../types/cryptoData'
 import { Asset } from '../types/wallet'
 import { Currency } from '../types/currency'
+import { getUSDRate, isFiat } from '../helpers/currencies'
+import { formatDateString, isToday } from '../helpers/toolFunctions'
 
 export interface TransactionInput {
   type: 'buy' | 'sell'
@@ -76,12 +78,25 @@ TransactionSchema.pre('save', async function () {
   )
   if (!wallet) throw new Error('Wallet not found')
   const assets = wallet.assets
+  let totalBuyUSD = wallet.totalBuyUSD ?? 0
+  let totalSellUSD = wallet.totalSellUSD ?? 0
   //#region Handle sell transaction
   if (this.type === 'sell') {
     const assetIndex = assets.findIndex(
       (asset: Asset) => asset.id === this.from.toLowerCase()
     )
-    assets[assetIndex].quantity -= this.quantity
+    assets[assetIndex].quantity -= this.price
+    // If selling a crypto to a fiat currency
+    if (isFiat(this.to)) {
+      let usdRate: number
+      const transactionDate = formatDateString(this.date)
+      if (isToday(transactionDate)) {
+        usdRate = parseFloat(await getUSDRate(this.to))
+      } else {
+        usdRate = parseFloat(await getUSDRate(this.to, transactionDate))
+      }
+      totalSellUSD += this.quantity * usdRate
+    }
   }
   //#endregion
   //#region Handle buy transaction
@@ -97,12 +112,23 @@ TransactionSchema.pre('save', async function () {
     } else {
       assets[assetIndex].quantity += this.quantity
     }
+    // If buying a crypto with a fiat currency
+    if (isFiat(this.from)) {
+      let usdRate: number
+      const transactionDate = formatDateString(this.date)
+      if (isToday(transactionDate)) {
+        usdRate = parseFloat(await getUSDRate(this.from))
+      } else {
+        usdRate = parseFloat(await getUSDRate(this.from, transactionDate))
+      }
+      totalBuyUSD += this.price * usdRate
+    }
   }
   //#endregion
   // Update wallet assets
   await mongoose.models.Wallet.findOneAndUpdate(
     { _id: this.walletID },
-    { assets },
+    { assets, totalBuyUSD, totalSellUSD },
     { new: true }
   )
 })

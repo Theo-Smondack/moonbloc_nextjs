@@ -1,14 +1,14 @@
-POST http://localhost:3000/api/user/wallet/652aa327a4ef30097db1655e/addTransaction
+POST http://localhost:3000/api/user/wallet/657f07bf17046c59d26893d3/addTransaction
 Content-Type: application/json
 
 {
   "transaction": {
-    "date":"2023-12-03",
-    "fee": 0.00000115,
+    "date":"2023-12-17",
+    "fee": 0.05,
     "from":"bitcoin",
     "price":0.5,
-    "quantity":0.02689267,
-    "to":"ethereum",
+    "quantity":19104.5,
+    "to":"eur",
     "type":"sell"
   }
 }
