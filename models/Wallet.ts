@@ -1,4 +1,7 @@
-import mongoose, { model, models, Schema } from 'mongoose'
+import mongoose, { model, models, Query, Schema } from 'mongoose'
+
+// Models imports
+import Transaction from './Transaction'
 
 // Types imports
 import { AssetList } from '../types/wallet'
@@ -30,10 +33,10 @@ export interface WalletDocument extends WalletClass, Document {
   updatedAt: Date
 }
 
-const WalletSchema: Schema = new Schema(
+const WalletSchema: Schema = new Schema<WalletDocument>(
   {
     walletTitle: { type: String, required: true },
-    userID: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
+    userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     assets: [{ type: Object }],
   },
   {
@@ -51,5 +54,21 @@ WalletSchema.methods.getAssets = function (): AssetList {
 WalletSchema.methods.getWalletTitle = function (): WalletInput['walletTitle'] {
   return this.walletTitle
 }
+
+//#region Middlewares
+WalletSchema.pre(
+  'deleteOne',
+  { document: false, query: true },
+  async function (this: Query<unknown, WalletDocument>, next) {
+    try {
+      const walletID = this.getFilter()._id as mongoose.Types.ObjectId
+      await Transaction.deleteMany({ walletID })
+      next()
+    } catch (error) {
+      next(error as Error)
+    }
+  }
+)
+//#endregion
 
 export default models.Wallet || model<WalletDocument>('Wallet', WalletSchema)

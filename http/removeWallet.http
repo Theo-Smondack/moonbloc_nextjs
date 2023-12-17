@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/user/wallet/delete/
+Content-Type: application/json
+
+{
+  "walletID": "6575cf1ad7e5e536ae83ce44"
+}
