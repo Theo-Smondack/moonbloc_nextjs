@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/cryptocurrency/price/bitcoin?date=01-10-2018&currency=EUR
+Accept: application/json
