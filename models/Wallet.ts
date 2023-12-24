@@ -76,6 +76,14 @@ WalletSchema.methods.getTotalInvested = async function (
   if (usdRate === 1) return this.totalBuyUSD
   return this.totalBuyUSD * usdRate
 }
+
+WalletSchema.methods.getWalletProfit = async function (
+  currency: string
+): Promise<number> {
+  const usdRate: number = parseFloat(await getUSDRate(currency))
+  if (usdRate === 1) return this.totalSellUSD - this.totalBuyUSD
+  return (this.totalSellUSD - this.totalBuyUSD) * usdRate
+}
 //#endregion
 
 //#region Middlewares
