@@ -5,7 +5,7 @@ import { CryptoData } from '../types/cryptoData'
 import { Asset } from '../types/wallet'
 import { Currency } from '../types/currency'
 import { getUSDRate, isFiat } from '../helpers/currencies'
-import { formatDateString, isToday } from '../helpers/toolFunctions'
+import { isToday } from '../helpers/toolFunctions'
 
 export interface TransactionInput {
   type: 'buy' | 'sell'
@@ -85,18 +85,24 @@ TransactionSchema.pre('save', async function () {
     const assetIndex = assets.findIndex(
       (asset: Asset) => asset.id === this.from.toLowerCase()
     )
-    assets[assetIndex].quantity -= this.price
-    // If selling a crypto to a fiat currency
-    if (isFiat(this.to)) {
-      let usdRate: number
-      const transactionDate = formatDateString(this.date)
-      if (isToday(transactionDate)) {
-        usdRate = parseFloat(await getUSDRate(this.to))
-      } else {
-        usdRate = parseFloat(await getUSDRate(this.to, transactionDate))
-      }
-      totalSellUSD += this.quantity * usdRate
+    const isFiatTransaction = isFiat(this.to)
+    let totalNetUSDprofits =
+      assetIndex === -1 ? 0 : assets[assetIndex].totalNetUSDprofits ?? 0
+    const quantityWithFee = this.quantity + this.fee
+    let usdRate: number
+
+    // Compute USD rate
+    if (isToday(this.date)) {
+      usdRate = parseFloat(await getUSDRate(this.to))
+    } else {
+      usdRate = parseFloat(await getUSDRate(this.to, this.date))
     }
+    totalSellUSD = isFiatTransaction ? quantityWithFee * usdRate : totalSellUSD
+    totalNetUSDprofits += quantityWithFee * usdRate
+
+    // Update asset
+    assets[assetIndex].quantity -= this.price
+    assets[assetIndex].totalNetUSDprofits = totalNetUSDprofits
   }
   //#endregion
   //#region Handle buy transaction
@@ -104,24 +110,79 @@ TransactionSchema.pre('save', async function () {
     const assetIndex = assets.findIndex(
       (asset: Asset) => asset.id === this.to.toLowerCase()
     )
+    const isFiatTransaction = isFiat(this.from)
+    let totalNetUSDprofits =
+      assetIndex === -1 ? 0 : assets[assetIndex].totalNetUSDprofits ?? 0
+    const priceWithFee = this.price + this.fee
+    let usdRate: number
+
+    // Compute USD rate
+    if (isToday(this.date)) {
+      usdRate = parseFloat(await getUSDRate(this.from))
+    } else {
+      usdRate = parseFloat(await getUSDRate(this.from, this.date))
+    }
+    totalBuyUSD = isFiatTransaction
+      ? totalBuyUSD + priceWithFee * usdRate
+      : totalBuyUSD
+    totalNetUSDprofits -= priceWithFee * usdRate
+
+    // Update asset
     if (assetIndex === -1) {
       assets.push({
         id: this.to.toLowerCase(),
         quantity: this.quantity,
+        totalNetUSDprofits: totalNetUSDprofits,
       })
     } else {
       assets[assetIndex].quantity += this.quantity
+      assets[assetIndex].totalNetUSDprofits = totalNetUSDprofits
     }
-    // If buying a crypto with a fiat currency
-    if (isFiat(this.from)) {
-      let usdRate: number
-      const transactionDate = formatDateString(this.date)
-      if (isToday(transactionDate)) {
-        usdRate = parseFloat(await getUSDRate(this.from))
-      } else {
-        usdRate = parseFloat(await getUSDRate(this.from, transactionDate))
-      }
-      totalBuyUSD += this.price * usdRate
+  }
+  //#endregion
+  //#region Handle swap transaction
+  else if (this.type === 'swap') {
+    const fromAssetIndex = assets.findIndex(
+      (asset: Asset) => asset.id === this.from.toLowerCase()
+    )
+    if (fromAssetIndex === -1) throw new Error('Cannot swap non-existing asset')
+    const toAssetIndex = assets.findIndex(
+      (asset: Asset) => asset.id === this.to.toLowerCase()
+    )
+    const isFiatFrom = isFiat(this.from)
+    const isFiatTo = isFiat(this.to)
+    if (isFiatFrom || isFiatTo) throw new Error('Cannot swap fiat currencies')
+    let fromTotalNetUSDprofit = assets[fromAssetIndex].totalNetUSDprofits ?? 0
+    let toTotalNetUSDprofit =
+      toAssetIndex === -1 ? 0 : assets[toAssetIndex].totalNetUSDprofits ?? 0
+    let toUSDRate: number
+    let fromUSDRate: number
+
+    // Compute USD rate
+    if (isToday(this.date)) {
+      fromUSDRate = parseFloat(await getUSDRate(this.from))
+      toUSDRate = parseFloat(await getUSDRate(this.to))
+    } else {
+      fromUSDRate = parseFloat(await getUSDRate(this.from, this.date))
+      toUSDRate = parseFloat(await getUSDRate(this.to, this.date))
+    }
+    fromTotalNetUSDprofit += this.price * fromUSDRate
+    toTotalNetUSDprofit -= this.quantity * toUSDRate
+
+    // Update from asset
+    assets[fromAssetIndex].quantity -= this.price
+    assets[fromAssetIndex].totalNetUSDprofits = fromTotalNetUSDprofit
+
+    // Update to asset
+    if (toAssetIndex === -1) {
+      assets.push({
+        id: this.to.toLowerCase(),
+        quantity: this.quantity,
+        totalNetUSDprofits: toTotalNetUSDprofit,
+      })
+    } else {
+      assets[toAssetIndex].quantity += this.quantity
+      assets[toAssetIndex].totalNetUSDprofits = toTotalNetUSDprofit
     }
   }
   //#endregion

@@ -73,13 +73,6 @@ export function findMinMax(numbers: number[]): { min: number; max: number } {
 
   return { min, max }
 }
-
-export const removeNullUndefined = (obj: { [key: string]: any }) =>
-  Object.entries(obj).reduce(
-    (a: { [key: string]: any }, [k, v]) => (v == null ? a : ((a[k] = v), a)),
-    {}
-  )
-
 export const getDataFromApi = async (url: RequestInfo | URL) => {
   const res = await fetch(url, { method: 'GET' })
   return res.json()
@@ -100,7 +93,9 @@ export const isToday = (dateString: string): boolean => {
   )
 }
 
-export const formatDateString = (inputDateString: string): string => {
+//#region Date formatting
+// Format date for use in the FreeCurrencyAPI
+export const FCADateFormat = (inputDateString: string): string => {
   const inputDate = new Date(inputDateString)
 
   // Extract year, month, and day components
@@ -111,3 +106,17 @@ export const formatDateString = (inputDateString: string): string => {
   // Construct the formatted date string
   return `${year}-${month}-${day}`
 }
+
+// Format date for use in the CoinGecko API
+export const CGDateFormat = (inputDateString: string): string => {
+  const inputDate = new Date(inputDateString)
+
+  // Extract year, month, and day components
+  const year = inputDate.getFullYear()
+  const month = (inputDate.getMonth() + 1).toString().padStart(2, '0') // Months are zero-indexed
+  const day = inputDate.getDate().toString().padStart(2, '0')
+
+  // Construct the formatted date string
+  return `${day}-${month}-${year}`
+}
+//#endregion

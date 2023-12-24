@@ -1,4 +1,5 @@
 import { Currency } from '../types/currency'
+import { CGDateFormat, FCADateFormat } from './toolFunctions'
 
 const Currencies: Currency[] = [
   {
@@ -54,26 +55,47 @@ export const isFiat = (currency: string) => {
 }
 
 export const getUSDRate = async (currency: string, date?: string) => {
-  const currencyObj = Currencies.find(
-    (c) => c.value.toUpperCase() === currency.toUpperCase()
-  )
-  if (!currencyObj) throw new Error('Currency not found')
-  if (currencyObj.value !== 'USD') {
-    let url = new URL(
-      `${process.env.ENV_URL}/api/usdRate?currency=${currencyObj.value}`
+  const isFiatTransaction = isFiat(currency)
+  // Handle date format
+  let formattedDate: string | undefined
+  if (date) {
+    formattedDate = isFiatTransaction ? FCADateFormat(date) : CGDateFormat(date)
+  }
+  // Get USD for fiat
+  if (isFiatTransaction) {
+    const currencyObj = Currencies.find(
+      (c) => c.value.toUpperCase() === currency.toUpperCase()
     )
-    if (date) {
-      url = new URL(
-        `${process.env.ENV_URL}/api/usdRate?currency=${currencyObj.value}&date=${date}`
+    if (!currencyObj) throw new Error('Currency not found')
+    if (currencyObj.value !== 'USD') {
+      const url = new URL(
+        `${process.env.ENV_URL}/api/usdRate?currency=${currencyObj.value}${
+          formattedDate ? `&date=${formattedDate}` : ''
+        }`
       )
+      try {
+        return await fetch(url).then((res) => res.json())
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching fiat currency rate')
+      }
+    } else {
+      return 1
     }
+    // Get USD rate for crypto
+  } else {
+    const url = new URL(
+      `${process.env.ENV_URL}/api/cryptocurrency/price/${currency}${
+        formattedDate ? `?date=${formattedDate}` : ''
+      }`
+    )
     try {
-      return await fetch(url).then((res) => res.json())
+      return await fetch(url).then((res) => {
+        return res.json()
+      })
     } catch (error) {
       console.error(error)
-      throw new Error('Error fetching currency rate')
+      throw new Error('Error fetching crypto currency rate')
     }
-  } else {
-    return 1
   }
 }
