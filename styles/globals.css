@@ -6,6 +6,10 @@
     /*background: var(--bg);*/
 }
 
+a {
+    display: contents;
+}
+
 button {
     border: none;
     background: transparent;
