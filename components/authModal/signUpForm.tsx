@@ -5,8 +5,10 @@ import {
   handleStatus,
   isEmail,
   isEmptyFields,
+  showAuthModal,
 } from '../../helpers/toolFunctions'
 import { useStatusContext } from '../../context/status'
+import { useAuthModalContext } from '../../context/authModal'
 
 const SignUpForm = () => {
   useEffect(() => {
@@ -16,6 +18,7 @@ const SignUpForm = () => {
     })
   })
   const { setStatus } = useStatusContext()
+  const { setModalState } = useAuthModalContext()
 
   const initialState: SignUpData = {
     data: {
@@ -67,6 +70,7 @@ const SignUpForm = () => {
       return
     }
     await handleStatus(setStatus, true, 'User successfully created')
+    showAuthModal(setModalState, false, undefined)
   }
 
   return (
