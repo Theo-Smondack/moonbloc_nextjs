@@ -1,2 +1,2 @@
-GET http://localhost:3000/api/user/wallet/find/657f07bf17046c59d26893d3?currency=usd
+GET http://localhost:3000/api/user/wallet/find/65d1e359d80335f09683a8e5?currency=usd
 Accept: application/json

@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/cryptocurrency/list?page='1'
+Accept: application/json

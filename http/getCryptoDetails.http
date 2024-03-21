@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/cryptocurrency/bitcoin?convert=btc
+Accept: application/json
