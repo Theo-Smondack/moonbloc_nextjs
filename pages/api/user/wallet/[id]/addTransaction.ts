@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { createTransaction } from '../../../../../services/transactions'
 import mongoose from 'mongoose'
 import DbConnection from '../../../../../helpers/dbConnection'
-import currencies from '../../../../../helpers/currencies'
+import { isFiat } from '../../../../../helpers/currencies'
+import { ErrorType } from '../../../../../helpers/errors'
 
 export default async function handler(
   req: NextApiRequest,
@@ -40,16 +41,8 @@ export default async function handler(
       .json({ ok: false, error: 'Transaction assets must be different' })
   }
 
-  if (
-    transaction.type === 'sell' &&
-    currencies.find(
-      (currency) =>
-        currency.value.toLowerCase() === transaction.from.toLowerCase()
-    )
-  ) {
-    return res
-      .status(400)
-      .json({ ok: false, error: 'You cannot sell a fiat currency' })
+  if (transaction.type === 'sell' && isFiat(transaction.from)) {
+    return res.status(400).json({ error: 'You cannot sell a fiat currency' })
   }
 
   try {
@@ -63,6 +56,9 @@ export default async function handler(
       respTransaction,
     })
   } catch (error) {
-    return res.status(400).json({ ok: false, error: (error as Error).message })
+    return res.status((error as ErrorType).status).json({
+      [(error as ErrorType).name]: (error as ErrorType).message,
+      options: (error as ErrorType).options,
+    })
   }
 }

@@ -58,6 +58,8 @@ const TransactionModal = ({
     fee: '0',
     date: new Date(),
   })
+  const [previousType, setPreviousType] =
+    useState<TransactionInput['type']>('buy')
   const {
     type,
     from: { fromValue, fromAsset, fromImage },
@@ -71,21 +73,95 @@ const TransactionModal = ({
 
   const dateValue = date.toISOString().slice(0, 16)
 
-  const handleTypeChange = (type: TransactionState['type']) => {
-    setTransaction({
-      ...transaction,
-      from: {
-        fromValue: toValue,
-        fromAsset: toAsset,
-        fromImage: toImage,
-      },
-      to: {
-        toValue: fromValue,
-        toAsset: fromAsset,
-        toImage: fromImage,
-      },
-      type: type,
-    })
+  const getSwapTo = async () => {
+    if (fromAsset === 'bitcoin') {
+      await fetch(`/api/cryptocurrency/ethereum?convert=btc`)
+        .then((res) => {
+          if (res.ok) {
+            return res.json()
+          }
+          throw new Error('Something wrong')
+        })
+        .then((responseJson) => {
+          setTransaction({
+            ...transaction,
+            to: {
+              toValue: responseJson.symbol.toUpperCase(),
+              toAsset: responseJson.id,
+              toImage: responseJson.logo,
+            },
+            price: responseJson.price.toString(),
+            type: 'swap',
+          })
+        })
+    } else {
+      await fetch(`/api/cryptocurrency/${fromAsset}?convert=btc`).then(
+        (res) => {
+          res.json().then((data) => {
+            setTransaction({
+              ...transaction,
+              to: {
+                toValue: data.symbol.toUpperCase(),
+                toAsset: data.id,
+                toImage: data.logo,
+              },
+              price: data.price.toString(),
+              type: 'swap',
+            })
+          })
+        }
+      )
+    }
+  }
+
+  const handleTypeChange = async (type: TransactionState['type']) => {
+    if (previousType === 'buy' || type === 'buy') {
+      setTransaction({
+        ...transaction,
+        from: {
+          fromValue: toValue,
+          fromAsset: toAsset,
+          fromImage: toImage,
+        },
+        to: {
+          toValue: fromValue,
+          toAsset: fromAsset,
+          toImage: fromImage,
+        },
+        type: type,
+      })
+    } else if (type === 'swap') {
+      console.log('swap')
+      await getSwapTo()
+    } else if (previousType === 'swap') {
+      if (type === 'sell') {
+        setTransaction({
+          ...transaction,
+          to: {
+            toValue: currency?.value as string,
+            toAsset: currency?.value as string,
+            toImage: currency?.image as string,
+          },
+          type: type,
+        })
+      } else if (type === 'buy') {
+        setTransaction({
+          ...transaction,
+          from: {
+            fromValue: currency?.value as string,
+            fromAsset: currency?.value as string,
+            fromImage: currency?.image as string,
+          },
+          to: {
+            toValue: Asset.symbol.toUpperCase(),
+            toAsset: Asset.id,
+            toImage: Asset.image,
+          },
+          type: type,
+        })
+      }
+    }
+    setPreviousType(type)
   }
 
   const handleNumberInputChange = (
@@ -196,7 +272,7 @@ const TransactionModal = ({
                 Buy
               </div>
               <div
-                className={`${styles.type} ${styles.rightType} ${
+                className={`${styles.type} ${styles.middleType} ${
                   type === 'sell' ? styles.activeType : null
                 }`}
                 onClick={() =>
@@ -204,6 +280,16 @@ const TransactionModal = ({
                 }
               >
                 Sell
+              </div>
+              <div
+                className={`${styles.type} ${styles.rightType} ${
+                  type === 'swap' ? styles.activeType : null
+                }`}
+                onClick={() =>
+                  type !== 'swap' ? handleTypeChange('swap') : null
+                }
+              >
+                Swap
               </div>
             </div>
             <div className={styles.inputGroup}>

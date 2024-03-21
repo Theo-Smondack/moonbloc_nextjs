@@ -6,9 +6,10 @@ import { Asset } from '../types/wallet'
 import { Currency } from '../types/currency'
 import { getUSDRate, isFiat } from '../helpers/currencies'
 import { isToday } from '../helpers/toolFunctions'
+import { BadRequestError, NotFoundError } from '../helpers/errors'
 
 export interface TransactionInput {
-  type: 'buy' | 'sell'
+  type: 'buy' | 'sell' | 'swap'
   from: CryptoData['id'] | Currency['value']
   to: CryptoData['id'] | Currency['value']
   quantity: number
@@ -18,7 +19,7 @@ export interface TransactionInput {
 }
 
 export class TransactionClass implements TransactionInput {
-  public type: 'buy' | 'sell'
+  public type: 'buy' | 'sell' | 'swap'
   public from: CryptoData['id'] | Currency['value']
   public to: CryptoData['id'] | Currency['value']
   public quantity: number
@@ -28,7 +29,7 @@ export class TransactionClass implements TransactionInput {
   public walletID: mongoose.Types.ObjectId
 
   constructor(
-    type: 'buy' | 'sell',
+    type: 'buy' | 'sell' | 'swap',
     from: CryptoData['id'] | Currency['value'],
     to: CryptoData['id'] | Currency['value'],
     quantity: number,
@@ -76,7 +77,8 @@ TransactionSchema.pre('save', async function () {
     null,
     { lean: true }
   )
-  if (!wallet) throw new Error('Wallet not found')
+  if (!wallet)
+    throw new NotFoundError('Wallet not found', { walletNotFound: true })
   const assets = wallet.assets
   let totalBuyUSD = wallet.totalBuyUSD ?? 0
   let totalSellUSD = wallet.totalSellUSD ?? 0
@@ -85,11 +87,20 @@ TransactionSchema.pre('save', async function () {
     const assetIndex = assets.findIndex(
       (asset: Asset) => asset.id === this.from.toLowerCase()
     )
+    if (assetIndex === -1)
+      throw new BadRequestError('Cannot sell non-existing asset', {
+        nonExistingAsset: true,
+      })
     const isFiatTransaction = isFiat(this.to)
-    let totalNetUSDprofits =
-      assetIndex === -1 ? 0 : assets[assetIndex].totalNetUSDprofits ?? 0
-    const quantityWithFee = this.quantity + this.fee
+    let totalNetUSDprofits = assets[assetIndex].totalNetUSDprofits ?? 0
+    const priceWithFee = this.price + this.fee
     let usdRate: number
+
+    // Check if asset quantity is enough
+    if (assets[assetIndex].quantity < priceWithFee)
+      throw new BadRequestError('Not enough asset quantity', {
+        notEnoughAssetQuantity: true,
+      })
 
     // Compute USD rate
     if (isToday(this.date)) {
@@ -97,11 +108,11 @@ TransactionSchema.pre('save', async function () {
     } else {
       usdRate = parseFloat(await getUSDRate(this.to, this.date))
     }
-    totalSellUSD = isFiatTransaction ? quantityWithFee * usdRate : totalSellUSD
-    totalNetUSDprofits += quantityWithFee * usdRate
+    totalSellUSD = isFiatTransaction ? this.quantity * usdRate : totalSellUSD
+    totalNetUSDprofits += this.quantity * usdRate
 
     // Update asset
-    assets[assetIndex].quantity -= this.price
+    assets[assetIndex].quantity -= priceWithFee
     assets[assetIndex].totalNetUSDprofits = totalNetUSDprofits
   }
   //#endregion

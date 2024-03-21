@@ -69,7 +69,7 @@ export const getUSDRate = async (currency: string, date?: string) => {
     if (!currencyObj) throw new Error('Currency not found')
     if (currencyObj.value !== 'USD') {
       const url = new URL(
-        `${process.env.ENV_URL}/api/usdRate?currency=${currencyObj.value}${
+        `${process.env.HOME_URL}/api/usdRate?currency=${currencyObj.value}${
           formattedDate ? `&date=${formattedDate}` : ''
         }`
       )
@@ -85,7 +85,7 @@ export const getUSDRate = async (currency: string, date?: string) => {
     // Get USD rate for crypto
   } else {
     const url = new URL(
-      `${process.env.ENV_URL}/api/cryptocurrency/price/${currency}${
+      `${process.env.HOME_URL}/api/cryptocurrency/price/${currency}${
         formattedDate ? `?date=${formattedDate}` : ''
       }`
     )
