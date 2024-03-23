@@ -6,7 +6,7 @@ import Cryptocurrency, {
 
 export async function upsertCryptocurrency(
   input: CryptocurrencyInput
-): Promise<CryptocurrencyDocument | undefined> {
+): Promise<CryptocurrencyDocument> {
   const crypto_currency = new CryptocurrencyClass(
     input.id,
     input.market_cap_rank,
@@ -30,7 +30,8 @@ export async function upsertCryptocurrency(
     { lean: true }
   )
   if (existingCrypto) {
-    console.log(existingCrypto)
+    console.log(`Cryptocurrency data of ${input.id} already exists!`)
+    return existingCrypto
   } else {
     return Cryptocurrency.create(crypto_currency)
   }

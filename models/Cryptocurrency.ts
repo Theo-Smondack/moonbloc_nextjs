@@ -2,10 +2,10 @@ import { Schema, models, model } from 'mongoose'
 
 export interface ohlcData {
   time: number
-  open: number
-  high: number
-  low: number
-  close: number
+  open: { [key: string]: number }
+  high: { [key: string]: number }
+  low: { [key: string]: number }
+  close: { [key: string]: number }
 }
 
 export interface urls {
@@ -18,12 +18,12 @@ export interface urls {
 export interface CryptocurrencyInput {
   id: string
   market_cap_rank: number
-  market_cap: number
-  percent_change_1h: number
-  percent_change_24h: number
-  percent_change_7d: number
-  volume_24h: number
-  price: number
+  market_cap: { [key: string]: number }
+  percent_change_1h: { [key: string]: number }
+  percent_change_24h: { [key: string]: number }
+  percent_change_7d: { [key: string]: number }
+  volume_24h: { [key: string]: number }
+  price: { [key: string]: number }
   image: string
   name: string
   symbol: string
@@ -36,12 +36,12 @@ export interface CryptocurrencyInput {
 export class CryptocurrencyClass implements CryptocurrencyInput {
   public id: string
   public market_cap_rank: number
-  public market_cap: number
-  public percent_change_1h: number
-  public percent_change_24h: number
-  public percent_change_7d: number
-  public volume_24h: number
-  public price: number
+  public market_cap: { [key: string]: number }
+  public percent_change_1h: { [key: string]: number }
+  public percent_change_24h: { [key: string]: number }
+  public percent_change_7d: { [key: string]: number }
+  public volume_24h: { [key: string]: number }
+  public price: { [key: string]: number }
   public image: string
   public name: string
   public symbol: string
@@ -52,12 +52,12 @@ export class CryptocurrencyClass implements CryptocurrencyInput {
   constructor(
     id: string,
     market_cap_rank: number,
-    market_cap: number,
-    percent_change_1h: number,
-    percent_change_24h: number,
-    percent_change_7d: number,
-    volume_24h: number,
-    price: number,
+    market_cap: { [key: string]: number },
+    percent_change_1h: { [key: string]: number },
+    percent_change_24h: { [key: string]: number },
+    percent_change_7d: { [key: string]: number },
+    volume_24h: { [key: string]: number },
+    price: { [key: string]: number },
     image: string,
     name: string,
     symbol: string,
@@ -93,12 +93,12 @@ const CryptocurrencySchema: Schema = new Schema(
   {
     id: { type: String, required: true },
     market_cap_rank: { type: Number, required: true },
-    market_cap: { type: Number, required: true },
-    percent_change_1h: { type: Number, required: true },
-    percent_change_24h: { type: Number, required: true },
-    percent_change_7d: { type: Number, required: true },
-    volume_24h: { type: Number, required: true },
-    price: { type: Number, required: true },
+    market_cap: { type: Object, required: true },
+    percent_change_1h: { type: Object, required: true },
+    percent_change_24h: { type: Object, required: true },
+    percent_change_7d: { type: Object, required: true },
+    volume_24h: { type: Object, required: true },
+    price: { type: Object, required: true },
     image: { type: String, required: true },
     name: { type: String, required: true },
     symbol: { type: String, required: true },
