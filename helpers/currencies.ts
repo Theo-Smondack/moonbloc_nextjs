@@ -99,3 +99,16 @@ export const getUSDRate = async (currency: string, date?: string) => {
     }
   }
 }
+
+export const getMarketValuesForCurrencies = (object: {
+  [key: string]: number
+}): { [key: string]: number } => {
+  const result: { [key: string]: number } = {}
+  const keys = Currencies.map((c) => c.value.toLowerCase())
+  keys.forEach((key) => {
+    if (object[key] !== undefined) {
+      result[key] = object[key]
+    }
+  })
+  return result
+}
